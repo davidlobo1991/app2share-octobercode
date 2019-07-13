@@ -1,0 +1,4 @@
+title: Partner
+modelClass: App2share\App\Models\Partner
+toolbar:
+    buttons: reorder_toolbar

@@ -1,0 +1,18 @@
+columns:
+    name:
+        label: name
+        type: text
+    responsable:
+        label: responsable
+        type: text
+    phone:
+        label: phone
+        type: text
+    email:
+        label: email
+        type: text
+    thumbnail:
+        label: image
+        type: partial
+        path: ~/plugins/app2share/app/resources/views/image_column.htm
+

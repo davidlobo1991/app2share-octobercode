@@ -1,0 +1,15 @@
+fields:
+    name:
+        label: 'Nombre del tipo'
+        span: auto
+        required: 1
+        type: text
+    logo:
+        label: Logo
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: auto
+        type: fileupload

@@ -1,0 +1,10 @@
+name: Partner
+form: $/app2share/app/models/partner/fields.yaml
+modelClass: App2share\App\Models\Partner
+defaultRedirect: app2share/app/partner
+create:
+    redirect: 'app2share/app/partner/update/:id'
+    redirectClose: app2share/app/partner
+update:
+    redirect: app2share/app/partner
+    redirectClose: app2share/app/partner

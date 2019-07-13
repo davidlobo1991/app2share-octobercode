@@ -1,0 +1,68 @@
+fields:
+    name:
+        label: 'Nombre de empresa'
+        span: auto
+        required: 1
+        type: text
+    partner_type:
+        label: 'Tipo de asociado'
+        nameFrom: name
+        descriptionFrom: description
+        select: name
+        span: auto
+        type: relation
+    responsable:
+        label: 'Nombre del responsable'
+        span: auto
+        required: 1
+        type: text
+    address_1:
+        label: 'Dirección (calle)'
+        span: auto
+        type: text
+    address_2:
+        label: 'Dirección 2 (número, piso, etc.)'
+        span: auto
+        type: text
+    cp:
+        label: 'Código postal'
+        span: auto
+        type: text
+    latitude:
+        label: Latitud
+        span: auto
+        type: text
+    longitude:
+        label: Longitud
+        span: auto
+        type: text
+    phone:
+        label: Teléfono
+        span: auto
+        type: text
+    mobile:
+        label: 'Teléfono movil'
+        span: auto
+        type: text
+    email:
+        label: Email
+        span: auto
+        type: text
+    logo:
+        label: Logo
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: auto
+        type: fileupload
+    images:
+        label: 'Imágenes asociado'
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: auto
+        type: fileupload

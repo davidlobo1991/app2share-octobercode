@@ -1,0 +1,8 @@
+columns:
+    name:
+        label: name
+        type: text
+    thumbnail:
+        label: logo
+        type: partial
+        path: ~/plugins/app2share/app/resources/views/image_column.htm

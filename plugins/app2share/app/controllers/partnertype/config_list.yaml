@@ -1,0 +1,12 @@
+list: $/app2share/app/models/partnertype/columns.yaml
+modelClass: App2share\App\Models\PartnerType
+title: PartnerType
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'app2share/app/partnertype/update/:id'

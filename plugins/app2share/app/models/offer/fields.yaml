@@ -1,0 +1,26 @@
+fields:
+    name:
+        label: 'Título oferta'
+        span: auto
+        required: 1
+        type: text
+    partner:
+        label: Asociado
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    spar:
+        label: Ahorro
+        span: auto
+        type: number
+    description:
+        label: Descripción
+        size: large
+        span: auto
+        type: richeditor
+    active:
+        label: Activo
+        span: auto
+        default: 1
+        type: switch

@@ -1,0 +1,4 @@
+title: Offer
+modelClass: App2share\App\Models\Offer
+toolbar:
+    buttons: reorder_toolbar

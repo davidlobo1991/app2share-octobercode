@@ -1,0 +1,16 @@
+1.0.1: 'First version of app'
+1.0.2:
+    - 'Created table app2share_app_partner'
+    - builder_table_create_app2share_app_partner.php
+1.0.3:
+    - 'Updated table app2share_app_partner'
+    - builder_table_update_app2share_app_partner.php
+1.0.4:
+    - 'Created table app2share_app_parnter_type'
+    - builder_table_create_app2share_app_parnter_type.php
+1.0.5:
+    - 'Created table app2share_app_offer'
+    - builder_table_create_app2share_app_offer.php
+1.0.6:
+    - 'Updated table app2share_app_offer'
+    - builder_table_update_app2share_app_offer.php
