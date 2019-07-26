@@ -1,0 +1,4 @@
+title: City
+modelClass: App2share\Location\Models\City
+toolbar:
+    buttons: reorder_toolbar

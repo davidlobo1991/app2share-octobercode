@@ -1,0 +1,10 @@
+name: City
+form: $/app2share/location/models/city/fields.yaml
+modelClass: App2share\Location\Models\City
+defaultRedirect: app2share/location/city
+create:
+    redirect: 'app2share/location/city/update/:id'
+    redirectClose: app2share/location/city
+update:
+    redirect: app2share/location/city
+    redirectClose: app2share/location/city

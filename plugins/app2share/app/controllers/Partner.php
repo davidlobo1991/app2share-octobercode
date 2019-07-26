@@ -14,5 +14,6 @@ class Partner extends Controller
     public function __construct()
     {
         parent::__construct();
+        BackendMenu::setContext('App2share.App', 'partner', 'partnerSide');
     }
 }

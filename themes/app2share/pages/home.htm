@@ -1,0 +1,50 @@
+title = "Index"
+url = "/"
+layout = "default"
+is_hidden = 0
+
+[subscribeForm]
+doubleoptinPage = "double-option"
+==
+<div class="container">
+    <img src="{{'assets/image/app2share.png'|theme}}" alt="logo">
+
+
+    <div id="countdown">Faltan</div>
+</div>
+
+{% component 'subscribeForm' %}
+
+<script>
+    var end = new Date('01/04/2020 11:59 PM');
+
+    var _second = 1000;
+    var _minute = _second * 60;
+    var _hour = _minute * 60;
+    var _day = _hour * 24;
+    var timer;
+
+    function showRemaining() {
+        var now = new Date();
+        var distance = end - now;
+        if (distance < 0) {
+
+            clearInterval(timer);
+            document.getElementById('countdown').innerHTML = 'EXPIRED!';
+
+            return;
+        }
+        var days = Math.floor(distance / _day);
+        var hours = Math.floor((distance % _day) / _hour);
+        var minutes = Math.floor((distance % _hour) / _minute);
+        var seconds = Math.floor((distance % _minute) / _second);
+
+
+        document.getElementById('countdown').innerHTML = 'Faltan ' + days + ' dias, ';
+        document.getElementById('countdown').innerHTML += hours + ' horas, ';
+        document.getElementById('countdown').innerHTML += minutes + ' minutos y ';
+        document.getElementById('countdown').innerHTML += seconds + ' segundos';
+    }
+
+    timer = setInterval(showRemaining, 1000);
+</script>

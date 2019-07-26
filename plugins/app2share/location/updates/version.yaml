@@ -1,0 +1,19 @@
+1.0.1: 'First version of location'
+1.0.2:
+    - 'Created table app2share_location_city'
+    - builder_table_create_app2share_location_city.php
+1.0.3:
+    - 'Created table app2share_location_province'
+    - builder_table_create_app2share_location_province.php
+1.0.4:
+    - 'Updated table app2share_location_city'
+    - builder_table_update_app2share_location_city.php
+1.0.5:
+    - 'Updated table app2share_location_city'
+    - builder_table_update_app2share_location_city_2.php
+1.0.6:
+    - 'Updated table app2share_location_city'
+    - builder_table_update_app2share_location_city_3.php
+1.0.7:
+    - 'Updated table app2share_location_city'
+    - builder_table_update_app2share_location_city_4.php

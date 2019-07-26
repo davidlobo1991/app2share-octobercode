@@ -1,0 +1,12 @@
+fields:
+    name:
+        label: Ciudad
+        span: auto
+        required: 1
+        type: text
+    province:
+        label: Provincia
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
