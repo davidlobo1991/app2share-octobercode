@@ -1,0 +1,6 @@
+plugin:
+    name: plugin.name
+    description: plugin.description
+    author: App2Share
+    icon: icon
+    homepage: ''

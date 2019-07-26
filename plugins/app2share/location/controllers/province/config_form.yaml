@@ -1,0 +1,10 @@
+name: Province
+form: $/app2share/location/models/province/fields.yaml
+modelClass: App2share\Location\Models\Province
+defaultRedirect: app2share/location/province
+create:
+    redirect: 'app2share/location/province/update/:id'
+    redirectClose: app2share/location/province
+update:
+    redirect: app2share/location/province
+    redirectClose: app2share/location/province

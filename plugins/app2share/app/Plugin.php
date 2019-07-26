@@ -89,14 +89,24 @@ class Plugin extends PluginBase
                 'icon'        => 'icon-building',
                 'permissions' => ['app2share.app.*'],
                 'order'       => 500,
+                'sideMenu'    => [
+                    'partnerSide' => [
+                        'label'       => 'Asociados',
+                        'url'         => Backend::url('app2share/app/partner'),
+                        'icon'        => 'icon-building',
+                        'permissions' => ['app2share.app.*'],
+                    ],
+
+                    'partnerType' => [
+                        'label'       => 'Tipos de asociados',
+                        'url'         => Backend::url('app2share/app/partnertype'),
+                        'icon'        => 'icon-briefcase',
+                        'permissions' => ['app2share.app.*'],
+                        'order'       => 500,
+                    ],
+                ],
             ],
-            'partnerType' => [
-                'label'       => 'Tipos de asociados',
-                'url'         => Backend::url('app2share/app/partnertype'),
-                'icon'        => 'icon-briefcase',
-                'permissions' => ['app2share.app.*'],
-                'order'       => 500,
-            ],
+
             'offer' => [
                 'label'       => 'Ofertas',
                 'url'         => Backend::url('app2share/app/offer'),

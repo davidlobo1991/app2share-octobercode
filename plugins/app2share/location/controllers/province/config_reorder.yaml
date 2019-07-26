@@ -1,0 +1,4 @@
+title: Province
+modelClass: App2share\Location\Models\Province
+toolbar:
+    buttons: reorder_toolbar

@@ -1,0 +1,12 @@
+columns:
+    id:
+        label: id
+        type: number
+    name:
+        label: name
+        type: text
+    tete:
+        label: province
+        type: text
+        select: name
+        relation: province
