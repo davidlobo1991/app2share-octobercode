@@ -10,10 +10,17 @@ doubleoptinPage = "double-option"
     <img src="{{'assets/image/app2share.png'|theme}}" alt="logo">
 
 
-    <div id="countdown">Faltan</div>
+    <div id="countdown"></div>
 </div>
 
-{% component 'subscribeForm' %}
+<div class="form-newsletter container">
+    <h2>Subscríbete a nuestra Newsletter hoy mismo!</h2>
+    <p>
+        Subscríbete a nuestra Newsletter y recibe ofertas y descuentos exclusivos en locales y negocios de toda Mallorca. Disfruta
+        con nuestras ofertas en restaurantes, locales de ocio, tiendas, hoteles, spas y mucho más hoy mismo de forma totalmente gratuita!
+    </p>
+    {% component 'subscribeForm' %}
+</div>
 
 <script>
     var end = new Date('01/04/2020 11:59 PM');
@@ -40,10 +47,11 @@ doubleoptinPage = "double-option"
         var seconds = Math.floor((distance % _minute) / _second);
 
 
-        document.getElementById('countdown').innerHTML = 'Faltan ' + days + ' dias, ';
-        document.getElementById('countdown').innerHTML += hours + ' horas, ';
-        document.getElementById('countdown').innerHTML += minutes + ' minutos y ';
-        document.getElementById('countdown').innerHTML += seconds + ' segundos';
+        document.getElementById('countdown').innerHTML = days + ' dias ';
+        document.getElementById('countdown').innerHTML += '<br>' + hours + ' horas ';
+        document.getElementById('countdown').innerHTML += '<br>' +minutes + ' minutos  ';
+        document.getElementById('countdown').innerHTML += '<br>' +seconds + ' segundos';
+        document.getElementById('countdown').innerHTML += '<br> para que nazca algo increíble';
     }
 
     timer = setInterval(showRemaining, 1000);

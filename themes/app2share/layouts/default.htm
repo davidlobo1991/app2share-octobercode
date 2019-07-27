@@ -15,16 +15,62 @@ description = "Default layout"
         <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
         {% styles %}
         <style>
+            body {
+                background: url('themes/app2share/assets/image/1.jpg');
+                font-family: sans-serif;
+                letter-spacing: 1.1px;
+            }
+
             .container {
-                padding: 50px 0;
+                margin: 0 auto;
+                max-width: 800px;
+                padding: 35px 0;
                 text-align: center;
             }
 
+            .form-newsletter {
+                padding: 30px 50px;
+                border: 5px dashed blue;
+                line-height: 30px;
+            }
+
+            .form-newsletter .form-control {
+                width: 300px;
+                height: 50px;
+                margin-right: 20px;
+                padding: 0 10px;
+                font-size: 16px;
+            }
+
+            .form-newsletter button {
+                width: 100px;
+                height: 50px;
+                background: #30bafa;
+                color: white;
+                font-weight: 600;
+                letter-spacing: 1.5px;
+                border: 0;
+                cursor: pointer;
+            }
+
+            .form-newsletter button:hover {
+                background: blue;
+            }
+
+
+            .consent-field {
+                margin-top: 10px;
+            }
+
+            .form-newsletter h2 {
+                margin: 0;
+            }
+
+
             #countdown {
                 color: blue;
-                font-size: 36px;
+                font-size: 30px;
                 font-weight: 600;
-                font-family: monospace;
             }
         </style>
     </head>
