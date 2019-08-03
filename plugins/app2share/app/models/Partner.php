@@ -8,7 +8,10 @@ use Model;
 class Partner extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
+    public $implement = ['RainLab.Translate.Behaviors.TranslatableModel'];
+    public $translatable = ['name', 'description'];
+
 
     /**
      * @var string The database table used by the model.
@@ -19,6 +22,7 @@ class Partner extends Model
      * @var array Validation rules
      */
     public $rules = [
+        'name' => 'required|max:255',
     ];
 
 

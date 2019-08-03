@@ -14,6 +14,12 @@ class Province extends Model
      * Remove this line if timestamps are defined in the database table.
      */
     public $timestamps = false;
+    public $implement = ['RainLab.Translate.Behaviors.TranslatableModel'];
+    public $translatable = ['name', 'description'];
+
+    public $rules = [
+        'name' => 'required|max:255',
+    ];
 
 
     /**
@@ -22,12 +28,6 @@ class Province extends Model
     public $table = 'app2share_location_province';
 
     public $fillable = ['name'];
-
-    /**
-     * @var array Validation rules
-     */
-    public $rules = [
-    ];
 
     public $hasMany = [
       'cities' => 'App2share\Location\Models\City'

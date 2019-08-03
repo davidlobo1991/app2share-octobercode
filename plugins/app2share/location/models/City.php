@@ -15,17 +15,22 @@ class City extends Model
      */
     public $timestamps = false;
 
+    public $implement = ['RainLab.Translate.Behaviors.TranslatableModel'];
+    public $translatable = ['name', 'description'];
+
+    /**
+     * @var array Validation rules
+     */
+    public $rules = [
+        'name' => 'required|max:255',
+    ];
+
 
     /**
      * @var string The database table used by the model.
      */
     public $table = 'app2share_location_city';
 
-    /**
-     * @var array Validation rules
-     */
-    public $rules = [
-    ];
 
     public $belongsTo = [
       'province' => 'App2share\Location\Models\Province'

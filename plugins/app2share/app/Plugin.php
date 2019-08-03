@@ -40,7 +40,12 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-
+        \Event::listen('backend.menu.extendItems', function($manager) {
+            if (Backend\Facades\BackendAuth::getFacadeRoot()->getUser()->login === "app2share") {
+                $manager->removeMainMenuItem('October.Cms', 'cms');
+                $manager->removeMainMenuItem('October.Backend', 'media');
+            }
+        });
     }
 
     /**
@@ -64,12 +69,10 @@ class Plugin extends PluginBase
      */
     public function registerPermissions()
     {
-        return []; // Remove this line to activate
-
         return [
-            'app2share.app.some_permission' => [
+            'app2share.app.changes' => [
                 'tab' => 'app',
-                'label' => 'Some permission'
+                'label' => 'Changes Backend'
             ],
         ];
     }
@@ -87,21 +90,21 @@ class Plugin extends PluginBase
                 'label'       => 'Asociados',
                 'url'         => Backend::url('app2share/app/partner'),
                 'icon'        => 'icon-building',
-                'permissions' => ['app2share.app.*'],
+                'permissions' => ['app2share.app.changes'],
                 'order'       => 500,
                 'sideMenu'    => [
                     'partnerSide' => [
                         'label'       => 'Asociados',
                         'url'         => Backend::url('app2share/app/partner'),
                         'icon'        => 'icon-building',
-                        'permissions' => ['app2share.app.*'],
+                        'permissions' => ['app2share.app.changes'],
                     ],
 
                     'partnerType' => [
                         'label'       => 'Tipos de asociados',
                         'url'         => Backend::url('app2share/app/partnertype'),
                         'icon'        => 'icon-briefcase',
-                        'permissions' => ['app2share.app.*'],
+                        'permissions' => ['app2share.app.changes'],
                         'order'       => 500,
                     ],
                 ],
@@ -111,7 +114,7 @@ class Plugin extends PluginBase
                 'label'       => 'Ofertas',
                 'url'         => Backend::url('app2share/app/offer'),
                 'icon'        => 'icon-coffee',
-                'permissions' => ['app2share.app.*'],
+                'permissions' => ['app2share.app.changes'],
                 'order'       => 500,
             ],
         ];

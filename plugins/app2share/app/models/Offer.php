@@ -18,10 +18,15 @@ class Offer extends Model
     /**
      * @var array Validation rules
      */
-    public $rules = [
-    ];
+    public $implement = ['RainLab.Translate.Behaviors.TranslatableModel'];
+    public $translatable = ['name', 'description'];
+
 
     public $belongsTo = [
         'partner' => 'App2share\App\Models\Partner'
+    ];
+
+    public $rules = [
+        'name' => 'required|max:255',
     ];
 }
