@@ -28,14 +28,6 @@ fields:
         label: 'Código postal'
         span: auto
         type: text
-    latitude:
-        label: Latitud
-        span: auto
-        type: text
-    longitude:
-        label: Longitud
-        span: auto
-        type: text
     phone:
         label: Teléfono
         span: auto
@@ -48,21 +40,41 @@ fields:
         label: Email
         span: auto
         type: text
-    logo:
-        label: Logo
-        mode: image
-        useCaption: true
-        thumbOptions:
-            mode: crop
-            extension: auto
-        span: auto
-        type: fileupload
-    images:
-        label: 'Imágenes asociado'
-        mode: image
-        useCaption: true
-        thumbOptions:
-            mode: crop
-            extension: auto
-        span: auto
-        type: fileupload
+tabs:
+    fields:
+        description:
+            label: Descripción
+            size: large
+            span: full
+            type: richeditor
+            tab: Descripción
+        images:
+            label: 'Imágenes asociado'
+            mode: image
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: auto
+            type: fileupload
+            tab: Imágenes
+        logo:
+            label: Logo
+            mode: image
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: auto
+            type: fileupload
+            tab: Imágenes
+        latitude:
+            label: Latitud
+            span: auto
+            type: text
+            tab: Coordenadas
+        longitude:
+            label: Longitud
+            span: auto
+            type: text
+            tab: Coordenadas
