@@ -1,0 +1,10 @@
+offer:
+  label: Ofertas
+  manage:
+    showSearch: true
+    recordsPerPage: 10
+    form: $/app2share/app/models/offer/fields.yaml
+    list: $/app2share/app/models/offer/columns.yaml
+  view:
+    list: $/app2share/app/models/offer/columns.yaml
+    toolbarButtons: create|delete

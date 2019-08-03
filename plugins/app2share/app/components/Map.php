@@ -16,4 +16,12 @@ class Map extends ComponentBase
     {
         return [];
     }
+
+    public function onRun()
+    {
+        $partner = \App2share\App\Models\Partner::orderBy('name', 'asc')->get();
+
+        $this->page['partner'] = $partner;
+    }
+
 }
