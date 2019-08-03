@@ -14,3 +14,9 @@
 1.0.6:
     - 'Updated table app2share_app_offer'
     - builder_table_update_app2share_app_offer.php
+1.0.7:
+    - 'Updated table app2share_app_partner'
+    - migration107.php
+1.0.8:
+    - 'Updated table app2share_app_partner'
+    - builder_table_update_app2share_app_partner2.php
