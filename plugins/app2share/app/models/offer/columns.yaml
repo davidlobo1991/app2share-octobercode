@@ -2,9 +2,6 @@ columns:
     name:
         label: name
         type: text
-    description:
-        label: description
-        type: text
     spar:
         label: spar
         type: number
