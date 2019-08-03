@@ -55,10 +55,8 @@ class Plugin extends PluginBase
      */
     public function registerComponents()
     {
-        return []; // Remove this line to activate
-
         return [
-            'App2share\App\Components\MyComponent' => 'myComponent',
+            'App2share\App\Components\Map' => 'Map',
         ];
     }
 
@@ -108,14 +106,6 @@ class Plugin extends PluginBase
                         'order'       => 500,
                     ],
                 ],
-            ],
-
-            'offer' => [
-                'label'       => 'Ofertas',
-                'url'         => Backend::url('app2share/app/offer'),
-                'icon'        => 'icon-coffee',
-                'permissions' => ['app2share.app.changes'],
-                'order'       => 500,
             ],
         ];
     }

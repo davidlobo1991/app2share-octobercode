@@ -20,3 +20,6 @@
 1.0.8:
     - 'Updated table app2share_app_partner'
     - builder_table_update_app2share_app_partner2.php
+1.0.9:
+    - 'Updated table app2share_app_offer'
+    - builder_table_update_app2share_app_offer_2.php
