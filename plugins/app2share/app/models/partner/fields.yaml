@@ -78,3 +78,8 @@ tabs:
             span: auto
             type: text
             tab: Coordenadas
+        offer:
+            span: full
+            path: ~/plugins/app2share/app/controllers/partner/_offer.htm
+            type: partial
+            tab: Ofertas
