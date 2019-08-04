@@ -1,6 +1,7 @@
 <?php namespace App2share\App\Components;
 
 use Cms\Classes\ComponentBase;
+use function foo\func;
 
 class Map extends ComponentBase
 {
@@ -19,7 +20,10 @@ class Map extends ComponentBase
 
     public function onRun()
     {
-        $partner = \App2share\App\Models\Partner::orderBy('name', 'asc')->get();
+        $partner = \App2share\App\Models\Partner::with('offer')->whereHas('offer', function ($q) {
+            $q->where('active', '=', 1);
+        })->orderBy('name', 'asc')->get();
+
 
         $this->page['partner'] = $partner;
     }
