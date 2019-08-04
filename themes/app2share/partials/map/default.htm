@@ -2,33 +2,107 @@ test123=1
 ==
 <div id="mapid" style="height:500px;"></div>
 
-{% for part in partner %}
+<ul>
+    {% for part in partner %}
+        <li>{{part.name}}</li>
+    {% endfor %}
+</ul>
 
-    {{part.latitude}}
-    {{part.longitude}}
 
-
-{% endfor %}
-
-{% set twigVariable = '123456' %}
 
 
 {% put scripts %}
 <script>
-    alert('{{twigVariable}}');
-    var coordsLatt = '{{twigVariable}}';
-    var coordsLong = '12.43423';
+   /* var coordsLatt = '39.5695100';
+    var coordsLong = '2.9474500';
     var pname = 'como estan ustedes';
-    var mymap = L.map('mapid').setView([coordsLatt, coordsLong], 16);
+
+
+    var littleton = L.marker([39.5695, 2.9474500]).bindPopup('This is Littleton, CO.'),
+        denver    = L.marker([39.5695, 2.474500]).bindPopup('This is Denver, CO.');
+
+    var cities = L.layerGroup([littleton, denver]);
+
+    var mymap = L.map('mapid', {
+        center: [coordsLatt, coordsLong],
+        zoom: 11,
+        layers: [cities]
+    });
+
+    var overlayMaps = {
+        "Cities": cities
+    };
+
+    L.control.layers(overlayMaps).addTo(mymap);
+
+
 
     L.marker([coordsLatt, coordsLong]).addTo(mymap);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mymap);
 
-    var popup = L.popup()
+  /!*  var popup = L.popup()
         .setLatLng([coordsLatt, coordsLong])
         .setContent(pname)
-        .openOn(mymap);
+        .openOn(mymap);*!/*/
+
+
+   var cities = L.layerGroup();
+
+/*   {% for part in partner %}
+        L.marker(["{{part.lat}}", "{{part.long}}"]).bindPopup("{{part.name}}").addTo(cities),
+   {% endfor %}*/
+
+   var test = '{{ partner|raw }}';
+
+   var as = JSON.parse(test);
+
+   for (var i = 0; i < as.length; i++)
+   {
+       let popup = as[i].name;
+       popup += '<br/>';
+
+       for (var j = 0; j < as[i].offer.length; j++) {
+           popup += as[i].offer[j].name + '<br/>';
+           popup += 'Ahorro = ' + as[i].offer[j].spar + '<br/>';
+
+           popup += '<a href="/oferta/'+as[i].offer[j].id+'" target="_blank">Link</a>';
+       }
+
+       L.marker([as[i].latitude, as[i].longitude]).bindPopup(popup).addTo(cities);
+
+   }
+
+
+   var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+       '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+       'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+       mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+   var streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
+
+   var map = L.map('mapid', {
+       center: [39.5695, 2.9459],
+       zoom: 10,
+       layers: [streets, cities]
+   });
+
+   function geoLocate() {
+       map.locate({setView: true, maxZoom: 17});
+   }
+
+   var geolocControl = new L.control({
+       position: 'topright'
+   });
+
+   geolocControl.onAdd = function (map) {
+       var div = L.DomUtil.create('div', 'leaflet-control-zoom leaflet-control');
+       div.innerHTML = '<a class="leaflet-control-geoloc" href="#" onclick="geoLocate(); return false;" title="My location"></a>';
+       return div;
+   };
+
+   map.addControl(geolocControl);
+
 </script>
 {% endput %}
