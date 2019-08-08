@@ -90,14 +90,6 @@ test123=1
        autoCenter:true
    });//inizialize control
 
-   gps
-       .on('gps:located', function(e) {
-           e.marker.bindPopup(e.latlng.toString()).openPopup();
-       })
-       .on('gps:disabled', function(e) {
-           e.marker.closePopup()
-       });
-
    gps.addTo(map);
 
 
