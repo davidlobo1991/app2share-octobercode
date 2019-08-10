@@ -7,7 +7,7 @@ is_hidden = 0
 doubleoptinPage = "double-option"
 ==
 <div class="container">
-    <img src="{{'assets/image/app2share.png'|theme}}" alt="logo">
+    <img src="{{'assets/image/logo_app2share.png'|theme}}" alt="logo">
 
 
     <div id="countdown"></div>
@@ -23,7 +23,7 @@ doubleoptinPage = "double-option"
 </div>
 
 <script>
-    var end = new Date('01/04/2020 11:59 PM');
+    var end = new Date('04/01/2020 11:59 PM');
 
     var _second = 1000;
     var _minute = _second * 60;
@@ -48,9 +48,9 @@ doubleoptinPage = "double-option"
 
 
         document.getElementById('countdown').innerHTML = days + ' dias ';
-        document.getElementById('countdown').innerHTML += '<br>' + hours + ' horas ';
-        document.getElementById('countdown').innerHTML += '<br>' +minutes + ' minutos  ';
-        document.getElementById('countdown').innerHTML += '<br>' +seconds + ' segundos';
+        document.getElementById('countdown').innerHTML +=  hours + ' horas ';
+        document.getElementById('countdown').innerHTML +=  minutes + ' minutos  ';
+        document.getElementById('countdown').innerHTML +=  seconds + ' segundos';
         document.getElementById('countdown').innerHTML += '<br> para que nazca algo increíble';
     }
 
