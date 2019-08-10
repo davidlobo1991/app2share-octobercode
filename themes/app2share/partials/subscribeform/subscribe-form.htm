@@ -10,7 +10,7 @@
 
 		{% for consent in consent_fields %}
 		<div class="consent-field">
-			<input type="checkbox" {% if consent.consent_required %}required{% endif %} name="consent_field_{{loop.index}}">  test {{consent.consent_text|striptags('<a>')|raw}}{% if loop.last == false %}<br>{% endif %}
+			<input type="checkbox" {% if consent.consent_required %}required{% endif %} name="consent_field_{{loop.index}}"> {{consent.consent_text|striptags('<a>')|raw}}{% if loop.last == false %}<br>{% endif %}
 		</div>
 		{% endfor %}
 	</form>
