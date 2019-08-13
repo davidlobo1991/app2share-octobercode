@@ -1,58 +1,52 @@
-const CACHE_NAME = 'v1_cache_app2share',
-    urlsToCache = [
-        './',
-        'https://fonts.googleapis.com/css?family=Raleway:400,700',
-        'https://fonts.gstatic.com/s/raleway/v12/1Ptrg8zYS_SKggPNwJYtWqZPAA.woff2',
-        'https://use.fontawesome.com/releases/v5.0.7/css/all.css',
-        'https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-brands-400.woff2',
-        './functions.js',
-    ]
+self.addEventListener('push', function (/** PushEvent */ event) {
+    if (!(self.Notification && self.Notification.permission === 'granted')) {
+        return;
+    }
 
-//durante la fase de instalación, generalmente se almacena en caché los activos estáticos
-self.addEventListener('install', e => {
-    e.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => {
-                return cache.addAll(urlsToCache)
-                    .then(() => self.skipWaiting())
-            })
-            .catch(err => console.log('Falló registro de cache', err))
-    )
-})
+    var showNotification = function (notification) {
+        return self.registration.showNotification(notification.title, {
+            body: notification.body,
+            icon: notification.icon || notification.image,
+            image: notification.image,
+            data: notification
+        });
+    };
 
-//una vez que se instala el SW, se activa y busca los recursos para hacer que funcione sin conexión
-self.addEventListener('activate', e => {
-    const cacheWhitelist = [CACHE_NAME]
+    if (event.data) {
+        var json = event.data.json();
 
-    e.waitUntil(
-        caches.keys()
-            .then(cacheNames => {
-                return Promise.all(
-                    cacheNames.map(cacheName => {
-                        //Eliminamos lo que ya no se necesita en cache
-                        if (cacheWhitelist.indexOf(cacheName) === -1) {
-                            return caches.delete(cacheName)
-                        }
-                    })
-                )
-            })
-            // Le indica al SW activar el cache actual
-            .then(() => self.clients.claim())
-    )
-})
+        if (json) {
+            event.waitUntil(showNotification(json));
+        } else {
+            console.warn("Invalid push data received", event);
+        }
+    } else {
+        console.warn("Empty push received", event);
+    }
+});
 
-//cuando el navegador recupera una url
-self.addEventListener('fetch', e => {
-    //Responder ya sea con el objeto en caché o continuar y buscar la url real
-    e.respondWith(
-        caches.match(e.request)
-            .then(res => {
-                if (res) {
-                    //recuperar del cache
-                    return res
-                }
-                //recuperar de la petición a la url
-                return fetch(e.request)
-            })
-    )
-})
+self.addEventListener('notificationclick', function (/** NotificationEvent */event) {
+    var notification = event.notification;
+
+    // Cerrar notificaciÃ³n
+    notification.close();
+
+    // URL que se quiere abrir
+    var urlToOpen = new URL((notification.data && notification.data.url) || '/', self.location.origin).href;
+
+    event.waitUntil(clients.matchAll({
+        type: 'window',
+        includeUncontrolled: true
+    }).then(function (clientList) {
+        for (var i = 0; i < clientList.length; i++) {
+            var client = clientList[i];
+            if (client.url === urlToOpen && 'focus' in client) { // Focalizar pestaÃ±a existente
+                return client.focus();
+            }
+        }
+
+        if (clients.openWindow) { // Abrir nueva pestaÃ±a
+            return clients.openWindow(urlToOpen);
+        }
+    }));
+});
