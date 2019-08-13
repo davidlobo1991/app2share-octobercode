@@ -1,4 +1,7 @@
 description = "Default layout"
+
+[session]
+security = "all"
 ==
 <!DOCTYPE html>
 <html>
@@ -10,6 +13,18 @@ description = "Default layout"
         <meta name="author" content="OctoberCMS">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="generator" content="OctoberCMS">
+
+        <meta name="theme-color" content="#F0DB4F">
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <link rel="shortcut icon" type="image/png" href="./img/ProgramadorFitness.png">
+        <link rel="apple-touch-icon" href="./ProgramadorFitness.png">
+        <link rel="apple-touch-startup-image" href="./ProgramadorFitness.png">
+        <link rel="manifest" href="{{ 'manifest.json'|theme }}">
+
+
         <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}">
         <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
@@ -98,6 +113,8 @@ description = "Default layout"
     </head>
     <body>
 
+    {% partial "site/header.htm" %}
+
         <section id="layout-content">
             {% page %}
         </section>
@@ -109,15 +126,14 @@ description = "Default layout"
         <!--</footer>-->
 
         <!-- Scripts -->
-        <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
-        <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
-        <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
+        <script src="{{ 'assets/js/jquery.js'|theme }}"></script>
         <script src="{{ 'assets/js/leaflet.js'|theme }}"></script>
         <script src="{{ 'assets/js/leaflet-gps.js'|theme }}"></script>
         <script src="{{ 'assets/js/functions.js'|theme }}"></script>
+        <script src="{{ 'assets/js/sw.js'|theme }}"></script>
 
 
-        {% framework %}
+    {% framework %}
         {% scripts %}
 
     </body>

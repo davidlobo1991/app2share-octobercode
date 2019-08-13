@@ -35,8 +35,9 @@ class Partner extends Model
     ];
 
     public $belongsTo = [
-        'partner_type' => 'App2share\App\Models\PartnerType'
+        'partner_type' => 'App2share\App\Models\PartnerType',
     ];
+
 
     public $hasMany = [
         'offer' => 'App2share\App\Models\Offer'
