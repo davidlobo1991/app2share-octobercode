@@ -6,8 +6,8 @@
   "theme_color": "#F0DB4F",
   "orientation": "portrait",
   "display": "standalone",
-  "start_url": "/app2share/?utm_source=web_app_manifest",
-  "scope": "/app2share/",
+  "start_url": "./?utm_source=web_app_manifest",
+  "scope": "./",
   "lang": "es-ES",
   "splash_pages": null,
   "icons": [
