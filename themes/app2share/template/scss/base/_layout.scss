@@ -1,0 +1,116 @@
+// ===========================================================
+// DEFAULT STYLES
+// ===========================================================
+
+* {
+	@include box-sizing(border-box);
+}
+
+html,
+body {
+	margin: 0;
+
+}
+
+html {
+	color: $c_font_default;
+	font-family: $f_regular;
+	font-size: 100%;
+
+	@include media('<small') {
+		font-size: 90%;
+	}
+
+	@include media('<extra-small') {
+		font-size: 80%;
+	}
+}
+
+
+// ===========================================================
+// HEADLINES
+// ===========================================================
+
+h1,
+.h1 {
+	margin: 0 0 20px;
+	color: $c_main;
+	font-size: rem(36);
+}
+
+h2,
+.h2 {
+	margin: 0 0 20px;
+	color: $c_main;
+	font-size: rem(30);
+}
+
+h3,
+.h3 {
+	margin: 25px 0 20px;
+	font-size: rem(24);
+}
+
+h4,
+.h4 {
+	margin: 20px 0 15px;
+	font-size: rem(20);
+}
+
+h5,
+.h5 {
+	margin: 20px 0 15px;
+	font-size: rem(16);
+}
+
+
+// ===========================================================
+// BASIC STYLING
+// ===========================================================
+
+p {
+	margin: 0 0 25px;
+}
+
+a {
+	img {
+		border: 0;
+	}
+}
+
+hr {
+	clear: both;
+	height: 1px;
+	background-color: $c_divider;
+	border: 0;
+	margin: 40px 0;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+
+// ===========================================================
+// UTILITIES
+// ===========================================================
+
+.clearfix,
+%clearfix {
+	&:after {
+		content: ' ';
+		clear: both;
+		display: block;
+		height: 0;
+	}
+}
+
+
+// ===========================================================
+// CONTAINER
+// ===========================================================
+
+.content-page {
+	padding: 40px 0;
+}

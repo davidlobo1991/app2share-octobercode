@@ -1,0 +1,116 @@
+// ===========================================================
+// PINS
+// ===========================================================
+
+@mixin pin($direction: down, $width: 20px, $height: 10px, $color: #000) {
+	@if $direction == up {
+		border-right: solid round($width / 2) transparent;
+		border-bottom: solid $height $color;
+		border-left: solid round($width / 2) transparent;
+
+	} @else if $direction == right {
+		border-top: solid round($height / 2) transparent;
+		border-bottom: solid round($height / 2) transparent;
+		border-left: solid $width $color;
+
+	} @else if $direction == down {
+		border-top: solid $height $color;
+		border-right: solid round($width / 2) transparent;
+		border-left: solid round($width / 2) transparent;
+
+	} @else if $direction == left {
+		border-top: solid round($height / 2) transparent;
+		border-right: solid $width $color;
+		border-bottom: solid round($height / 2) transparent;
+	}
+}
+
+// ===========================================================
+// BOX-SIZING
+// ===========================================================
+
+@mixin box-sizing($value: border-box) {
+	-webkit-box-sizing: $value;
+	-moz-box-sizing: $value;
+	box-sizing: $value;
+}
+
+// ===========================================================
+// TRANSITION
+// ===========================================================
+
+@mixin transition($property: all, $duration: 0s, $delay: 0s, $timing: ease) {
+	-webkit-transition-property: $property;
+	-moz-transition-property: $property;
+	-o-transition-property: $property;
+	transition-property: $property;
+
+	-webkit-transition-duration: $duration;
+	-moz-transition-duration: $duration;
+	-o-transition-duration: $duration;
+	transition-duration: $duration;
+
+	-webkit-transition-delay: $delay;
+	-moz-transition-delay: $delay;
+	-o-transition-delay: $delay;
+	transition-delay: $delay;
+
+	-webkit-transition-timing-function: $timing;
+	-moz-transition-timing-function: $timing;
+	-o-transition-timing-function: $timing;
+	transition-timing-function: $timing;
+}
+
+// ===========================================================
+// TRANSFORM
+// ===========================================================
+
+@mixin transform($value) {
+	-webkit-transform: $value;
+	-ms-transform: $value;
+	transform: $value;
+}
+
+// ===========================================================
+// BORDER RADIUS
+// ===========================================================
+
+@mixin border-radius($radius) {
+	$list: #{''};
+
+	@if length($radius) > 1 {
+		@each $r in $radius {
+			@if unitless($r) {
+				@if $r == 0 {
+					$list: append($list, $r);
+				} @else {
+					$list: append($list, #{$r}px);
+				}
+			} @else {
+				$list: append($list, $r);
+			}
+		}
+
+		$radius: $list;
+	} @else {
+		@if unitless($radius) {
+			$radius: #{$radius}px;
+		}
+	}
+
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+}
+
+
+// ===========================================================
+// BOX SHADOW
+// ===========================================================
+
+@mixin box-shadow($value) {
+	-webkit-box-shadow: $value;
+	-moz-box-shadow: $value;
+	-o-box-shadow: $value;
+	box-shadow: $value;
+}

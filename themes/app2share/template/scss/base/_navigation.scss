@@ -1,0 +1,43 @@
+// ===========================================================
+// NAVIGATION
+// ===========================================================
+
+.header {
+  font-size: rem(20);
+  color: $c_main;
+
+  .header-top {
+    margin: 20px 0;
+  }
+
+  .main-nav {
+    float: left;
+  }
+
+
+  .nav-user {
+    float: right;
+  }
+
+  .main-nav, .nav-user {
+    ul {
+      padding-left: 0;
+
+      li {
+        display: inline-block;
+
+        a {
+          padding: 10px;
+          color: $c_main;
+          text-decoration: none;
+          cursor: pointer;
+
+          &:hover {
+            color: $c_white;
+            background: $c_main;
+          }
+        }
+      }
+    }
+  }
+}

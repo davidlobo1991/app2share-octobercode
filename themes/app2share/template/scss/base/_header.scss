@@ -1,0 +1,15 @@
+.header {
+  .header-top {
+    #second-logo {
+      & > img {
+        padding-top: 15px;
+      }
+    }
+
+    .logo {
+      & > img {
+        width: 190px;
+      }
+    }
+  }
+}

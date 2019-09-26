@@ -1,0 +1,114 @@
+// default breakpoints map
+$breakpoints: (
+		'tablet': 768px,
+		'desktop': 1024px
+) !default;
+
+// parse passed string to a number
+
+@function parseInt($str) {
+	$number: 0;
+	$digits: (
+			'0': 0,
+			'1': 1,
+			'2': 2,
+			'3': 3,
+			'4': 4,
+			'5': 5,
+			'6': 6,
+			'7': 7,
+			'8': 8,
+			'9': 9
+	);
+
+	@for $i from 1 through str_length($str) {
+		$number: $number * 10 + map-get($digits, str_slice($str, $i, $i));
+	}
+
+	@return ($number * 1px);
+}
+
+
+// get the operator of the breakpoint
+
+@function get_operator($arg) {
+	@if str_slice($arg, 2, 2) == '=' {
+		@return str_slice($arg, 1, 2);
+	} @else {
+		@return str_slice($arg, 1, 1);
+	}
+}
+
+
+// get breakpoint
+
+@function get_value($arg) {
+	@if str_slice($arg, 2, 2) == '=' {
+		@return str_slice($arg, 3);
+	} @else {
+		@return str_slice($arg, 2);
+	}
+}
+
+
+// get value of breakpoint
+
+@function get_breakpoint($value) {
+	$width: 0;
+
+	@if map-get($breakpoints, $value) != null {
+		$width: map-get($breakpoints, $value);
+	} @else {
+		$substr: str_slice($value, 0, str_index($value, 'px') - 1);
+		$width: parseInt($substr);
+	}
+
+	@return $width;
+}
+
+
+// mixin
+
+@mixin media($args...) {
+	$query: '';
+	$operator: '';
+	$value: 0;
+	$width: 0;
+
+	@for $i from 1 through length($args) {
+		@if str-length($query) != 0 {
+			$query: $query + ', ';
+		}
+
+		$query: $query + 'only screen and ';
+
+		$subargs: nth($args, $i);
+
+		@for $j from 1 through length($subargs) {
+			$arg: nth($subargs, $j);
+			$operator: get_operator($arg);
+			$value: get_value($arg);
+			$width: get_breakpoint($value);
+
+			@if $j != 1 {
+				$query: $query + ' and ';
+			}
+
+			@if $operator == '>' {
+				$width: $width + 1;
+				$query: $query + '(min-width: #{$width})';
+			} @else if $operator == '<' {
+				$width: $width - 1;
+				$query: $query + '(max-width: #{$width})';
+			} @else if $operator == '>=' {
+				$query: $query + '(min-width: #{$width})';
+			} @else if $operator == '<=' {
+				$query: $query + '(max-width: #{$width})';
+			}
+		}
+	}
+
+	@media #{$query} {
+		@content;
+	}
+}

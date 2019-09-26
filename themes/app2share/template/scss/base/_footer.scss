@@ -1,0 +1,38 @@
+.footer {
+  padding: 20px 0;
+  color: $c_white;
+  background-color: $c_main;
+
+  ul {
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin-bottom: 15px;
+
+      & > a {
+        color: $c_white;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .copyright {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+@media(max-width: $d_extra_small) {
+  .footer {
+    text-align: center;
+
+    .copyright {
+      position: static;
+    }
+  }
+}

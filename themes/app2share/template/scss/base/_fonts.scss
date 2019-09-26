@@ -1,0 +1,13 @@
+$font-path: '../fonts/';
+
+$font: 'fa-regular-400';
+$font_name: 'fontawesome';
+@font-face {
+	font-family: $font_name;
+	src: url($font-path + $font + '.eot'),
+	url($font-path + $font + '.woff') format('woff'),
+	url($font-path + $font + '.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
