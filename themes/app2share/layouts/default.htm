@@ -3,72 +3,144 @@ description = "Default layout"
 [session]
 security = "all"
 ==
-
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>App2Share - {{ this.page.title }}</title>
-        <meta name="description" content="{{ this.page.meta_description }}">
-        <meta name="title" content="{{ this.page.meta_title }}">
-        <meta name="author" content="OctoberCMS">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="generator" content="OctoberCMS">
+<head>
+    <meta charset="utf-8">
+    <title>App2Share - {{ this.page.title }}</title>
+    <meta name="description" content="{{ this.page.meta_description }}">
+    <meta name="title" content="{{ this.page.meta_title }}">
+    <meta name="author" content="OctoberCMS">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="OctoberCMS">
 
-        <meta name="theme-color" content="#F0DB4F">
-        <meta name="MobileOptimized" content="width">
-        <meta name="HandheldFriendly" content="true">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-        <link rel="shortcut icon" type="image/png" href="./img/ProgramadorFitness.png">
-        <link rel="apple-touch-icon" href="./ProgramadorFitness.png">
-        <link rel="apple-touch-startup-image" href="./ProgramadorFitness.png">
-        <link rel="manifest" href="{{ 'manifest.json'|theme }}">
-
-
-        <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}">
-        <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/css/leaflet.css'|theme }}" rel="stylesheet">
-        <link rel="stylesheet" href="{{ 'assets/css/vendor/bootstrap-grid.min.css'|theme }}" />
-        <link rel="stylesheet" href="{{ 'assets/css/vendor/fontawesome.min.css'|theme }}" />
-        <link rel="stylesheet" href="{{ 'assets/css/vendor/slick.css'|theme }}" />
-        <link rel="stylesheet" href="{{ 'assets/css/vendor/slick-theme.css'|theme }}" />
-        <link rel="stylesheet" href="{{ 'assets/css/style.css'|theme }}" />
-
-        {% styles %}
-    </head>
-    <body>
-
-    {% partial "site/header.htm" %}
-
-        <section id="layout-content">
-            {% page %}
-        </section>
+    <meta name="theme-color" content="#F0DB4F">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="shortcut icon" type="image/png" href="./img/ProgramadorFitness.png">
+    <link rel="apple-touch-icon" href="./ProgramadorFitness.png">
+    <link rel="apple-touch-startup-image" href="./ProgramadorFitness.png">
+    <link rel="manifest" href="{{ 'manifest.json'|theme }}">
 
 
-        <!-- Footer -->
-        <!--<footer id="layout-footer">-->
-            <!--{% partial 'site/footer' %}-->
-        <!--</footer>-->
+    <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}">
+    <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
+    <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
+    <link href="{{ 'assets/css/leaflet.css'|theme }}" rel="stylesheet">
 
-        <!-- Scripts -->
-        <script src="{{ 'assets/js/jquery.js'|theme }}"></script>
-        <script src="{{ 'assets/js/leaflet.js'|theme }}"></script>
-        <script src="{{ 'assets/js/leaflet-gps.js'|theme }}"></script>
-<!--
-        <script src="{{ 'assets/js/sw.js'|theme }}"></script>
--->
-        <script src="{{ 'assets/js/vendor/slick.min.js'|theme }}"></script>
-        <script src="{{ 'assets/js/script.js'|theme }}"></script>
-<!--
-        <script src="{{ 'assets/js/functions.js'|theme }}"></script>
--->
+    {% styles %}
+    <style>
+        body {
+            background: url('themes/app2share/assets/image/img2.jpg') no-repeat;
+            font-family: sans-serif;
+            letter-spacing: 1.1px;
+            background-position: 0 -363px;
+        }
+
+        @media screen and (min-width: 1300px) {
+            body {
+                background-size: cover;
+            }
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .container {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 35px 0;
+            text-align: center;
+        }
+
+        .form-newsletter {
+            padding: 30px 50px;
+            border: 5px solid white;
+            text-shadow: 2px;
+            line-height: 30px;
+            color: white;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .form-newsletter .form-control {
+            max-width: 300px;
+            height: 50px;
+            margin: 0 20px 25px 0;
+            padding: 0 10px;
+            font-size: 16px;
+        }
+
+        .form-newsletter button {
+            width: 100px;
+            height: 50px;
+            background: #30bafa;
+            color: white;
+            text-shadow: 2px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .form-newsletter button:hover {
+            background: #0c7ee3;
+        }
+
+        .consent-field {
+            margin-top: 10px;
+        }
+
+        .consent-field a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .consent-field a:hover {
+            color: #0c7ee3;
+        }
+
+        .form-newsletter h2 {
+            margin: 0;
+        }
 
 
+        #countdown {
+            color: white;
+            text-shadow: 1px 1px 2px black, 0 0 5px black;
+            font-size: 30px;
+            font-weight: 600;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
 
-    {% framework %}
-        {% scripts %}
+{% partial "site/header.htm" %}
 
-    </body>
+<section id="layout-content">
+    {% page %}
+</section>
+
+
+<!-- Footer -->
+<!--<footer id="layout-footer">-->
+<!--{% partial 'site/footer' %}-->
+<!--</footer>-->
+
+<!-- Scripts -->
+<script src="{{ 'assets/js/jquery.js'|theme }}"></script>
+<script src="{{ 'assets/js/leaflet.js'|theme }}"></script>
+<script src="{{ 'assets/js/leaflet-gps.js'|theme }}"></script>
+<script src="{{ 'assets/js/functions.js'|theme }}"></script>
+<script src="{{ 'assets/js/sw.js'|theme }}"></script>
+
+
+{% framework %}
+{% scripts %}
+
+</body>
 </html>
