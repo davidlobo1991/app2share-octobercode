@@ -1,4 +1,5 @@
-<?php namespace App2share\App\Models;
+<?php
+namespace App2share\App\Models;
 
 use Model;
 

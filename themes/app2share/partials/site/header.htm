@@ -1,23 +1,34 @@
-<!-- Nav -->
-<!--
-<nav id="layout-nav" class="navbar navbar-inverse navbar-fixed-top navbar-autohide" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse navbar-main-collapse">
-            <ul class="nav navbar-nav">
-                <li class="separator hidden-xs"></li>
-                <li class="{% if this.page.id == 'home' %}active{% endif %}"><a href="{{ 'home'|page }}">Home</a></li>
-                <li class="{% if this.page.id == 'login' %}active{% endif %}"><a href="{{ 'login'|page }}">Login</a></li>
-                <li><a data-request="onLogout" data-request-data="redirect: '/'">Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
--->
+ <div class="header container clearfix">
+        <header>
+            <div class="header-top">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a href="" title="Zur Startseite" id="main-logo" class="logo"><img src="{{ 'assets/image/logo.png'|theme }}" alt="Logo" title="Logo"></a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="" title="Zur Startseite" id="second-logo" class="logo"><img src="{{ 'assets/image/sharing.png'|theme }}" alt="Logo" title="Sharing"></a>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" placeholder="Buscar ofertas por tu zona" class="form-control" id="form-search" />
+                    </div>
+                </div>
+            </div>
+
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="">Inicio</a></li>
+                    <li><a href="">Ofertas</a></li>
+                    <li><a href="">Eventos</a></li>
+                    <li><a href="">Así funciona</a></li>
+                    <li><a href="">Comprar</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-user">
+                <ul>
+                    <li><a href="">Registrar</a></li>
+                    <li><a href="">Login</a></li>
+                </ul>
+            </div>
+        </header>
+ </div>

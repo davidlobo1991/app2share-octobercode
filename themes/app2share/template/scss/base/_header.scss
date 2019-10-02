@@ -1,8 +1,18 @@
 .header {
+  .header-bottom {
+    margin-top: 1px;
+    background-color: $c_main;
+    color: $c_white;
+  }
+
   .header-top {
+    padding: 20px 0;
+    background-color: $c_main;
+
     #second-logo {
       & > img {
         padding-top: 15px;
+
       }
     }
 

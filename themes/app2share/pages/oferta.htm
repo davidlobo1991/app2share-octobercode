@@ -5,5 +5,61 @@ is_hidden = 0
 
 slug = "{{ :slug }}"
 ==
+use App2share\App\Models\Offer;
 
-{{slug}}
+function onStart()
+{
+    $offer = Offer::where('id', $this->param('slug'))->first();
+    $partner = $offer ? $offer->partner : null;
+
+
+$this["offer"] = $offer;
+$this["partner"] = $partner;
+
+}
+
+==
+
+<div class="content-wrap">
+    <!-- Start CONTENT -->
+    <div class="content">
+        {%if partner %}
+
+        <iframe width="425" height="350" class="map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=2.549514770507813%2C39.46959506012395%2C2.8708648681640625%2C39.64165260123419&amp;layer=mapnik&amp;marker={{partner.latitude}}%2C{{partner.longitude}}"></iframe><br/><small></small>
+
+        <div class="content-page container">
+            <div class="row">
+                 <div class="col-sm-6">
+                        <h1>{{partner.name}}</h1>
+
+                        <div class="slider-for">
+                            {% for image in partner.images %}
+                            <div class="item">
+                                <img src="{{ image.thumb(100, auto) }}" alt="image" style="width: 100%; margin-bottom: 20px;" draggable="false"/>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="slider-nav">
+                            {% for image in partner.images %}
+                            <div class="item">
+                                <img src="{{ image.thumb(100, auto) }}" alt="image"  draggable="false"/>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <h2>{{offer.name}}</h2>
+                        {{offer.description|raw}}
+                    </div>
+            </div>
+            {% else %}
+            No existe
+            {% endif %}
+        </div>
+    </div>
+    <!-- End CONTENT -->
+</div>
+
+

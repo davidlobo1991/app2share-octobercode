@@ -6,21 +6,53 @@
   font-size: rem(20);
   color: $c_main;
 
-  .header-top {
-    margin: 20px 0;
-  }
-
   .main-nav {
     float: left;
+    background-color: $c_white;
+
+    ul {
+      li {
+        a {
+          color: $c_main;
+
+          &:hover {
+            color: $c_white;
+            background-color: $c_main;
+          }
+        }
+      }
+    }
   }
 
 
   .nav-user {
     float: right;
+
+    ul {
+      li {
+        a {
+          color: $c_white;
+
+          &:hover {
+
+          }
+        }
+      }
+    }
   }
 
-  .main-nav, .nav-user {
+  .nav-lang {
+    float: right;
+    padding: 10px 50px;
+
+    img {
+      width: 30px;
+    }
+  }
+
+  .main-nav, .nav-user, .nav-lang {
     ul {
+      margin: 10px 0;
       padding-left: 0;
 
       li {
@@ -28,14 +60,8 @@
 
         a {
           padding: 10px;
-          color: $c_main;
           text-decoration: none;
           cursor: pointer;
-
-          &:hover {
-            color: $c_white;
-            background: $c_main;
-          }
         }
       }
     }

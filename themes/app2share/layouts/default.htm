@@ -3,6 +3,7 @@ description = "Default layout"
 [session]
 security = "all"
 ==
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,93 +30,13 @@ security = "all"
         <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/leaflet.css'|theme }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ 'assets/css/vendor/bootstrap-grid.min.css'|theme }}" />
+        <link rel="stylesheet" href="{{ 'assets/css/vendor/fontawesome.min.css'|theme }}" />
+        <link rel="stylesheet" href="{{ 'assets/css/vendor/slick.css'|theme }}" />
+        <link rel="stylesheet" href="{{ 'assets/css/vendor/slick-theme.css'|theme }}" />
+        <link rel="stylesheet" href="{{ 'assets/css/style.css'|theme }}" />
 
         {% styles %}
-        <style>
-            body {
-                background: url('themes/app2share/assets/image/img2.jpg') no-repeat;
-                font-family: sans-serif;
-                letter-spacing: 1.1px;
-				background-position: 0 -363px;
-            }
-
-            @media screen and (min-width: 1400px) {
-                body {
-                    background-size: cover;
-                }
-            }
-
-            img {
-                max-width: 100%;
-            }
-
-            .container {
-                margin: 0 auto;
-                max-width: 800px;
-                padding: 35px 0;
-                text-align: center;
-            }
-
-            .form-newsletter {
-                padding: 30px 50px;
-                border: 5px solid white;
-				text-shadow: 2px;
-                line-height: 30px;
-				color: white;
-				background: rgba(0,0,0,0.5);
-            }
-
-            .form-newsletter .form-control {
-                max-width: 300px;
-                height: 50px;
-                margin: 0 20px 25px 0;
-                padding: 0 10px;
-                font-size: 16px;
-            }
-
-            .form-newsletter button {
-                width: 100px;
-                height: 50px;
-                background: #30bafa;
-                color: white;
-				text-shadow: 2px;
-                font-weight: 600;
-                letter-spacing: 1.5px;
-                border: 0;
-                cursor: pointer;
-            }
-
-            .form-newsletter button:hover {
-                background: #0c7ee3;
-            }
-
-            .consent-field {
-                margin-top: 10px;
-            }
-
-            .consent-field a {
-                color: white;
-                text-decoration: none;
-            }
-
-            .consent-field a:hover {
-                color: #0c7ee3;
-            }
-
-            .form-newsletter h2 {
-                margin: 0;
-            }
-
-
-            #countdown {
-                color: white;
-				text-shadow: 1px 1px 2px black, 0 0 5px black;
-                font-size: 30px;
-                font-weight: 600;
-				margin-top: 50px;
-				margin-bottom: 20px;
-            }
-        </style>
     </head>
     <body>
 
@@ -135,8 +56,15 @@ security = "all"
         <script src="{{ 'assets/js/jquery.js'|theme }}"></script>
         <script src="{{ 'assets/js/leaflet.js'|theme }}"></script>
         <script src="{{ 'assets/js/leaflet-gps.js'|theme }}"></script>
-        <script src="{{ 'assets/js/functions.js'|theme }}"></script>
+<!--
         <script src="{{ 'assets/js/sw.js'|theme }}"></script>
+-->
+        <script src="{{ 'assets/js/vendor/slick.min.js'|theme }}"></script>
+        <script src="{{ 'assets/js/script.js'|theme }}"></script>
+<!--
+        <script src="{{ 'assets/js/functions.js'|theme }}"></script>
+-->
+
 
 
     {% framework %}

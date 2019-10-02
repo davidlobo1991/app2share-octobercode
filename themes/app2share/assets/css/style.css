@@ -741,68 +741,43 @@ input[type='submit'] {
   color: #204C7D;
 }
 /* line 9, ../scss/base/_navigation.scss */
+.header .header-top {
+  margin: 20px 0;
+}
+/* line 13, ../scss/base/_navigation.scss */
 .header .main-nav {
   float: left;
-  background-color: #fff;
-}
-/* line 15, ../scss/base/_navigation.scss */
-.header .main-nav ul li a {
-  color: #204C7D;
 }
 /* line 18, ../scss/base/_navigation.scss */
-.header .main-nav ul li a:hover {
-  color: #fff;
-  background-color: #204C7D;
-}
-/* line 28, ../scss/base/_navigation.scss */
 .header .nav-user {
   float: right;
 }
-/* line 33, ../scss/base/_navigation.scss */
-.header .nav-user ul li a {
-  color: #fff;
-}
-/* line 44, ../scss/base/_navigation.scss */
-.header .nav-lang {
-  float: right;
-  padding: 10px 50px;
-}
-/* line 48, ../scss/base/_navigation.scss */
-.header .nav-lang img {
-  width: 30px;
-}
-/* line 54, ../scss/base/_navigation.scss */
-.header .main-nav ul, .header .nav-user ul, .header .nav-lang ul {
-  margin: 10px 0;
+/* line 23, ../scss/base/_navigation.scss */
+.header .main-nav ul, .header .nav-user ul {
   padding-left: 0;
 }
-/* line 58, ../scss/base/_navigation.scss */
-.header .main-nav ul li, .header .nav-user ul li, .header .nav-lang ul li {
+/* line 26, ../scss/base/_navigation.scss */
+.header .main-nav ul li, .header .nav-user ul li {
   display: inline-block;
 }
-/* line 61, ../scss/base/_navigation.scss */
-.header .main-nav ul li a, .header .nav-user ul li a, .header .nav-lang ul li a {
+/* line 29, ../scss/base/_navigation.scss */
+.header .main-nav ul li a, .header .nav-user ul li a {
   padding: 10px;
+  color: #204C7D;
   text-decoration: none;
   cursor: pointer;
 }
-
-/* line 2, ../scss/base/_header.scss */
-.header .header-bottom {
-  margin-top: 1px;
-  background-color: #204C7D;
+/* line 35, ../scss/base/_navigation.scss */
+.header .main-nav ul li a:hover, .header .nav-user ul li a:hover {
   color: #fff;
+  background: #204C7D;
 }
-/* line 8, ../scss/base/_header.scss */
-.header .header-top {
-  padding: 20px 0;
-  background-color: #204C7D;
-}
-/* line 13, ../scss/base/_header.scss */
+
+/* line 4, ../scss/base/_header.scss */
 .header .header-top #second-logo > img {
   padding-top: 15px;
 }
-/* line 20, ../scss/base/_header.scss */
+/* line 10, ../scss/base/_header.scss */
 .header .header-top .logo > img {
   width: 190px;
 }
@@ -856,7 +831,6 @@ input[type='submit'] {
   color: #204C7D;
   border: 2px solid #204C7D;
   background: url("../image/icons/search.svg") no-repeat scroll 10px;
-  background-color: #fff;
   background-size: 20px;
 }
 
