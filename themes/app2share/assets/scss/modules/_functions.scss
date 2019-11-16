@@ -1,0 +1,11 @@
+// ===========================================================
+// REM CALCULATION
+// $size: font-size in px
+// ===========================================================
+
+@function rem($size) {
+	$ie: #{$size}px ;
+	$modern: #{'font-size:'} (($size/ ($size* 0 + 1)) / 16)#{rem};
+
+	@return $ie #{';'} $modern;
+};

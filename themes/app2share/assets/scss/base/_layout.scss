@@ -1,0 +1,204 @@
+// ===========================================================
+// DEFAULT STYLES
+// ===========================================================
+
+* {
+	@include box-sizing(border-box);
+}
+
+html,
+body {
+    margin: 0;
+    background: url(../image/fondo-derecha.svg);
+    background-size: 150%;
+    background-color: $c_white;
+    background-position: -180px -100px;
+}
+
+html {
+	color: $c_font_default;
+	font-family: $f_regular;
+	font-size: 100%;
+
+	@include media('<small') {
+		font-size: 90%;
+	}
+
+	@include media('<extra-small') {
+		font-size: 80%;
+	}
+}
+
+
+// ===========================================================
+// HEADLINES
+// ===========================================================
+
+h1,
+.h1 {
+	margin: 0 0 20px;
+	font-size: rem(36);
+}
+
+h2,
+.h2 {
+    font-size: rem(27);
+    border-radius: 50px;
+    border: 1px solid white;
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 auto;
+    color: white;
+    background: rgba(255,255,255,0.1);
+}
+
+h3,
+.h3 {
+	margin: 25px 0 20px;
+    color: #00FF26;
+	font-size: rem(30);
+}
+
+h4,
+.h4 {
+	margin: 20px 0 15px;
+	font-size: rem(20);
+}
+
+h5,
+.h5 {
+	margin: 20px 0 15px;
+	font-size: rem(16);
+}
+
+
+// ===========================================================
+// BASIC STYLING
+// ===========================================================
+
+p {
+	margin: 10px 0 25px;
+}
+
+a {
+	img {
+		border: 0;
+	}
+}
+
+hr {
+	clear: both;
+	height: 1px;
+	background-color: $c_divider;
+	border: 0;
+	margin: 40px 0;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+.logo {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 160px;
+}
+
+
+// ===========================================================
+// UTILITIES
+// ===========================================================
+
+.clearfix,
+%clearfix {
+	&:after {
+		content: ' ';
+		clear: both;
+		display: block;
+		height: 0;
+	}
+}
+
+
+// ===========================================================
+// CONTAINER
+// ===========================================================
+
+.content {
+    .home-content {
+        height: 100vh;
+        padding: 50px 0;
+        font-size: rem(25);
+        text-align: center;
+
+        .container {
+            max-width: 620px;
+        }
+
+        &#background-right {
+            color: $main_color;
+            background: url(../image/fondo-derecha.svg);
+            background-color: $c_white;
+            background-size: 270%;
+            background-position: -250px -100px;
+
+            h2 {
+                color: $main_color;
+                border-color: $main_color;
+            }
+        }
+
+        &#background-left {
+            color: $c_white;
+            background: url(../image/fondo-izquierda.svg);
+            background-color: $main_color;
+            background-size: 270%;
+            background-position: -180px -100px;
+        }
+    }
+}
+
+.how-works {
+    position: relative;
+    max-width: 300px;
+    margin: 0 auto;
+
+    a {
+        cursor: pointer;
+    }
+}
+
+.modal {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(0,0,0,0.9);
+    border: 1px solid white;
+    border-radius: 25px;
+}
+
+.modal.active {
+    display: block;
+}
+
+
+@media(max-width: $d_small) {
+    .content {
+        .home-content {
+            background-size: 500% !important;
+
+        }
+    }
+
+    .test {
+        display: none;
+    }
+
+}

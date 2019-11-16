@@ -41,6 +41,7 @@ return [
         'fi' => 'Suomi',
         'sv' => 'Svenska',
         'sk' => 'Slovenský',
+        'th' => 'ไทย',
         'tr' => 'Türkçe',
         'uk' => 'Українська мова',
         'zh-cn' => '简体中文',
@@ -98,7 +99,8 @@ return [
         'name' => [
             'label' => 'Plugin Name',
             'help' => 'Name the plugin by its unique code. For example, RainLab.Blog'
-        ]
+        ],
+        'by_author' => 'By :name'
     ],
     'plugins' => [
         'manage' => 'Manage plugins',

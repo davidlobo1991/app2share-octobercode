@@ -1,0 +1,20 @@
+button,
+input[type='submit'] {
+	padding: 0;
+	border: 0;
+	-webkit-appearance: none;
+	@include border-radius(0);
+}
+
+.btn {
+	display: inline-block;
+	position: relative;
+	padding: 17px 30px;
+	border: 2px solid transparent;
+	line-height: 1;
+	font-family: $f_regular;
+	font-size: rem(26);
+	color: #fff;
+	cursor: pointer;
+	@include transition(all, $slow);
+}

@@ -26,12 +26,15 @@ security = "all"
 
 
     <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}">
+    <link href="{{ 'assets/css/vendor/bootstrap-grid.min.css'|theme }}" rel="stylesheet">
     <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
     <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
     <link href="{{ 'assets/css/leaflet.css'|theme }}" rel="stylesheet">
+    <link href="{{ 'assets/css/style.css'|theme }}" rel="stylesheet">
+
 
     {% styles %}
-    <style>
+<!--    <style>
         body {
             background: url('themes/app2share/assets/image/img2.jpg') no-repeat;
             font-family: sans-serif;
@@ -115,12 +118,16 @@ security = "all"
             margin-top: 50px;
             margin-bottom: 20px;
         }
-    </style>
+</style>-->
 </head>
 <body>
 
 <section id="layout-content">
     {% page %}
+
+    <div class="logo">
+        <img src="{{'assets/image/logo.png'|theme}}">
+    </div>
 </section>
 
 
