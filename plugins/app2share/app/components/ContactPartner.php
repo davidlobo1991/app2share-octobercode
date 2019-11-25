@@ -30,7 +30,7 @@ class ContactPartner extends ComponentBase
             $contactPartner = new ContactPartnerModel();
             $contactPartner->fill(Input::all());
             $contactPartner->save();
-            Flash::success('Mensaje enviado correctamente! Partner');
+            Flash::success('Mensaje enviado correctamente!');
         } catch (\Exception $e) {
             Log::error($e);
             Flash::error('Error al enviar el mensaje Partner. Pongase en contacto con info@app2share.es para más información');
