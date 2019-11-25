@@ -218,7 +218,6 @@ img {
 @media(max-width: $d_large) {
     .home-content {
         height: auto;
-
         &__text {
             min-height: 0 !important;
             font-size: rem(18);
