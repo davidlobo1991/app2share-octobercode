@@ -812,7 +812,7 @@ img {
 @media (max-width: 1200px) {
   /* line 219, ../scss/base/_layout.scss */
   .home-content {
-    height: auto;
+    height: auto !important;
   }
   /* line 221, ../scss/base/_layout.scss */
   .home-content__text {
