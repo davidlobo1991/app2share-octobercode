@@ -1,0 +1,11 @@
+list: $/app2share/app/models/contactfinal/columns.yaml
+modelClass: App2share\App\Models\ContactFinal
+title: ContactFinal
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

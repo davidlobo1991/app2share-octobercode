@@ -1,0 +1,4 @@
+title: ContactFinal
+modelClass: App2share\App\Models\ContactFinal
+toolbar:
+    buttons: reorder_toolbar

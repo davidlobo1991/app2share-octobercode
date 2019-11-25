@@ -1,0 +1,4 @@
+title: ContactPartner
+modelClass: App2share\App\Models\ContactPartner
+toolbar:
+    buttons: reorder_toolbar

@@ -1,0 +1,25 @@
+columns:
+    id:
+        label: id
+        type: number
+    name:
+        label: name
+        type: text
+    email:
+        label: email
+        type: text
+    phone:
+        label: phone
+        type: text
+    sector:
+        label: sector
+        type: text
+    company:
+        label: company
+        type: text
+    created_at:
+        label: created_at
+        type: text
+    updated_at:
+        label: updated_at
+        type: text
