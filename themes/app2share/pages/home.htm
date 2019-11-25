@@ -5,6 +5,10 @@ is_hidden = 0
 
 [subscribeForm]
 doubleoptinPage = "double-option"
+
+[ContactFinal]
+
+[ContactPartner]
 ==
 <!--
 <div class="container">
@@ -24,101 +28,69 @@ doubleoptinPage = "double-option"
 </div>
 -->
 
-<div class="content clearfix">
-    <div class="row">
+<div class="content row clearfix">
         <div class="home-content col-lg-6 col-md-6 col-sm-12" id="background-left">
             <div class="container">
-                <h2>¿Quieres ahorrar?</h2>
-                <h3>+15 ofertas</h3>
-                <span>ya disponibles al apuntarse GRATIS</span>
+                <div class="home-content__text">
+                    <h2>¿Quieres ahorrar?</h2>
+                    <h3>+15 ofertas</h3>
+                    <span>ya disponibles al apuntarse GRATIS</span>
 
-                <p>
-                    Te regalamos la App 1 año en forma de ahorro.
-                </p>
+                    <p>
+                        Te regalamos la App 1 año en forma de ahorro.
+                    </p>
 
-                <div class="how-works">
-                    <a>¿Como funciona?</a>
-                    <div class="modal">
-                        Los primeros 49€
-                        de ahorro van
-                        de nuestra cuenta.
-                        Ojo! Solo los registrados
-                        hasta el 1 de abril
-                        1º bajate la app
-                        2º registrate
-                        3º empieza a ahorrar
+                    <div class="how-works">
+                        <a>¿Como funciona?</a>
+                        <div class="modal-works">
+                            Los primeros 49€
+                            de ahorro van
+                            de nuestra cuenta.
+                            Ojo! Solo los registrados
+                            hasta el 1 de abril
+                            1º bajate la app
+                            2º registrate
+                            3º empieza a ahorrar
+                        </div>
                     </div>
                 </div>
 
+            {% component 'ContactFinal' %}
 
-                <form class="form-home">
-                    <div class="form-group">
-                        <label for="name">Nombre</label>
-                        <input type="text" name="name" id="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Mail</label>
-                        <input type="text" name="mail" id="mail">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Tel.</label>
-                        <input type="text" name="tel" id="tel">
-                    </div>
-                </form>
             </div>
         </div>
         <div class="home-content col-lg-6 col-md-6 col-sm-12" id="background-right">
             <div class="container">
-                <h2>¿Quieres generar más ingresos?</h2>
-                <h3>+350 Sharers</h3>
-                <span>apuntados al lanzamiento esperando tu oferta</span>
+                <div class="home-content__text">
+                    <h2>¿Quieres generar más ingresos?</h2>
+                    <h3>+350 Sharers</h3>
+                    <span>apuntados al lanzamiento esperando tu oferta</span>
 
-                <p>
-                    Escríbenos y nos pondremos en contacto contigo.
-                </p>
+                    <p>
+                        Escríbenos y nos pondremos en contacto contigo.
+                    </p>
 
-                <div class="how-works">
-                    <a>¿Como funciona?</a>
-                    <div class="modal">
-                        Los primeros 49€
-                        de ahorro van
-                        de nuestra cuenta.
-                        Ojo! Solo los registrados
-                        hasta el 1 de abril
-                        1º bajate la app
-                        2º registrate
-                        3º empieza a ahorrar
+                    <div class="how-works">
+                        <a>¿Como funciona?</a>
+                        <div class="modal-works">
+                            Los primeros 49€
+                            de ahorro van
+                            de nuestra cuenta.
+                            Ojo! Solo los registrados
+                            hasta el 1 de abril
+                            1º bajate la app
+                            2º registrate
+                            3º empieza a ahorrar
+                        </div>
                     </div>
                 </div>
 
-
-                <form class="form-home">
-                    <div class="form-group">
-                        <label for="name">Nombre</label>
-                        <input type="text" name="name" id="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Mail</label>
-                        <input type="text" name="mail" id="mail">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Tel.</label>
-                        <input type="text" name="tel" id="tel">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Sector</label>
-                        <input type="text" name="sector" id="sector">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Empresa</label>
-                        <input type="text" name="empresa" id="empresa">
-                    </div>
-                </form>
+            {% component 'ContactPartner' %}
             </div>
-        </div>
     </div>
 </div>
 
+<!--
 <script>
     var end = new Date('04/01/2020 11:59 PM');
 
@@ -152,4 +124,4 @@ doubleoptinPage = "double-option"
     }
 
     timer = setInterval(showRemaining, 1000);
-</script>
+</script>-->

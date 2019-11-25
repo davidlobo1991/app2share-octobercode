@@ -23,3 +23,18 @@
 1.0.9:
     - 'Updated table app2share_app_offer'
     - builder_table_update_app2share_app_offer_2.php
+1.0.10:
+    - 'Created table app2share_app_contact_partner'
+    - builder_table_create_app2share_app_contact_partner.php
+1.0.11:
+    - 'Created table app2share_app_contact_final'
+    - builder_table_create_app2share_app_contact_final.php
+1.0.12:
+    - 'Updated table app2share_app_contact_partner'
+    - builder_table_update_app2share_app_contact_partner.php
+1.0.13:
+    - 'Updated table app2share_app_contact_final'
+    - builder_table_update_app2share_app_contact_final.php
+1.0.14:
+    - 'Updated table app2share_app_contact_final'
+    - builder_table_update_app2share_app_contact_final_2.php

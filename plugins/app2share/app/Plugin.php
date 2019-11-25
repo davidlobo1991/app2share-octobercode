@@ -57,6 +57,8 @@ class Plugin extends PluginBase
     {
         return [
             'App2share\App\Components\Map' => 'Map',
+            'App2share\App\Components\ContactFinal' => 'ContactFinal',
+            'App2share\App\Components\ContactPartner' => 'ContactPartner',
         ];
     }
 
@@ -107,6 +109,30 @@ class Plugin extends PluginBase
                     ],
                 ],
             ],
+            'contact' => [
+                'label'       => 'Contacto',
+                'url'         => Backend::url('app2share/app/contactpartner'),
+                'icon'        => 'icon-envelope',
+                'permissions' => ['app2share.app.changes'],
+                'order'       => 500,
+                'sideMenu'    => [
+                    'contactPartner' => [
+                        'label'       => 'Contacto Partner',
+                        'url'         => Backend::url('app2share/app/contactpartner'),
+                        'icon'        => 'icon-envelope',
+                        'permissions' => ['app2share.app.changes'],
+                    ],
+
+                    'contactFinal' => [
+                        'label'       => 'Contacto cliente final',
+                        'url'         => Backend::url('app2share/app/contactfinal'),
+                        'icon'        => 'icon-envelope',
+                        'permissions' => ['app2share.app.changes'],
+                        'order'       => 500,
+                    ],
+                ],
+            ],
+
         ];
     }
 }

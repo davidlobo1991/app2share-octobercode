@@ -128,10 +128,14 @@ img {
 
 .content {
     .home-content {
-        height: 100vh;
+        height: 130vh;
         padding: 50px 0;
         font-size: rem(25);
         text-align: center;
+
+        &__text {
+            min-height: 300px;
+        }
 
         .container {
             max-width: 620px;
@@ -170,7 +174,7 @@ img {
     }
 }
 
-.modal {
+.modal-works {
     display: none;
     position: absolute;
     top: 40px;
@@ -184,21 +188,43 @@ img {
     border-radius: 25px;
 }
 
-.modal.active {
+.modal-works.active {
     display: block;
 }
 
+@media(max-width: $d_large) {
+    .home-content {
+        &__text {
+            min-height: 0 !important;
+            font-size: rem(18);
+        }
+    }
+
+    h2 {
+        font-size: rem(20);
+    }
+}
 
 @media(max-width: $d_small) {
+    .logo {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: auto;
+        background: white;
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+    }
+
     .content {
+        margin-top: 70px;
+
         .home-content {
+            height: 100vh;
             background-size: 500% !important;
 
         }
     }
-
-    .test {
-        display: none;
-    }
-
 }
