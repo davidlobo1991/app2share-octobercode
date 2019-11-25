@@ -657,35 +657,34 @@ h2,
 h3,
 .h3 {
   margin: 25px 0 20px;
-  color: #00FF26;
   font-size: 30px ; font-size: 1.875rem;
 }
 
-/* line 62, ../scss/base/_layout.scss */
+/* line 61, ../scss/base/_layout.scss */
 h4,
 .h4 {
   margin: 20px 0 15px;
   font-size: 20px ; font-size: 1.25rem;
 }
 
-/* line 68, ../scss/base/_layout.scss */
+/* line 67, ../scss/base/_layout.scss */
 h5,
 .h5 {
   margin: 20px 0 15px;
   font-size: 16px ; font-size: 1rem;
 }
 
-/* line 79, ../scss/base/_layout.scss */
+/* line 78, ../scss/base/_layout.scss */
 p {
   margin: 10px 0 25px;
 }
 
-/* line 84, ../scss/base/_layout.scss */
+/* line 83, ../scss/base/_layout.scss */
 a img {
   border: 0;
 }
 
-/* line 89, ../scss/base/_layout.scss */
+/* line 88, ../scss/base/_layout.scss */
 hr {
   clear: both;
   height: 1px;
@@ -694,13 +693,13 @@ hr {
   margin: 40px 0;
 }
 
-/* line 97, ../scss/base/_layout.scss */
+/* line 96, ../scss/base/_layout.scss */
 img {
   max-width: 100%;
   height: auto;
 }
 
-/* line 102, ../scss/base/_layout.scss */
+/* line 101, ../scss/base/_layout.scss */
 .logo {
   position: fixed;
   bottom: 30px;
@@ -708,7 +707,7 @@ img {
   width: 160px;
 }
 
-/* line 116, ../scss/base/_layout.scss */
+/* line 115, ../scss/base/_layout.scss */
 .clearfix:after {
   content: ' ';
   clear: both;
@@ -716,27 +715,27 @@ img {
   height: 0;
 }
 
-/* line 129, ../scss/base/_layout.scss */
+/* line 128, ../scss/base/_layout.scss */
 .content {
   margin: 0;
 }
-/* line 132, ../scss/base/_layout.scss */
+/* line 131, ../scss/base/_layout.scss */
 .content .home-content {
   height: 100vh;
   padding: 50px 0;
   font-size: 25px ; font-size: 1.5625rem;
   text-align: center;
 }
-/* line 138, ../scss/base/_layout.scss */
+/* line 137, ../scss/base/_layout.scss */
 .content .home-content__text {
   min-height: 300px;
   font-size: 21px ; font-size: 1.3125rem;
 }
-/* line 143, ../scss/base/_layout.scss */
+/* line 142, ../scss/base/_layout.scss */
 .content .home-content .container {
   max-width: 620px;
 }
-/* line 147, ../scss/base/_layout.scss */
+/* line 146, ../scss/base/_layout.scss */
 .content .home-content#background-right {
   color: #1F4B7D;
   background: url(../image/fondo-derecha.svg);
@@ -744,16 +743,16 @@ img {
   background-size: 270%;
   background-position: -250px -100px;
 }
-/* line 154, ../scss/base/_layout.scss */
+/* line 153, ../scss/base/_layout.scss */
 .content .home-content#background-right h2 {
   color: #1F4B7D;
   border-color: #1F4B7D;
 }
-/* line 159, ../scss/base/_layout.scss */
+/* line 158, ../scss/base/_layout.scss */
 .content .home-content#background-right .how-works a:after {
   border-color: #1F4B7D;
 }
-/* line 164, ../scss/base/_layout.scss */
+/* line 163, ../scss/base/_layout.scss */
 .content .home-content#background-left {
   color: #fff;
   background: url(../image/fondo-izquierda.svg);
@@ -762,18 +761,18 @@ img {
   background-position: -180px -100px;
 }
 
-/* line 174, ../scss/base/_layout.scss */
+/* line 173, ../scss/base/_layout.scss */
 .how-works {
   position: relative;
   max-width: 300px;
   margin: 0 auto;
 }
-/* line 179, ../scss/base/_layout.scss */
+/* line 178, ../scss/base/_layout.scss */
 .how-works a {
   position: relative;
   cursor: pointer;
 }
-/* line 183, ../scss/base/_layout.scss */
+/* line 182, ../scss/base/_layout.scss */
 .how-works a:after {
   content: "";
   border: solid white;
@@ -787,7 +786,7 @@ img {
   right: -15px;
 }
 
-/* line 198, ../scss/base/_layout.scss */
+/* line 197, ../scss/base/_layout.scss */
 .modal-works {
   display: none;
   position: absolute;
@@ -804,29 +803,29 @@ img {
   border-radius: 25px;
 }
 
-/* line 214, ../scss/base/_layout.scss */
+/* line 213, ../scss/base/_layout.scss */
 .modal-works.active {
   display: block;
 }
 
 @media (max-width: 1200px) {
-  /* line 219, ../scss/base/_layout.scss */
+  /* line 218, ../scss/base/_layout.scss */
   .home-content {
     height: auto !important;
   }
-  /* line 221, ../scss/base/_layout.scss */
+  /* line 220, ../scss/base/_layout.scss */
   .home-content__text {
     min-height: 0 !important;
     font-size: 18px ; font-size: 1.125rem;
   }
 
-  /* line 227, ../scss/base/_layout.scss */
+  /* line 226, ../scss/base/_layout.scss */
   h2 {
     font-size: 20px ; font-size: 1.25rem;
   }
 }
 @media (max-width: 768px) {
-  /* line 233, ../scss/base/_layout.scss */
+  /* line 232, ../scss/base/_layout.scss */
   .logo {
     position: fixed;
     top: 0;
@@ -839,11 +838,11 @@ img {
     padding: 10px 0;
   }
 
-  /* line 245, ../scss/base/_layout.scss */
+  /* line 244, ../scss/base/_layout.scss */
   .content {
     margin-top: 70px;
   }
-  /* line 248, ../scss/base/_layout.scss */
+  /* line 247, ../scss/base/_layout.scss */
   .content .home-content {
     background-size: 500% !important;
   }
