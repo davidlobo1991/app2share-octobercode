@@ -42,7 +42,7 @@ h1,
 
 h2,
 .h2 {
-    font-size: rem(27);
+    font-size: rem(24);
     border-radius: 50px;
     border: 1px solid white;
     display: inline-block;
@@ -127,14 +127,16 @@ img {
 // ===========================================================
 
 .content {
+    margin: 0;
+
     .home-content {
-        height: 130vh;
         padding: 50px 0;
         font-size: rem(25);
         text-align: center;
 
         &__text {
             min-height: 300px;
+            font-size: rem(21);
         }
 
         .container {
@@ -151,6 +153,10 @@ img {
             h2 {
                 color: $main_color;
                 border-color: $main_color;
+            }
+
+            .how-works a:after {
+                border-color: #1F4B7D;
             }
         }
 
@@ -170,7 +176,21 @@ img {
     margin: 0 auto;
 
     a {
+        position: relative;
         cursor: pointer;
+
+        &:after {
+            content: "";
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 3px;
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            top: 10px;
+            position: absolute;
+            right: -15px;
+        }
     }
 }
 
@@ -183,6 +203,8 @@ img {
     height: 300px;
     margin: 0 auto;
     padding: 20px;
+    color: white;
+    font-size: rem(20);
     background: rgba(0,0,0,0.9);
     border: 1px solid white;
     border-radius: 25px;
@@ -222,7 +244,6 @@ img {
         margin-top: 70px;
 
         .home-content {
-            height: 100vh;
             background-size: 500% !important;
 
         }

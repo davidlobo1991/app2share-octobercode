@@ -1,5 +1,6 @@
 .form-home {
-    margin: 30px 45px;
+    margin: 15px 45px;
+    font-size: 14px;
     text-align: left;
 
     .form-group {
@@ -10,7 +11,13 @@
             display: inline-block;
             width: 105px;
         }
-
     }
+}
 
+@media(max-width: $d_large) {
+    .form-home {
+        .form-group {
+            margin: 0 auto;
+        }
+    }
 }
