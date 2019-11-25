@@ -13,6 +13,6 @@ class ContactFinal extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('App2share.App', 'contactFinal', 'contactPartner');
+        BackendMenu::setContext('App2share.App', 'contact', 'contactFinal');
     }
 }

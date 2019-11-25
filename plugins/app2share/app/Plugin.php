@@ -132,7 +132,6 @@ class Plugin extends PluginBase
                     ],
                 ],
             ],
-
         ];
     }
 }
