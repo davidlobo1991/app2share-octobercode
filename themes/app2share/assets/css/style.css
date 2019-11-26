@@ -643,48 +643,42 @@ h1,
 /* line 43, ../scss/base/_layout.scss */
 h2,
 .h2 {
-  font-size: 24px ; font-size: 1.5rem;
-  border-radius: 50px;
-  border: 1px solid white;
-  display: inline-block;
-  padding: 10px 20px;
-  margin: 0 auto;
-  color: white;
-  background: rgba(255, 255, 255, 0.1);
+  font-size: 40px ; font-size: 2.5rem;
+  font-weight: 600;
 }
 
-/* line 55, ../scss/base/_layout.scss */
+/* line 49, ../scss/base/_layout.scss */
 h3,
 .h3 {
   margin: 25px 0 20px;
   font-size: 30px ; font-size: 1.875rem;
 }
 
-/* line 61, ../scss/base/_layout.scss */
+/* line 55, ../scss/base/_layout.scss */
 h4,
 .h4 {
   margin: 20px 0 15px;
   font-size: 20px ; font-size: 1.25rem;
 }
 
-/* line 67, ../scss/base/_layout.scss */
+/* line 61, ../scss/base/_layout.scss */
 h5,
 .h5 {
   margin: 20px 0 15px;
   font-size: 16px ; font-size: 1rem;
 }
 
-/* line 78, ../scss/base/_layout.scss */
+/* line 72, ../scss/base/_layout.scss */
 p {
   margin: 10px 0 25px;
 }
 
-/* line 83, ../scss/base/_layout.scss */
+/* line 77, ../scss/base/_layout.scss */
 a img {
   border: 0;
 }
 
-/* line 88, ../scss/base/_layout.scss */
+/* line 82, ../scss/base/_layout.scss */
 hr {
   clear: both;
   height: 1px;
@@ -693,13 +687,13 @@ hr {
   margin: 40px 0;
 }
 
-/* line 96, ../scss/base/_layout.scss */
+/* line 90, ../scss/base/_layout.scss */
 img {
   max-width: 100%;
   height: auto;
 }
 
-/* line 101, ../scss/base/_layout.scss */
+/* line 95, ../scss/base/_layout.scss */
 .logo {
   position: fixed;
   bottom: 30px;
@@ -707,7 +701,7 @@ img {
   width: 160px;
 }
 
-/* line 115, ../scss/base/_layout.scss */
+/* line 109, ../scss/base/_layout.scss */
 .clearfix:after {
   content: ' ';
   clear: both;
@@ -715,27 +709,27 @@ img {
   height: 0;
 }
 
-/* line 128, ../scss/base/_layout.scss */
+/* line 122, ../scss/base/_layout.scss */
 .content {
   margin: 0;
 }
-/* line 131, ../scss/base/_layout.scss */
+/* line 125, ../scss/base/_layout.scss */
 .content .home-content {
   height: 100vh;
   padding: 50px 0;
   font-size: 25px ; font-size: 1.5625rem;
   text-align: center;
 }
-/* line 137, ../scss/base/_layout.scss */
+/* line 131, ../scss/base/_layout.scss */
 .content .home-content__text {
   min-height: 300px;
-  font-size: 21px ; font-size: 1.3125rem;
+  font-size: 19px ; font-size: 1.1875rem;
 }
-/* line 142, ../scss/base/_layout.scss */
+/* line 136, ../scss/base/_layout.scss */
 .content .home-content .container {
   max-width: 620px;
 }
-/* line 146, ../scss/base/_layout.scss */
+/* line 140, ../scss/base/_layout.scss */
 .content .home-content#background-right {
   color: #1F4B7D;
   background: url(../image/fondo-derecha.svg);
@@ -743,16 +737,18 @@ img {
   background-size: 270%;
   background-position: -250px -100px;
 }
-/* line 153, ../scss/base/_layout.scss */
-.content .home-content#background-right h2 {
-  color: #1F4B7D;
+/* line 147, ../scss/base/_layout.scss */
+.content .home-content#background-right .how-works a {
   border-color: #1F4B7D;
 }
-/* line 158, ../scss/base/_layout.scss */
-.content .home-content#background-right .how-works a:after {
+/* line 150, ../scss/base/_layout.scss */
+.content .home-content#background-right .how-works a:hover {
+  color: white !important;
+  background: url(../image/fondo-izquierda.svg);
+  background-color: #1F4B7D;
   border-color: #1F4B7D;
 }
-/* line 163, ../scss/base/_layout.scss */
+/* line 159, ../scss/base/_layout.scss */
 .content .home-content#background-left {
   color: #fff;
   background: url(../image/fondo-izquierda.svg);
@@ -761,32 +757,34 @@ img {
   background-position: -180px -100px;
 }
 
-/* line 173, ../scss/base/_layout.scss */
+/* line 169, ../scss/base/_layout.scss */
 .how-works {
   position: relative;
   max-width: 300px;
   margin: 0 auto;
 }
-/* line 178, ../scss/base/_layout.scss */
+/* line 174, ../scss/base/_layout.scss */
 .how-works a {
   position: relative;
+  display: inline-block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  border: 1px solid white;
+  border-radius: 50px;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 1.5rem;
   cursor: pointer;
 }
-/* line 182, ../scss/base/_layout.scss */
-.how-works a:after {
-  content: "";
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  top: 10px;
-  position: absolute;
-  right: -15px;
+/* line 186, ../scss/base/_layout.scss */
+.how-works a:hover {
+  color: #1F4B7D !important;
+  background: url(../image/fondo-derecha.svg);
+  background-color: white;
+  border-color: #1F4B7D;
 }
 
-/* line 197, ../scss/base/_layout.scss */
+/* line 195, ../scss/base/_layout.scss */
 .modal-works {
   display: none;
   position: absolute;
@@ -803,29 +801,34 @@ img {
   border-radius: 25px;
 }
 
-/* line 213, ../scss/base/_layout.scss */
+/* line 211, ../scss/base/_layout.scss */
 .modal-works.active {
   display: block;
 }
 
 @media (max-width: 1200px) {
-  /* line 218, ../scss/base/_layout.scss */
+  /* line 216, ../scss/base/_layout.scss */
   .home-content {
     height: auto !important;
   }
-  /* line 220, ../scss/base/_layout.scss */
+  /* line 218, ../scss/base/_layout.scss */
   .home-content__text {
     min-height: 0 !important;
     font-size: 18px ; font-size: 1.125rem;
   }
 
-  /* line 226, ../scss/base/_layout.scss */
+  /* line 224, ../scss/base/_layout.scss */
   h2 {
-    font-size: 20px ; font-size: 1.25rem;
+    font-size: 30px ; font-size: 1.875rem;
+  }
+
+  /* line 228, ../scss/base/_layout.scss */
+  #layout-content {
+    margin-top: 100px;
   }
 }
 @media (max-width: 768px) {
-  /* line 232, ../scss/base/_layout.scss */
+  /* line 234, ../scss/base/_layout.scss */
   .logo {
     position: fixed;
     top: 0;
@@ -838,11 +841,11 @@ img {
     padding: 10px 0;
   }
 
-  /* line 244, ../scss/base/_layout.scss */
+  /* line 246, ../scss/base/_layout.scss */
   .content {
     margin-top: 70px;
   }
-  /* line 247, ../scss/base/_layout.scss */
+  /* line 249, ../scss/base/_layout.scss */
   .content .home-content {
     background-size: 500% !important;
   }

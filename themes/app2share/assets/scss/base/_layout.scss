@@ -42,14 +42,8 @@ h1,
 
 h2,
 .h2 {
-    font-size: rem(24);
-    border-radius: 50px;
-    border: 1px solid white;
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 0 auto;
-    color: white;
-    background: rgba(255,255,255,0.1);
+    font-size: rem(40);
+    font-weight: 600;
 }
 
 h3,
@@ -136,7 +130,7 @@ img {
 
         &__text {
             min-height: 300px;
-            font-size: rem(21);
+            font-size: rem(19);
         }
 
         .container {
@@ -150,13 +144,15 @@ img {
             background-size: 270%;
             background-position: -250px -100px;
 
-            h2 {
-                color: $main_color;
+            .how-works a {
                 border-color: $main_color;
-            }
 
-            .how-works a:after {
-                border-color: #1F4B7D;
+                &:hover {
+                    color: white !important;
+                    background: url(../image/fondo-izquierda.svg);
+                    background-color: $main_color;
+                    border-color: $main_color;
+                }
             }
         }
 
@@ -177,19 +173,21 @@ img {
 
     a {
         position: relative;
+        display: inline-block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        border: 1px solid white;
+        border-radius: 50px;
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+        font-size: 1.5rem;
         cursor: pointer;
 
-        &:after {
-            content: "";
-            border: solid white;
-            border-width: 0 3px 3px 0;
-            display: inline-block;
-            padding: 3px;
-            transform: rotate(45deg);
-            -webkit-transform: rotate(45deg);
-            top: 10px;
-            position: absolute;
-            right: -15px;
+        &:hover {
+            color: $main_color !important;
+            background: url(../image/fondo-derecha.svg);
+            background-color: white;
+            border-color: $main_color;
         }
     }
 }
@@ -224,7 +222,11 @@ img {
     }
 
     h2 {
-        font-size: rem(20);
+        font-size: rem(30);
+    }
+
+    #layout-content {
+        margin-top: 100px;
     }
 }
 
