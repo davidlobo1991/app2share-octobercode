@@ -212,6 +212,10 @@ img {
     border-radius: 25px;
 }
 
+#layout-privacy {
+    margin-top: 100px;
+}
+
 .active {
     display: inline-block !important;
 }
@@ -229,9 +233,6 @@ img {
         font-size: rem(30);
     }
 
-    #layout-content {
-        margin-top: 100px;
-    }
 }
 
 @media(max-width: $d_small) {

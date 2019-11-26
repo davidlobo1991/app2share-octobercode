@@ -808,33 +808,33 @@ img {
 }
 
 /* line 215, ../scss/base/_layout.scss */
+#layout-privacy {
+  margin-top: 100px;
+}
+
+/* line 219, ../scss/base/_layout.scss */
 .active {
   display: inline-block !important;
 }
 
 @media (max-width: 1200px) {
-  /* line 220, ../scss/base/_layout.scss */
+  /* line 224, ../scss/base/_layout.scss */
   .home-content {
     height: auto !important;
   }
-  /* line 222, ../scss/base/_layout.scss */
+  /* line 226, ../scss/base/_layout.scss */
   .home-content__text {
     min-height: 0 !important;
     font-size: 18px ; font-size: 1.125rem;
   }
 
-  /* line 228, ../scss/base/_layout.scss */
+  /* line 232, ../scss/base/_layout.scss */
   h2 {
     font-size: 30px ; font-size: 1.875rem;
   }
-
-  /* line 232, ../scss/base/_layout.scss */
-  #layout-content {
-    margin-top: 100px;
-  }
 }
 @media (max-width: 768px) {
-  /* line 238, ../scss/base/_layout.scss */
+  /* line 239, ../scss/base/_layout.scss */
   .logo {
     position: fixed;
     top: 0;
@@ -847,11 +847,11 @@ img {
     padding: 10px 0;
   }
 
-  /* line 250, ../scss/base/_layout.scss */
+  /* line 251, ../scss/base/_layout.scss */
   .content {
     margin-top: 70px;
   }
-  /* line 253, ../scss/base/_layout.scss */
+  /* line 254, ../scss/base/_layout.scss */
   .content .home-content {
     background-size: 500% !important;
   }
