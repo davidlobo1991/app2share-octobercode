@@ -784,11 +784,17 @@ img {
   border-color: #1F4B7D;
 }
 
-/* line 195, ../scss/base/_layout.scss */
+/* line 194, ../scss/base/_layout.scss */
+.modal-close {
+  display: none;
+  margin-left: 10px;
+}
+
+/* line 199, ../scss/base/_layout.scss */
 .modal-works {
   display: none;
   position: absolute;
-  top: 40px;
+  top: 60px;
   left: 0;
   width: 300px;
   height: 300px;
@@ -801,34 +807,34 @@ img {
   border-radius: 25px;
 }
 
-/* line 211, ../scss/base/_layout.scss */
-.modal-works.active {
-  display: block;
+/* line 215, ../scss/base/_layout.scss */
+.active {
+  display: inline-block !important;
 }
 
 @media (max-width: 1200px) {
-  /* line 216, ../scss/base/_layout.scss */
+  /* line 220, ../scss/base/_layout.scss */
   .home-content {
     height: auto !important;
   }
-  /* line 218, ../scss/base/_layout.scss */
+  /* line 222, ../scss/base/_layout.scss */
   .home-content__text {
     min-height: 0 !important;
     font-size: 18px ; font-size: 1.125rem;
   }
 
-  /* line 224, ../scss/base/_layout.scss */
+  /* line 228, ../scss/base/_layout.scss */
   h2 {
     font-size: 30px ; font-size: 1.875rem;
   }
 
-  /* line 228, ../scss/base/_layout.scss */
+  /* line 232, ../scss/base/_layout.scss */
   #layout-content {
     margin-top: 100px;
   }
 }
 @media (max-width: 768px) {
-  /* line 234, ../scss/base/_layout.scss */
+  /* line 238, ../scss/base/_layout.scss */
   .logo {
     position: fixed;
     top: 0;
@@ -841,11 +847,11 @@ img {
     padding: 10px 0;
   }
 
-  /* line 246, ../scss/base/_layout.scss */
+  /* line 250, ../scss/base/_layout.scss */
   .content {
     margin-top: 70px;
   }
-  /* line 249, ../scss/base/_layout.scss */
+  /* line 253, ../scss/base/_layout.scss */
   .content .home-content {
     background-size: 500% !important;
   }

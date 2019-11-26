@@ -1,3 +1,4 @@
 $(".how-works a").on('click', function (e) {
-   $(this).siblings('.modal-works').toggleClass('active');
+    $(this).find('.modal-close').toggleClass('active');
+    $(this).siblings('.modal-works').toggleClass('active');
 });

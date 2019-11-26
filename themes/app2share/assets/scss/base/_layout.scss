@@ -191,11 +191,15 @@ img {
         }
     }
 }
+.modal-close {
+    display: none;
+    margin-left: 10px;
+}
 
 .modal-works {
     display: none;
     position: absolute;
-    top: 40px;
+    top: 60px;
     left: 0;
     width: 300px;
     height: 300px;
@@ -208,8 +212,8 @@ img {
     border-radius: 25px;
 }
 
-.modal-works.active {
-    display: block;
+.active {
+    display: inline-block !important;
 }
 
 @media(max-width: $d_large) {
