@@ -16,6 +16,7 @@ sftp-config.json
 .ftpconfig
 selenium.php
 composer.lock
+/themes/app2share/assets/.sass-cache/*
 
 # for netbeans
 nbproject

@@ -1,0 +1,22 @@
+.header {
+    background: url(../image/fondo-derecha.svg);
+
+    .header-top {
+        padding: 20px 0;
+
+        #second-logo {
+            display: block;
+            margin: 15px 0;
+        }
+
+        #form-search {
+            margin: 15px 0;
+        }
+    }
+}
+
+@media(max-width: $d_small) {
+    .header {
+        text-align: center;
+    }
+}

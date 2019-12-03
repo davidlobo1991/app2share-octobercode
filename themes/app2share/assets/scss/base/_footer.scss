@@ -1,0 +1,19 @@
+.footer {
+    padding: 40px 0;
+    background: url(../image/fondo-derecha.svg);
+
+    ul {
+        padding-left: 0;
+
+        li {
+            list-style: none;
+        }
+    }
+}
+
+@media(max-width: $d_small) {
+    .footer {
+        text-align: center;
+    }
+
+}

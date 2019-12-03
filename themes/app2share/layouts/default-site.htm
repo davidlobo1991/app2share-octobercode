@@ -1,0 +1,62 @@
+description = "Default layout"
+
+[session]
+security = "all"
+==
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>App2Share - {{ this.page.title }}</title>
+    <meta name="description" content="{{ this.page.meta_description }}">
+    <meta name="title" content="{{ this.page.meta_title }}">
+    <meta name="author" content="OctoberCMS">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="OctoberCMS">
+
+    <meta name="theme-color" content="#F0DB4F">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="shortcut icon" type="image/png" href="./img/ProgramadorFitness.png">
+    <link rel="apple-touch-icon" href="./ProgramadorFitness.png">
+    <link rel="apple-touch-startup-image" href="./ProgramadorFitness.png">
+    <link rel="manifest" href="{{ 'manifest.json'|theme }}">
+
+
+    <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}">
+<!--
+    <link href="{{ 'assets/css/vendor/bootstrap-grid.min.css'|theme }}" rel="stylesheet">
+-->
+    <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
+    <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
+    <link href="{{ 'assets/css/leaflet.css'|theme }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="{{ 'assets/css/style.css'|theme }}" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    {% styles %}
+</head>
+<body>
+
+{% partial 'site/header' %}
+<section id="layout-content">
+    {% page %}
+</section>
+ {% partial 'site/footer' %}
+
+<!-- Scripts -->
+<script src="{{ 'assets/js/jquery.js'|theme }}"></script>
+<script src="{{ 'assets/js/leaflet.js'|theme }}"></script>
+<script src="{{ 'assets/js/leaflet-gps.js'|theme }}"></script>
+<script src="{{ 'assets/js/functions.js'|theme }}"></script>
+<script src="{{ 'assets/js/sw.js'|theme }}"></script>
+
+
+{% framework %}
+{% framework extras %}
+{% scripts %}
+
+</body>
+</html>
