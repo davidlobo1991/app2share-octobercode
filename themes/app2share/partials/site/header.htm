@@ -1,35 +1,44 @@
- <div class="header clearfix">
-        <div class="container">
+        <div class="header clearfix">
             <div class="header-top">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <a href="" title="Zur Startseite" id="main-logo" class="logo-site"><img src="{{ 'assets/image/logo.png'|theme }}" alt="Logo" title="Logo"></a>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <a href="" title="Zur Startseite" id="main-logo" class="logo-site"><img src="{{ 'assets/image/logo.svg'|theme }}" alt="Logo" title="Logo"></a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="" title="Zur Startseite" id="second-logo" class="logo-site"><img src="{{ 'assets/image/sharing.png'|theme }}" alt="Logo" title="Sharing"></a>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" placeholder="Buscar ofertas por tu zona" class="form-control" id="form-search" />
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <a href="" title="Zur Startseite" id="second-logo" class="logo-site"><img src="{{ 'assets/image/sharing.png'|theme }}" alt="Logo" title="Sharing"></a>
+            </div>
+
+                <div class="header-bottom">
+                    <div class="container">
+                <nav class="main-nav">
+                    <ul class="container">
+                        <li><a href="">Inicio</a></li>
+                        <li><a href="">Ofertas</a></li>
+                        <li><a href="">Eventos</a></li>
+                        <li><a href="">Así funciona</a></li>
+                        <li><a href="">Comprar</a></li>
+                    </ul>
+                    <ul class="nav-lang">
+                        <li><img src="{{ 'assets/image/icons/lang/es.png'|theme }}" alt="es" /></li>
+                        <li><img src="{{ 'assets/image/icons/lang/de.png'|theme }}" alt="de" /></li>
+                        <li><img src="{{ 'assets/image/icons/lang/en.png'|theme }}" alt="en" /></li>
+                    </ul>
+                </nav>
                     </div>
-                    <div class="col-sm-4">
-                        <input type="text" placeholder="Buscar ofertas por tu zona" class="form-control" id="form-search" />
-                    </div>
+
+                <div class="nav-user" style="display: none;">
+                    <ul>
+                        <li><a href="">Registrar</a></li>
+                        <li><a href="">Login</a></li>
+                    </ul>
                 </div>
-            </div>
-
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="">Inicio</a></li>
-                    <li><a href="">Ofertas</a></li>
-                    <li><a href="">Eventos</a></li>
-                    <li><a href="">Así funciona</a></li>
-                    <li><a href="">Comprar</a></li>
-                </ul>
-            </nav>
-
-            <div class="nav-user">
-                <ul>
-                    <li><a href="">Registrar</a></li>
-                    <li><a href="">Login</a></li>
-                </ul>
-            </div>
+                </div>
         </div>
  </div>
  </div>

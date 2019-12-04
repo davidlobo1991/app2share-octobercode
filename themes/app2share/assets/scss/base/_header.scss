@@ -1,8 +1,18 @@
 .header {
-    background: url(../image/fondo-derecha.svg);
+    color: $c_white;
+    background: url(../image/fondo-izquierda.svg);
+    background-color: $main_color;
+    background-size: 100%;
+    background-position: 10px;
 
     .header-top {
         padding: 20px 0;
+
+        .logo-site {
+            img {
+                width: 260px;
+            }
+        }
 
         #second-logo {
             display: block;

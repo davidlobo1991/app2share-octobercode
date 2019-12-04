@@ -1,12 +1,19 @@
 .footer {
     padding: 40px 0;
-    background: url(../image/fondo-derecha.svg);
+    background: url(../image/fondo-izquierda.svg) #1F4B7D;
+    background-position: 10px;
+    color: white;
 
     ul {
         padding-left: 0;
 
         li {
             list-style: none;
+
+            a {
+                color: #fff;
+                font-weight: 600;
+            }
         }
     }
 }

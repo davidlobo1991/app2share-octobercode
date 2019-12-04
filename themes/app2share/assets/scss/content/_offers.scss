@@ -3,3 +3,40 @@ iframe {
         width: 100%;
     }
 }
+
+.content-page {
+    &__address {
+        margin-bottom: 10px;
+
+        h1 {
+            margin: 0 0 5px;
+        }
+    }
+
+
+
+    &__info {
+        height: 100%;
+        padding: 30px;
+        color: $main_color;
+        background: url(../image/fondo-derecha.svg);
+        background-color: $c_white;
+        background-size: 270%;
+        background-position: -250px -100px;
+
+        &-spar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 20px;
+            background: url(../image/fondo-izquierda.svg) #1F4B7D;
+            background-position: 10px;
+            color: white;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        }
+    }
+
+

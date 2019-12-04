@@ -12,6 +12,7 @@ $(document).on('ready', function () {
         asNavFor: '.slider-for',
         dots: true,
         centerMode: true,
-        focusOnSelect: true
+        focusOnSelect: true,
+        infinite: true
     });
 });

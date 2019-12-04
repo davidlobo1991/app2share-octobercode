@@ -3,12 +3,46 @@
 // ===========================================================
 
 .main-nav {
+    margin-top: 20px;
+    border-radius: 5px;
+    background: url(../image/fondo-derecha.svg) #fff;
+    background-position: 10px;
+
+    .nav-lang {
+        float: right;
+        margin: 10px 30px;
+
+        li {
+            margin-left: 15px;
+
+            img {
+                width: 35px;
+            }
+        }
+    }
+
     ul {
+        display: inline;
+        margin-bottom: 0;
         padding-left: 0;
 
         li {
             display: inline-block;
-            margin-right: 20px;
+
+            a {
+                display: block;
+                padding: 10px 20px;
+                color: #1f4b7d;
+                font-size: 18px;
+                font-weight: 600;
+                text-transform: uppercase;
+
+                &:hover {
+                    color: #fff;
+                    background: url(../image/fondo-izquierda.svg) #1f4b7d;
+                    text-decoration: none;
+                }
+            }
         }
     }
 }
