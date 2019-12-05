@@ -1061,3 +1061,22 @@ iframe.map {
   font-size: 18px;
   font-weight: 600;
 }
+
+/* line 42, ../scss/content/_offers.scss */
+.slider-for {
+  max-height: 350px;
+}
+/* line 46, ../scss/content/_offers.scss */
+.slider-for .slick-slide img {
+  width: 100%;
+  margin-bottom: 20px;
+  object-fit: contain;
+  height: 300px;
+}
+
+/* line 56, ../scss/content/_offers.scss */
+.slider-nav img {
+  width: 300px !important;
+  height: 100px;
+  padding: 10px;
+}

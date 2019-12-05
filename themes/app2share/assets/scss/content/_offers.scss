@@ -37,6 +37,25 @@ iframe {
             font-weight: 600;
         }
         }
+}
+
+.slider-for {
+    max-height: 350px;
+
+    .slick-slide {
+        img {
+            width: 100%;
+            margin-bottom: 20px;
+            object-fit: contain;
+            height: 300px;
+        }
     }
+}
 
-
+.slider-nav {
+    img {
+        width: 300px !important;
+        height: 100px;
+        padding: 10px;
+    }
+}
