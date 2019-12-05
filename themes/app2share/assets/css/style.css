@@ -1074,7 +1074,19 @@ iframe.map {
   height: 300px;
 }
 
-/* line 56, ../scss/content/_offers.scss */
+/* line 55, ../scss/content/_offers.scss */
+.use-offer {
+  position: absolute;
+  color: white;
+  cursor: pointer;
+  background: url(../image/fondo-izquierda.svg) #1F4B7D;
+  bottom: 50px;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* line 67, ../scss/content/_offers.scss */
 .slider-nav img {
   width: 300px !important;
   height: 100px;

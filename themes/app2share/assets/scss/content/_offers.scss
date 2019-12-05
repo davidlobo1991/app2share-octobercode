@@ -52,6 +52,17 @@ iframe {
     }
 }
 
+.use-offer {
+    position: absolute;
+    color: white;
+    cursor: pointer;
+    background: url(../image/fondo-izquierda.svg) #1F4B7D;
+    bottom: 50px;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
 .slider-nav {
     img {
         width: 300px !important;
