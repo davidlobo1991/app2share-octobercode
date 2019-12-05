@@ -61,6 +61,11 @@ iframe {
     font-size: 16px;
     text-transform: uppercase;
     font-weight: 600;
+
+    &:hover {
+        background: url(../image/fondo-derecha.svg) #fff;
+        border: 1px solid #1F4B7D;
+    }
 }
 
 .slider-nav {

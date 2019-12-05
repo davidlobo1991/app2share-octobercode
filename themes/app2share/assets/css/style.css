@@ -1085,8 +1085,13 @@ iframe.map {
   text-transform: uppercase;
   font-weight: 600;
 }
+/* line 65, ../scss/content/_offers.scss */
+.use-offer:hover {
+  background: url(../image/fondo-derecha.svg) #fff;
+  border: 1px solid #1F4B7D;
+}
 
-/* line 67, ../scss/content/_offers.scss */
+/* line 72, ../scss/content/_offers.scss */
 .slider-nav img {
   width: 300px !important;
   height: 100px;
