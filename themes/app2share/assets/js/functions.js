@@ -3,7 +3,8 @@
         slidesToScroll: 1,
         arrows: false,
         fade: true,
-        asNavFor: '.slider-nav'
+        asNavFor: '.slider-nav',
+        autoplay: true
     });
     $('.slider-nav').slick({
         slidesToShow: 3,
@@ -11,7 +12,8 @@
         asNavFor: '.slider-for',
         dots: true,
         centerMode: true,
-        focusOnSelect: true
+        focusOnSelect: true,
+        autoplay: true
     });
 
     $(".how-works a").on('click', function (e) {
