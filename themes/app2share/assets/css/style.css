@@ -1070,11 +1070,10 @@ iframe.map {
 .slider-for .slick-slide img {
   width: 100%;
   margin-bottom: 20px;
-  object-fit: contain;
   height: 300px;
 }
 
-/* line 55, ../scss/content/_offers.scss */
+/* line 54, ../scss/content/_offers.scss */
 .use-offer {
   position: absolute;
   color: white;
@@ -1085,13 +1084,13 @@ iframe.map {
   text-transform: uppercase;
   font-weight: 600;
 }
-/* line 65, ../scss/content/_offers.scss */
+/* line 64, ../scss/content/_offers.scss */
 .use-offer:hover {
   background: url(../image/fondo-derecha.svg) #fff;
   border: 1px solid #1F4B7D;
 }
 
-/* line 72, ../scss/content/_offers.scss */
+/* line 71, ../scss/content/_offers.scss */
 .slider-nav img {
   width: 300px !important;
   height: 100px;
