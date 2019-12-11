@@ -3,7 +3,7 @@
   "short_name": "#App2Share",
   "description": "test",
   "background_color": "#2B2B2B",
-  "theme_color": "#F0DB4F",
+  "theme_color": "#1F4B7D",
   "orientation": "portrait",
   "display": "standalone",
   "start_url": "./?utm_source=web_app_manifest",
