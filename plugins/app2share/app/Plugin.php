@@ -59,6 +59,7 @@ class Plugin extends PluginBase
             'App2share\App\Components\Map' => 'Map',
             'App2share\App\Components\ContactFinal' => 'ContactFinal',
             'App2share\App\Components\ContactPartner' => 'ContactPartner',
+            'App2share\App\Components\OfferValoration' => 'OfferValoration',
         ];
     }
 

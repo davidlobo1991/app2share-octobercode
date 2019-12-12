@@ -3,8 +3,9 @@ url = "/oferta/:slug"
 layout = "default-site"
 is_hidden = 0
 
-slug = "{{ :slug }}"
+[OfferValoration]
 ==
+<?php
 use App2share\App\Models\Offer;
 
 function onStart()
@@ -17,9 +18,8 @@ $this["offer"] = $offer;
 $this["partner"] = $partner;
 
 }
-
+?>
 ==
-
 <div class="content-wrap">
     <!-- Start CONTENT -->
     <div class="content">
@@ -63,6 +63,9 @@ $this["partner"] = $partner;
                     </div>
                 </div>
             </div>
+            
+            {% component 'OfferValoration' %}
+            
             {% else %}
             No existe
             {% endif %}
@@ -70,5 +73,3 @@ $this["partner"] = $partner;
     </div>
     <!-- End CONTENT -->
 </div>
-
-

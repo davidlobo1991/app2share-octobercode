@@ -38,3 +38,12 @@
 1.0.14:
     - 'Updated table app2share_app_contact_final'
     - builder_table_update_app2share_app_contact_final_2.php
+1.0.15:
+    - 'Created table app2share_app_offer_valorations'
+    - builder_table_create_app2share_app_offer_valorations.php
+1.0.16:
+    - 'Updated table app2share_app_offer_valorations'
+    - builder_table_update_app2share_app_offer_valoration.php
+1.0.17:
+    - 'Updated table app2share_app_offer_valoration'
+    - builder_table_update_app2share_app_offer_valoration_2.php
