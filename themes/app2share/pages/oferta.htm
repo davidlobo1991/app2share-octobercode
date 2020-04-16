@@ -1,6 +1,6 @@
 title = "Oferta"
 url = "/oferta/:slug"
-layout = "default-site"
+layout = "default"
 is_hidden = 0
 
 [OfferValoration]
@@ -63,9 +63,9 @@ $this["partner"] = $partner;
                     </div>
                 </div>
             </div>
-            
+
             {% component 'OfferValoration' %}
-            
+
             {% else %}
             No existe
             {% endif %}

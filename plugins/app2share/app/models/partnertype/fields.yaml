@@ -13,3 +13,8 @@ fields:
             extension: auto
         span: auto
         type: fileupload
+    slug:
+        label: Slug
+        span: auto
+        type: text
+        comment: 'Minisculas y sin espacios'

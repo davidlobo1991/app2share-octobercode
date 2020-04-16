@@ -47,3 +47,9 @@
 1.0.17:
     - 'Updated table app2share_app_offer_valoration'
     - builder_table_update_app2share_app_offer_valoration_2.php
+1.0.18:
+    - 'Updated table app2share_app_parnter_type'
+    - builder_table_update_app2share_app_parnter_type.php
+1.0.19:
+    - 'Updated table app2share_app_offer'
+    - builder_table_update_app2share_app_offer_3.php

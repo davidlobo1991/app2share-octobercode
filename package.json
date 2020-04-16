@@ -1,0 +1,25 @@
+{
+  "name": "app2share",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r     <img src=\"https://github.com/octobercms/october/blob/master/themes/demo/assets/images/october.png?raw=true\" alt=\"October\" width=\"25%\" height=\"25%\" />\r </p>",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/app2share/app2share.git"
+  },
+  "author": "David Gonzalez | App2Share",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/app2share/app2share/issues"
+  },
+  "homepage": "https://gitlab.com/app2share/app2share#readme",
+  "dependencies": {
+    "vue": "^2.6.11"
+  }
+}
