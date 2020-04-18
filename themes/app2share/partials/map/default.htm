@@ -1,12 +1,28 @@
 <div id="filter-map">
-    <div id="mapid" style="height:500px;"></div>
+    <div class="row" style="margin: 0 !important;">
+        <div id="mapid" style="height:100vh; width: 50%;"></div>
 
-    <ul>
-        {{offersArray[0].id}}
-        <li v-for="offer in offersArray">
-            <span> {{ offer.id }}</span>
-        </li>
-    </ul>
+
+        <div class="filter-list">
+            <div id="mapFilter">
+                <ul>
+                    <li v-for="partnerType in partnerTypesArray">
+                        <button :data-type="partnerType.slug" v-html="partnerType.name"
+                                v-on:click="filterPartner(partnerType.slug)"
+                                :class="{'selected': hasThisFilter(partnerType.slug)}"
+                        ></button>
+
+                    </li>
+                </ul>
+            </div>
+
+            <ul>
+                <li v-for="offer in offersArray">
+                    <span :id="offer.id" v-html="getOffer(offer)"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 
@@ -18,7 +34,13 @@
         el: '#filter-map',
         data: {
             offersArray: [],
+            partnerTypesArray: [],
             offers: '{{ offers|raw }}',
+            partnerTypes: '{{ partnerTypes|raw }}',
+            map: null,
+            mapGroup: L.layerGroup(),
+            markers: [],
+            filteredTypes: []
         },
 
         computed: {
@@ -26,21 +48,52 @@
         },
         watch: {
 
-
         },
         methods: {
+            getOffer(offer) {
+                return offer.name;
+            },
+
+            filterPartner(partnerType) {
+                let scope = this;
+
+                if (this.hasThisFilter(partnerType)) {
+                    this.filteredTypes.filter(e => e !== partnerType);
+                } else {
+                    this.filteredTypes.push(partnerType);
+                }
+
+                this.filteredTypes.forEach(function (type) {
+                    scope.markers.forEach(function (marker) {
+                        if (marker.options.slug === type) {
+                            scope.map.addLayer(marker);
+                        } else {
+                            scope.map.removeLayer(marker);
+                        }
+                    });
+                });
+
+               /* this.markers.forEach(function (marker, index) {
+                    if (marker._icon && marker._icon.classList.contains(partnerType)) {
+                        scope.map.removeLayer(marker);
+                   }
+                });*/
+            },
+
+            hasThisFilter(partnerType) {
+                return this.filteredTypes.includes(partnerType);
+            }
 
         },
 
         mounted: function() {
-            var cities = L.layerGroup();
             this.offersArray = JSON.parse(this.offers);
+            this.partnerTypesArray = JSON.parse(this.partnerTypes);
 
             for (var i = 0; i < this.offersArray.length; i++)
             {
-
                 let content = this.offersArray[i].name + '<br/>';
-                content += 'Ahorro = ' + this.offersArray[i].spar + '<br/>';
+                content += 'Ahorro de ' + this.offersArray[i].spar + '<br/>';
                 content += '<a href="/oferta/' + this.offersArray[i].id + '" target="_blank">Link</a>';
 
                 let popup = L.popup({
@@ -48,29 +101,37 @@
                    className: 'map-popup',
                 }).setContent(content);
 
+                let partnerType = this.partnerTypesArray
+                    .filter(partner => partner.id === this.offersArray[i].partner.partner_type.id);
+
+                let logo = partnerType[0].logo.path;
+
                 var greenIcon = L.icon({
                     className: this.offersArray[i].partner.partner_type.slug,
-                    iconUrl: '/themes/app2share/assets/image/map/marker-icon.png',
+                    iconUrl: logo,
                     iconSize:     [30, 38], // size of the icon
                     shadowSize:   [50, 64], // size of the shadow
                 });
 
-                L.marker(
-                    [this.offersArray[i].partner.latitude, this.offersArray[i].partner.longitude], {icon: greenIcon}
-                ).bindPopup(popup).addTo(cities);
+                let marker = L.marker(
+                    [
+                        this.offersArray[i].partner.latitude,
+                        this.offersArray[i].partner.longitude
+                    ], {icon: greenIcon, slug: this.offersArray[i].partner.partner_type.slug}
+                ).bindPopup(popup).addTo(this.mapGroup);
 
+                this.markers.push(marker);
             }
 
-
-            var mbAttr = '',
+            let mbAttr = '',
                 mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
 
-            var streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
+            let streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
 
-            var map = L.map('mapid', {
+            this.map = L.map('mapid', {
                 center: [39.5695, 2.9459],
                 zoom: 10,
-                layers: [streets, cities]
+                layers: [streets, this.mapGroup]
             });
 
             var gps = new L.Control.Gps({
@@ -78,14 +139,8 @@
                 autoCenter:true
             });
 
-
-            gps.addTo(map);
-
+            gps.addTo(this.map);
         }
-
-
-
-
     });
 </script>
 {% endput %}

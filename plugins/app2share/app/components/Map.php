@@ -2,6 +2,7 @@
 
 use App2share\App\Models\Offer;
 use App2share\App\Models\Partner;
+use App2share\App\Models\PartnerType;
 use Cms\Classes\ComponentBase;
 use function foo\func;
 
@@ -28,6 +29,14 @@ class Map extends ComponentBase
             ->orderBy('name', 'asc')
             ->get();
 
+        $partnerTypes = PartnerType::all();
+
+        $partnerTypes->map(function ($type) {
+            $type['logoPath'] = $type->logo->getPath();
+            return $type;
+        });
+
+        $this->page['partnerTypes'] = $partnerTypes;
         $this->page['offers'] = $offers;
     }
 
