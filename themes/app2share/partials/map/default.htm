@@ -2,30 +2,35 @@
     <div class="row" style="margin: 0 !important;">
         <div id="mapid" style="height:100vh; width: 50%;"></div>
 
-
         <div class="filter-list">
             <div id="mapFilter">
                 <ul>
                     <li v-for="partnerType in partnerTypesArray">
                         <button :data-type="partnerType.slug" v-html="partnerType.name"
                                 v-on:click="filterPartner(partnerType.slug)"
+                                class="filter-list__type"
                                 :class="{'selected': hasThisFilter(partnerType.slug)}"
                         ></button>
-
                     </li>
                 </ul>
+
+                <form v-on:submit.prevent="searchPartner($event)">
+                    <input type="text" placeholder="Buscar..." name="search-offer"/>
+                    <input type="submit" value="buscar">
+                </form>
+
             </div>
 
             <ul>
-                <li v-for="offer in offersArray">
+                <li v-for="offer in offersArray"
+                    v-show="hasThisFilter(offer.partner.partner_type.slug) || filteredTypes.length === 0">
+                    <img :src="offer.partner.image" style="width: 100px;"/>
                     <span :id="offer.id" v-html="getOffer(offer)"></span>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-
-
 
 
 {% put scripts %}
@@ -38,46 +43,70 @@
             offers: '{{ offers|raw }}',
             partnerTypes: '{{ partnerTypes|raw }}',
             map: null,
-            mapGroup: L.layerGroup(),
+            mapGroup: L.markerClusterGroup({
+                spiderfyOnMaxZoom: false,
+                showCoverageOnHover: false,
+            }),
             markers: [],
             filteredTypes: []
         },
 
-        computed: {
-
-        },
-        watch: {
-
-        },
+        computed: {},
+        watch: {},
         methods: {
             getOffer(offer) {
                 return offer.name;
+            },
+
+            searchPartner(event) {
+                let value = event.target['search-offer'].value;
+                let scope = this;
+
+                this.markers.forEach(function (marker) {
+                    let partnerName = marker.getPopup().options.partnerName;
+                    let offerName = marker.getPopup().options.offerName;
+                    let searchable = partnerName + ' ' + offerName;
+
+                    let regex = new RegExp(value, 'g' );
+
+                    if (searchable.match(regex) /*&&
+                        (scope.filteredTypes.includes(marker.options.slug) || scope.filteredTypes.length === 0)*/) {
+                        scope.mapGroup.addLayer(marker);
+                    } else {
+                        scope.mapGroup.removeLayer(marker);
+                    }
+
+                    /* if (marker.filteredTypes.includes(marker.options.slug)) {
+                         scope.mapGroup.addLayer(marker);
+                     } else {
+                         scope.mapGroup.removeLayer(marker);
+                     }*/
+                });
             },
 
             filterPartner(partnerType) {
                 let scope = this;
 
                 if (this.hasThisFilter(partnerType)) {
-                    this.filteredTypes.filter(e => e !== partnerType);
+                    this.filteredTypes = this.filteredTypes.filter(e => e !== partnerType);
                 } else {
                     this.filteredTypes.push(partnerType);
                 }
 
-                this.filteredTypes.forEach(function (type) {
-                    scope.markers.forEach(function (marker) {
-                        if (marker.options.slug === type) {
-                            scope.map.addLayer(marker);
+                if (this.filteredTypes.length > 0) {
+                    this.markers.forEach(function (marker) {
+                        if (scope.filteredTypes.includes(marker.options.slug)) {
+                            scope.mapGroup.addLayer(marker);
                         } else {
-                            scope.map.removeLayer(marker);
+                            scope.mapGroup.removeLayer(marker);
                         }
                     });
-                });
 
-               /* this.markers.forEach(function (marker, index) {
-                    if (marker._icon && marker._icon.classList.contains(partnerType)) {
-                        scope.map.removeLayer(marker);
-                   }
-                });*/
+                } else {
+                    this.markers.forEach(function (marker) {
+                        scope.mapGroup.addLayer(marker);
+                    });
+                }
             },
 
             hasThisFilter(partnerType) {
@@ -86,19 +115,33 @@
 
         },
 
-        mounted: function() {
+        mounted: function () {
             this.offersArray = JSON.parse(this.offers);
             this.partnerTypesArray = JSON.parse(this.partnerTypes);
 
-            for (var i = 0; i < this.offersArray.length; i++)
-            {
-                let content = this.offersArray[i].name + '<br/>';
+            for (var i = 0; i < this.offersArray.length; i++) {
+                let repeatedPartner = this.markers.filter(e => e.options.partner === this.offersArray[i].partner.id);
+                if (repeatedPartner.length > 0) {
+                    let content = repeatedPartner[0]._popup.getContent() + '<br/><br/>';
+                    content += this.offersArray[i].name + '<br/>';
+                    content += 'Ahorro de ' + this.offersArray[i].spar + '<br/>';
+                    content += '<a href="/oferta/' + this.offersArray[i].id + '" target="_blank">Link a oferta</a>';
+                    repeatedPartner[0]._popup.setContent(content);
+                    continue;
+                }
+
+                let content = '<img src="' + this.offersArray[i].partner.image + '">';
+
+                content += this.offersArray[i].partner.name + '<br/><br/>';
+                content += this.offersArray[i].name + '<br/>';
                 content += 'Ahorro de ' + this.offersArray[i].spar + '<br/>';
-                content += '<a href="/oferta/' + this.offersArray[i].id + '" target="_blank">Link</a>';
+                content += '<a href="/oferta/' + this.offersArray[i].id + '" target="_blank">Link a oferta</a>';
 
                 let popup = L.popup({
-                   closeButton: true,
-                   className: 'map-popup',
+                    closeButton: true,
+                    className: 'map-popup',
+                    offerName: this.offersArray[i].name,
+                    partnerName: this.offersArray[i].partner.name
                 }).setContent(content);
 
                 let partnerType = this.partnerTypesArray
@@ -109,15 +152,19 @@
                 var greenIcon = L.icon({
                     className: this.offersArray[i].partner.partner_type.slug,
                     iconUrl: logo,
-                    iconSize:     [30, 38], // size of the icon
-                    shadowSize:   [50, 64], // size of the shadow
+                    iconSize: [30, 38], // size of the icon
+                    shadowSize: [50, 64], // size of the shadow
                 });
 
                 let marker = L.marker(
                     [
                         this.offersArray[i].partner.latitude,
                         this.offersArray[i].partner.longitude
-                    ], {icon: greenIcon, slug: this.offersArray[i].partner.partner_type.slug}
+                    ], {
+                        icon: greenIcon,
+                        slug: this.offersArray[i].partner.partner_type.slug,
+                        partner: this.offersArray[i].partner.id
+                    }
                 ).bindPopup(popup).addTo(this.mapGroup);
 
                 this.markers.push(marker);
@@ -126,7 +173,7 @@
             let mbAttr = '',
                 mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
 
-            let streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
+            let streets = L.tileLayer(mbUrl, {id: 'mapbox.streets', attribution: mbAttr});
 
             this.map = L.map('mapid', {
                 center: [39.5695, 2.9459],
@@ -135,8 +182,8 @@
             });
 
             var gps = new L.Control.Gps({
-                autoActive:true,
-                autoCenter:true
+                autoActive: true,
+                autoCenter: true
             });
 
             gps.addTo(this.map);

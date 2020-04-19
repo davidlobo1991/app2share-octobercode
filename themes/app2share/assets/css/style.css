@@ -1096,3 +1096,33 @@ iframe.map {
   height: 100px;
   padding: 10px;
 }
+
+/* line 4, ../scss/content/_map.scss */
+.filter-list {
+  height: 100%;
+  overflow-y: scroll;
+  width: 50%;
+}
+/* line 9, ../scss/content/_map.scss */
+.filter-list__type {
+  padding: 10px;
+  background: none;
+}
+/* line 13, ../scss/content/_map.scss */
+.filter-list__type.selected {
+  background: #00b3ee;
+}
+
+@media (max-width: 1200px) {
+  /* line 20, ../scss/content/_map.scss */
+  #mapid {
+    width: 100% !important;
+    height: 400px !important;
+  }
+
+  /* line 25, ../scss/content/_map.scss */
+  .filter-list {
+    width: 100%;
+    height: auto;
+  }
+}

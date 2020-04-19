@@ -13,6 +13,11 @@ fields:
         size: large
         span: auto
         type: richeditor
+    slug:
+        label: Slug
+        span: auto
+        required: 1
+        type: text
     active:
         label: Activo
         span: auto

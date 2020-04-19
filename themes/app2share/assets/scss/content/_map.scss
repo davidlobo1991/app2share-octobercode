@@ -1,0 +1,29 @@
+
+
+
+.filter-list {
+    height: 100%;
+    overflow-y: scroll;
+    width: 50%;
+
+    &__type {
+        padding: 10px;
+        background: none;
+
+        &.selected {
+            background: #00b3ee;
+        }
+    }
+}
+
+@media(max-width: $d_large) {
+    #mapid {
+        width: 100% !important;
+        height: 400px !important;
+    }
+
+    .filter-list {
+        width: 100%;
+        height: auto;
+    }
+}
