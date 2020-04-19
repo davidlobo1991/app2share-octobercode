@@ -116,6 +116,28 @@
         },
 
         mounted: function () {
+            this.offers = this.offers.replace(/\\n/g, "\\n")
+                .replace(/\\'/g, "\\'")
+                .replace(/\\"/g, '\\"')
+                .replace(/\\&/g, "\\&")
+                .replace(/\\r/g, "\\r")
+                .replace(/\\t/g, "\\t")
+                .replace(/\\b/g, "\\b")
+                .replace(/\\f/g, "\\f");
+            this.offers = this.offers.replace(/[\u0000-\u0019]+/g,"");
+
+            this.partnerTypes = this.partnerTypes.replace(/\\n/g, "\\n")
+                .replace(/\\'/g, "\\'")
+                .replace(/\\"/g, '\\"')
+                .replace(/\\&/g, "\\&")
+                .replace(/\\r/g, "\\r")
+                .replace(/\\t/g, "\\t")
+                .replace(/\\b/g, "\\b")
+                .replace(/\\f/g, "\\f");
+            this.partnerTypes = this.partnerTypes.replace(/[\u0000-\u0019]+/g,"");
+
+
+
             this.offersArray = JSON.parse(this.offers);
             this.partnerTypesArray = JSON.parse(this.partnerTypes);
 
