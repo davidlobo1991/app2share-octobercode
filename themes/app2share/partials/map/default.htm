@@ -198,6 +198,7 @@
             let streets = L.tileLayer(mbUrl, {id: 'mapbox.streets', attribution: mbAttr});
 
             this.map = L.map('mapid', {
+                attributionControl: false,
                 center: [39.5695, 2.9459],
                 zoom: 10,
                 layers: [streets, this.mapGroup]
