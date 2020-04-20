@@ -19,15 +19,27 @@
                     <input type="submit" value="buscar">
                 </form>
 
+                <select v-on:change="setOrderList($event)">
+                    <option>Ordenar</option>
+                    <option value="name">Nombre</option>
+                    <option disabled>Valoración</option>
+                </select>
             </div>
 
             <ul>
-                <li v-for="offer in offersArray"
+                <li v-for="offer in computedObj"
                     v-show="hasThisFilter(offer.partner.partner_type.slug) || filteredTypes.length === 0">
                     <img :src="offer.partner.image" style="width: 100px;"/>
+
+                    <img :src="logoPartnerType(offer)"/>
+                    <p v-html="getPartnerName(offer)"></p>
                     <span :id="offer.id" v-html="getOffer(offer)"></span>
+                    <p v-html="getOfferDescription(offer)"></p>
+                    <button v-on:click="linkMap(offer)">Mapa</button>
                 </li>
             </ul>
+
+            <button v-show="computedObj.length >= pageLimit" @click="renoveComputedObj()">Show more</button>
         </div>
     </div>
 </div>
@@ -40,6 +52,7 @@
         data: {
             offersArray: [],
             partnerTypesArray: [],
+            orderList: null,
             offers: '{{ offers|raw }}',
             partnerTypes: '{{ partnerTypes|raw }}',
             map: null,
@@ -48,14 +61,58 @@
                 showCoverageOnHover: false,
             }),
             markers: [],
-            filteredTypes: []
+            filteredTypes: [],
+            pageLimit: 3,
+            computedObj: []
         },
 
-        computed: {},
-        watch: {},
         methods: {
+            getComputedObj() {
+              return this.pageLimit ? this.offersArray.slice(0, this.pageLimit) : this.offersArray;
+            },
+
+            renoveComputedObj() {
+              this.pageLimit += 3;
+              this.computedObj = this.getComputedObj();
+            },
+
             getOffer(offer) {
                 return offer.name;
+            },
+
+            getPartnerName(offer) {
+                return offer.partner.name;
+            },
+
+            getOfferDescription(offer) {
+                return offer.description;
+            },
+
+            setOrderList(event) {
+                let value = event.target.value;
+                this.orderList = value;
+
+                this.computedObj = this.computedObj.sort(function (a, b) {
+                    return a.name > b.name ? -1 : 1;
+                });
+
+                console.log(value);
+
+            },
+
+            linkMap(offer) {
+                let linkMarker =
+                    this.markers.filter(marker => marker.options.offer.id === offer.id);
+
+                this.centerLeafletMapOnMarker(linkMarker[0]);
+                linkMarker[0].openPopup();
+            },
+
+            centerLeafletMapOnMarker(marker) {
+                let latLngs = [marker.getLatLng()];
+                let markerBounds = L.latLngBounds(latLngs);
+                this.map.fitBounds(markerBounds, 1, 1);
+                this.map.setMaxZoom(14);
             },
 
             searchPartner(event) {
@@ -67,10 +124,9 @@
                     let offerName = marker.getPopup().options.offerName;
                     let searchable = partnerName + ' ' + offerName;
 
-                    let regex = new RegExp(value, 'g' );
+                    let regex = new RegExp(value, 'g');
 
-                    if (searchable.match(regex) /*&&
-                        (scope.filteredTypes.includes(marker.options.slug) || scope.filteredTypes.length === 0)*/) {
+                    if (searchable.match(regex)) {
                         scope.mapGroup.addLayer(marker);
                     } else {
                         scope.mapGroup.removeLayer(marker);
@@ -109,10 +165,16 @@
                 }
             },
 
+            logoPartnerType(offer) {
+                let partnerType = this.partnerTypesArray
+                    .filter(partner => partner.id === offer.partner.partner_type.id);
+
+                return partnerType[0].logo.path;
+            },
+
             hasThisFilter(partnerType) {
                 return this.filteredTypes.includes(partnerType);
             }
-
         },
 
         mounted: function () {
@@ -124,7 +186,7 @@
                 .replace(/\\t/g, "\\t")
                 .replace(/\\b/g, "\\b")
                 .replace(/\\f/g, "\\f");
-            this.offers = this.offers.replace(/[\u0000-\u0019]+/g,"");
+            this.offers = this.offers.replace(/[\u0000-\u0019]+/g, "");
 
             this.partnerTypes = this.partnerTypes.replace(/\\n/g, "\\n")
                 .replace(/\\'/g, "\\'")
@@ -134,11 +196,10 @@
                 .replace(/\\t/g, "\\t")
                 .replace(/\\b/g, "\\b")
                 .replace(/\\f/g, "\\f");
-            this.partnerTypes = this.partnerTypes.replace(/[\u0000-\u0019]+/g,"");
-
-
+            this.partnerTypes = this.partnerTypes.replace(/[\u0000-\u0019]+/g, "");
 
             this.offersArray = JSON.parse(this.offers);
+            this.computedObj = this.getComputedObj();
             this.partnerTypesArray = JSON.parse(this.partnerTypes);
 
             for (var i = 0; i < this.offersArray.length; i++) {
@@ -166,12 +227,9 @@
                     partnerName: this.offersArray[i].partner.name
                 }).setContent(content);
 
-                let partnerType = this.partnerTypesArray
-                    .filter(partner => partner.id === this.offersArray[i].partner.partner_type.id);
+                let logo = this.logoPartnerType(this.offersArray[i]);
 
-                let logo = partnerType[0].logo.path;
-
-                var greenIcon = L.icon({
+                let offerIcon = L.icon({
                     className: this.offersArray[i].partner.partner_type.slug,
                     iconUrl: logo,
                     iconSize: [30, 38], // size of the icon
@@ -183,8 +241,9 @@
                         this.offersArray[i].partner.latitude,
                         this.offersArray[i].partner.longitude
                     ], {
-                        icon: greenIcon,
+                        icon: offerIcon,
                         slug: this.offersArray[i].partner.partner_type.slug,
+                        offer: this.offersArray[i],
                         partner: this.offersArray[i].partner.id
                     }
                 ).bindPopup(popup).addTo(this.mapGroup);

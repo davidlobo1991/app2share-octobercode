@@ -20,6 +20,7 @@
   },
   "homepage": "https://gitlab.com/app2share/app2share#readme",
   "dependencies": {
+    "jw-paginate": "^1.0.4",
     "vue": "^2.6.11"
   }
 }
