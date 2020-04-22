@@ -28,12 +28,9 @@
 
             <ul>
                 <li v-for="offer in computedObj">
-                    <!--
-                                        v-show="hasThisFilter(offer.partner.partner_type.slug) || filteredTypes.length === 0">
-                    -->
                     <img :src="offer.partner.image" style="width: 100px;"/>
-
                     <img :src="logoPartnerType(offer)"/>
+
                     <p v-html="getPartnerName(offer)"></p>
                     <span :id="offer.id" v-html="getOffer(offer)"></span>
                     <p v-html="getOfferDescription(offer)"></p>
@@ -41,7 +38,7 @@
                 </li>
             </ul>
 
-            <button v-show="computedObj.length >= pageLimit" @click="pageLimit + 3">Show more</button>
+            <button v-show="offersArray.length > pageLimit" v-on:click="pageLimit = pageLimit + 3">Show more</button>
         </div>
     </div>
 </div>
@@ -59,18 +56,21 @@
             partnerTypes: '{{ partnerTypes|raw }}',
             map: null,
             mapGroup: L.markerClusterGroup({
-                spiderfyOnMaxZoom: false,
                 showCoverageOnHover: false,
             }),
             markers: [],
             computedMarkers: [],
             filteredTypes: [],
-            pageLimit: 10,
+            pageLimit: 3,
             computedObj: [],
             searchValue: null
         },
 
         watch: {
+            pageLimit: function() {
+                this.computedObj = this.getComputedObj();
+            },
+
             offersArray: function () {
                 this.computedObj = this.getComputedObj();
             }
@@ -95,14 +95,13 @@
 
             setOrderList(event) {
                 let value = event.target.value;
+/*
                 this.orderList = value;
+*/
 
-                this.computedObj = this.computedObj.sort(function (a, b) {
-                    return a.name > b.name ? -1 : 1;
+                this.offersArray = this.offersArray.sort(function (a, b) {
+                    return a.partner.name < b.partner.name ? -1 : 1;
                 });
-
-                console.log(value);
-
             },
 
             linkMap(offer) {
@@ -219,15 +218,6 @@
             this.partnerTypesArray = JSON.parse(this.partnerTypes);
 
             for (var i = 0; i < this.offersArray.length; i++) {
-                let repeatedPartner = this.markers.filter(e => e.options.partner === this.offersArray[i].partner.id);
-                if (repeatedPartner.length > 0) {
-                    let content = repeatedPartner[0]._popup.getContent() + '<br/><br/>';
-                    content += this.offersArray[i].name + '<br/>';
-                    content += 'Ahorro de ' + this.offersArray[i].spar + '<br/>';
-                    content += '<a href="/oferta/' + this.offersArray[i].id + '" target="_blank">Link a oferta</a>';
-                    repeatedPartner[0]._popup.setContent(content);
-                }
-
                 let content = '<img src="' + this.offersArray[i].partner.image + '">';
 
                 content += this.offersArray[i].partner.name + '<br/><br/>';
@@ -253,20 +243,7 @@
 
                 let marker = null;
 
-                if (repeatedPartner.length > 0) {
-                    marker = L.marker([
-                        this.offersArray[i].partner.latitude,
-                        this.offersArray[i].partner.longitude
-                    ], {
-                        repeated: true,
-                        clickable: false,
-                        icon: offerIcon,
-                        slug: this.offersArray[i].partner.partner_type.slug,
-                        offer: this.offersArray[i],
-                        partner: this.offersArray[i].partner.id
-                    }).bindPopup(popup).addTo(this.mapGroup);
-                } else {
-                    marker = L.marker(
+                marker = L.marker(
                         [
                             this.offersArray[i].partner.latitude,
                             this.offersArray[i].partner.longitude
@@ -277,7 +254,7 @@
                             partner: this.offersArray[i].partner.id
                         }
                     ).bindPopup(popup).addTo(this.mapGroup);
-                }
+
 
                 this.markers.push(marker);
                 this.computedMarkers.push(marker);
@@ -299,6 +276,9 @@
                 autoActive: true,
                 autoCenter: true
             });
+
+
+            let scope = this;
 
             gps.addTo(this.map);
         }

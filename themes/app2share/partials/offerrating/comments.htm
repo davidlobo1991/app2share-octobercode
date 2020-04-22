@@ -1,0 +1,14 @@
+Valoraciones
+
+<div id="comments-offer">
+    {% for comment in comments %}
+
+    <div class="rating">
+        {% for i in 1..5 %}
+            {% set starClass = (comment.stars >= i ? "star voted" : "star empty")  %}
+                <i class="{{ starClass }}"></i>
+            {% endfor %}
+    </div>
+        <p>{{ comment.comment|e }}</p>
+    {% endfor %}
+</div>

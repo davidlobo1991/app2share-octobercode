@@ -16,10 +16,10 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name'        => 'app',
-            'description' => 'No description provided yet...',
+            'name'        => 'App2Share',
+            'description' => 'Plugin app2share',
             'author'      => 'app2share',
-            'icon'        => 'icon-leaf'
+            'icon'        => 'icon-sun'
         ];
     }
 
@@ -59,7 +59,7 @@ class Plugin extends PluginBase
             'App2share\App\Components\Map' => 'Map',
             'App2share\App\Components\ContactFinal' => 'ContactFinal',
             'App2share\App\Components\ContactPartner' => 'ContactPartner',
-            'App2share\App\Components\OfferValoration' => 'OfferValoration',
+            'App2share\App\Components\OfferRating' => 'OfferRating',
         ];
     }
 

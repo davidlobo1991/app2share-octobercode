@@ -1091,36 +1091,53 @@ iframe.map {
 }
 
 /* line 71, ../scss/content/_offers.scss */
+.rating .star {
+  display: inline-block;
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-size: 20px;
+}
+/* line 78, ../scss/content/_offers.scss */
+.rating .star + .voted {
+  background-image: url(../image/icons/star-1.svg);
+}
+/* line 82, ../scss/content/_offers.scss */
+.rating .star + .empty {
+  background-image: url(../image/icons/star-2.svg);
+}
+
+/* line 90, ../scss/content/_offers.scss */
 .slider-nav img {
   width: 300px !important;
   height: 100px;
   padding: 10px;
 }
 
-/* line 4, ../scss/content/_map.scss */
+/* line 1, ../scss/content/_map.scss */
 .filter-list {
   height: 100vh;
   overflow-y: scroll;
   width: 50%;
 }
-/* line 9, ../scss/content/_map.scss */
+/* line 6, ../scss/content/_map.scss */
 .filter-list__type {
   padding: 10px;
   background: none;
 }
-/* line 13, ../scss/content/_map.scss */
+/* line 10, ../scss/content/_map.scss */
 .filter-list__type.selected {
   background: #00b3ee;
 }
 
 @media (max-width: 1200px) {
-  /* line 20, ../scss/content/_map.scss */
+  /* line 17, ../scss/content/_map.scss */
   #mapid {
     width: 100% !important;
     height: 400px !important;
   }
 
-  /* line 25, ../scss/content/_map.scss */
+  /* line 22, ../scss/content/_map.scss */
   .filter-list {
     width: 100%;
     height: auto;

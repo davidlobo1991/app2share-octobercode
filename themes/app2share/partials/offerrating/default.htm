@@ -1,7 +1,9 @@
+{% partial 'offerrating/comments' %}
 
-
-==
-<form data-request-flash data-request="{{ __SELF__ }}::onSaveValoration" class="form-offer">
+{% if user %}
+<form data-request-flash data-request="{{ __SELF__ }}::onSaveValoration"
+      data-request-data="[offer_id: {{offer.id}}, user_id: {{user.id}}]"
+      data-request-update="'offerrating/comments': '#comments-offer'" class="form-offer">
     <div class="form-group">
         <label for="stars">Stars</label>
         <input type="number" name="stars" id="stars" class="form-control" required>
@@ -15,4 +17,9 @@
         <input type="submit" value="Enviar" class="form-control btn-primary">
     </div>
 </form>
+{% else %}
+    <p>Logueate para poder comentar</p>
+{% endif %}
+
+
 
