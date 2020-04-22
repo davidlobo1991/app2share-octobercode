@@ -1064,16 +1064,17 @@ iframe.map {
 
 /* line 42, ../scss/content/_offers.scss */
 .slider-for {
+  display: none;
   max-height: 350px;
 }
-/* line 46, ../scss/content/_offers.scss */
+/* line 47, ../scss/content/_offers.scss */
 .slider-for .slick-slide img {
   width: 100%;
   margin-bottom: 20px;
   height: 300px;
 }
 
-/* line 54, ../scss/content/_offers.scss */
+/* line 55, ../scss/content/_offers.scss */
 .use-offer {
   position: absolute;
   color: white;
@@ -1084,13 +1085,13 @@ iframe.map {
   text-transform: uppercase;
   font-weight: 600;
 }
-/* line 64, ../scss/content/_offers.scss */
+/* line 65, ../scss/content/_offers.scss */
 .use-offer:hover {
   background: url(../image/fondo-derecha.svg) #fff;
   border: 1px solid #1F4B7D;
 }
 
-/* line 71, ../scss/content/_offers.scss */
+/* line 72, ../scss/content/_offers.scss */
 .rating .star {
   display: inline-block;
   content: '';
@@ -1098,16 +1099,16 @@ iframe.map {
   height: 20px;
   background-size: 20px;
 }
-/* line 78, ../scss/content/_offers.scss */
+/* line 79, ../scss/content/_offers.scss */
 .rating .star + .voted {
   background-image: url(../image/icons/star-1.svg);
 }
-/* line 82, ../scss/content/_offers.scss */
+/* line 83, ../scss/content/_offers.scss */
 .rating .star + .empty {
   background-image: url(../image/icons/star-2.svg);
 }
 
-/* line 90, ../scss/content/_offers.scss */
+/* line 91, ../scss/content/_offers.scss */
 .slider-nav img {
   width: 300px !important;
   height: 100px;
