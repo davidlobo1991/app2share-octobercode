@@ -57,6 +57,7 @@
             map: null,
             mapGroup: L.markerClusterGroup({
                 showCoverageOnHover: false,
+                spiderLegPolylineOptions: {opacity: 0}
             }),
             markers: [],
             computedMarkers: [],
@@ -67,7 +68,7 @@
         },
 
         watch: {
-            pageLimit: function() {
+            pageLimit: function () {
                 this.computedObj = this.getComputedObj();
             },
 
@@ -95,9 +96,6 @@
 
             setOrderList(event) {
                 let value = event.target.value;
-/*
-                this.orderList = value;
-*/
 
                 this.offersArray = this.offersArray.sort(function (a, b) {
                     return a.partner.name < b.partner.name ? -1 : 1;
@@ -189,6 +187,16 @@
 
             hasThisFilter(partnerType) {
                 return this.filteredTypes.includes(partnerType);
+            },
+
+            updateListOnZoom(scope) {
+                scope.offersArray = [];
+
+                scope.mapGroup.eachLayer(function (layer) {
+                    if (layer instanceof L.Marker)
+                        if (scope.map.getBounds().contains(layer.getLatLng()))
+                            scope.offersArray.push(layer.options.offer);
+                });
             }
         },
 
@@ -244,16 +252,16 @@
                 let marker = null;
 
                 marker = L.marker(
-                        [
-                            this.offersArray[i].partner.latitude,
-                            this.offersArray[i].partner.longitude
-                        ], {
-                            icon: offerIcon,
-                            slug: this.offersArray[i].partner.partner_type.slug,
-                            offer: this.offersArray[i],
-                            partner: this.offersArray[i].partner.id
-                        }
-                    ).bindPopup(popup).addTo(this.mapGroup);
+                    [
+                        this.offersArray[i].partner.latitude,
+                        this.offersArray[i].partner.longitude
+                    ], {
+                        icon: offerIcon,
+                        slug: this.offersArray[i].partner.partner_type.slug,
+                        offer: this.offersArray[i],
+                        partner: this.offersArray[i].partner.id
+                    }
+                ).bindPopup(popup).addTo(this.mapGroup);
 
 
                 this.markers.push(marker);
@@ -279,6 +287,32 @@
 
 
             let scope = this;
+
+            this.map.on('moveend', function () {
+                scope.updateListOnZoom(scope);
+            });
+
+            this.map.on('zoomend', function () {
+                scope.updateListOnZoom(scope);
+
+                if (scope.map.getZoom() === 16) {
+                   /* scope.mapGroup.eachLayer(function (e) {
+                        if (scope.map.getBounds().contains(e.getLatLng())) {
+                            e.__parent.__parent.__parent.spiderfy();
+                            console.log(e.__parent.__parent.__parent);
+                            console.log(e);
+                            console.log(e.__parent);
+                            console.log(e.__parent.__parent);
+                            console.log(e.__parent.__parent.__parent.__parent);
+                            console.log(e.__parent.__parent.__parent.__parent.__parent);
+                        }
+                    });
+*/
+                    scope.mapGroup.on('clustermouseover', function (e) {
+                        e.layer.spiderfy();
+                    });
+                }
+            });
 
             gps.addTo(this.map);
         }
