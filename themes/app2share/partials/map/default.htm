@@ -132,7 +132,7 @@
                     console.log(from);
 
                     if (this.gps._isActive) {
-                        from = this.gps.getLatLng();
+                        from = this.gps._gpsMarker._latlng;
                     }
 
                     console.log(from);
