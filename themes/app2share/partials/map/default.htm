@@ -113,6 +113,9 @@
                 orderList(value) {
                     let scope = this;
 
+                    console.log(value);
+                    console.log(this.gps.isActive);
+
                     if (value === 'name') {
                         this.offersArray = this.offersArray.sort(function (a, b) {
                             return a.partner.name < b.partner.name ? -1 : 1;
@@ -127,12 +130,20 @@
                 getDistance(marker) {
                     let from = L.latLng(marker.partner.latitude, marker.partner.longitude);
 
+                    console.log(from);
+
                     if (this.gps.isActive) {
                         from = this.gps.getLatLng();
                     }
+
+                    console.log(from);
                     let to = L.latLng(marker.partner.latitude, marker.partner.longitude);
 
+                    console.log(to);
+
                     let distance = from.distanceTo(to).toFixed(0)/1000;
+
+                    console.log(distance);
 
                     return distance;
                 },
