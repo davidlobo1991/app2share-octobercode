@@ -129,21 +129,12 @@
                 getDistance(marker) {
                     let from = L.latLng(marker.partner.latitude, marker.partner.longitude);
 
-                    console.log(from);
-
                     if (this.gps._isActive) {
                         from = this.gps._gpsMarker._latlng;
                     }
 
-                    console.log(from);
                     let to = L.latLng(marker.partner.latitude, marker.partner.longitude);
-
-                    console.log(to);
-
                     let distance = from.distanceTo(to).toFixed(0)/1000;
-
-                    console.log(distance);
-
                     return distance;
                 },
 
@@ -338,7 +329,7 @@
                 this.map.on('zoomend', function () {
                     scope.updateListOnZoom(scope);
 
-                    if (scope.map.getZoom() === 17) {
+                    if (scope.map.getZoom() === 15) {
                         scope.mapGroup.eachLayer(function (e) {
                             if (scope.map.getBounds().contains(e.getLatLng())) {
                                 let offerIcon = new L.DivIcon({
