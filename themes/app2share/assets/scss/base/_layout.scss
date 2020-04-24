@@ -237,15 +237,7 @@ img {
 
 @media(max-width: $d_small) {
     .logo {
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: auto;
-        background: white;
-        margin: 0 auto;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
+       display: none;
     }
 
     .content {

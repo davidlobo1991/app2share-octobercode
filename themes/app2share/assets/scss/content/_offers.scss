@@ -69,20 +69,19 @@ iframe {
 }
 
 .rating {
+    .voted {
+        background-image: url(../image/icons/star-1.svg);
+    }
+    .empty {
+        background-image: url(../image/icons/star-2.svg);
+    }
+
     .star {
         display: inline-block;
         content: '';
         width: 20px;
         height: 20px;
         background-size: 20px;
-
-        & + .voted {
-            background-image: url(../image/icons/star-1.svg);
-        }
-
-        & + .empty {
-            background-image: url(../image/icons/star-2.svg);
-        }
     }
 }
 

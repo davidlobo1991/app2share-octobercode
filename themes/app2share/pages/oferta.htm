@@ -10,9 +10,22 @@ use App2share\App\Models\Offer;
 
 function onStart()
 {
-    $offer = Offer::where('id', $this->param('slug'))->first();
+    $offer = Offer::where('id', $this->param('slug'))->with('offerRating')->first();
     $partner = $offer ? $offer->partner : null;
 
+    $averageRating = 0;
+    $offerRating = $offer->offerRating;
+
+    if ($offerRating->count() > 0) {
+        foreach ($offerRating as $rating) {
+            $averageRating += $rating->stars;
+        }
+
+        $this["ratingAverage"] = $averageRating / $offerRating->count();
+
+        } else {
+            $this['ratingAverage'] = 'none';
+        }
 
 $this["offer"] = $offer;
 $this["partner"] = $partner;
@@ -31,6 +44,12 @@ $this["partner"] = $partner;
         <div class="content-page container">
             <div class="row">
                  <div class="col-sm-6">
+                     <div class="rating">
+                         {% for i in 1..5 %}
+                             {% set starClass = (ratingAverage >= i ? "star voted" : "star empty")  %}
+                             <i class="{{ starClass }}"></i>
+                         {% endfor %}
+                     </div>
                      <div class="content-page__address">
                          <h1>{{partner.name}}</h1>
                          <span class="address-partner">

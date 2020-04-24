@@ -7,7 +7,7 @@ Valoraciones
         {% for i in 1..5 %}
             {% set starClass = (comment.stars >= i ? "star voted" : "star empty")  %}
                 <i class="{{ starClass }}"></i>
-            {% endfor %}
+        {% endfor %}
     </div>
         <p>{{ comment.comment|e }}</p>
     {% endfor %}

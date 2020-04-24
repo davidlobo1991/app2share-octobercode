@@ -20,7 +20,7 @@
                 </form>
 
                 <select v-on:change="setOrderList($event)">
-                    <option>Ordenar</option>
+                    <option value="distance">Distancia</option>
                     <option value="name">Nombre</option>
                     <option disabled>Valoración</option>
                 </select>
@@ -32,6 +32,12 @@
                     <img :src="logoPartnerType(offer)"/>
 
                     <p v-html="getPartnerName(offer)"></p>
+
+                    <div class="rating">
+                     <i v-for="index in 5" :key="index" :class="offer.ratingAverage !== 'none' && offer.ratingAverage >= index ? 'star voted' : 'star empty'">
+                     </i>
+                    </div>
+
                     <span :id="offer.id" v-html="getOffer(offer)"></span>
                     <p v-html="getOfferDescription(offer)"></p>
                     <button v-on:click="linkMap(offer)">Mapa</button>
@@ -47,275 +53,353 @@
 {% put scripts %}
 <script>
     var app = new Vue({
-        el: '#filter-map',
-        data: {
-            offersArray: [],
-            partnerTypesArray: [],
-            orderList: null,
-            offers: '{{ offers|raw }}',
-            partnerTypes: '{{ partnerTypes|raw }}',
-            map: null,
-            mapGroup: L.markerClusterGroup({
-                showCoverageOnHover: false,
-                spiderLegPolylineOptions: {opacity: 0}
-            }),
-            markers: [],
-            computedMarkers: [],
-            filteredTypes: [],
-            pageLimit: 3,
-            computedObj: [],
-            searchValue: null
-        },
-
-        watch: {
-            pageLimit: function () {
-                this.computedObj = this.getComputedObj();
+            el: '#filter-map',
+            data: {
+                offersArray: [],
+                partnerTypesArray: [],
+                offers: '{{ offers|raw }}',
+                partnerTypes: '{{ partnerTypes|raw }}',
+                map: null,
+                mapGroup: L.markerClusterGroup({
+                    showCoverageOnHover: false,
+                    spiderLegPolylineOptions: {opacity: 0},
+                }),
+                markers: [],
+                computedMarkers: [],
+                filteredTypes: [],
+                pageLimit: 3,
+                computedObj: [],
+                searchValue: null,
+                gps: new L.Control.Gps({
+                    autoActive: true,
+                    autoCenter: true
+                }),
+                beforeLayer: null,
+                repeatedMarker: null
             },
 
-            offersArray: function () {
-                this.computedObj = this.getComputedObj();
-            }
-        },
+            watch: {
+                pageLimit: function () {
+                    this.computedObj = this.getComputedObj();
+                },
 
-        methods: {
-            getComputedObj() {
-                return this.pageLimit ? this.offersArray.slice(0, this.pageLimit) : this.offersArray;
-            },
-
-            getOffer(offer) {
-                return offer.name;
-            },
-
-            getPartnerName(offer) {
-                return offer.partner.name;
-            },
-
-            getOfferDescription(offer) {
-                return offer.description;
-            },
-
-            setOrderList(event) {
-                let value = event.target.value;
-
-                this.offersArray = this.offersArray.sort(function (a, b) {
-                    return a.partner.name < b.partner.name ? -1 : 1;
-                });
-            },
-
-            linkMap(offer) {
-                let linkMarker =
-                    this.markers.filter(marker => marker.options.offer.id === offer.id);
-
-                this.centerLeafletMapOnMarker(linkMarker[0]);
-                linkMarker[0].openPopup();
-            },
-
-            centerLeafletMapOnMarker(marker) {
-                let latLngs = [marker.getLatLng()];
-                let markerBounds = L.latLngBounds(latLngs);
-                this.map.fitBounds(markerBounds, 1, 1);
-                this.map.setMaxZoom(14);
-            },
-
-            searchPartner(event) {
-                this.searchValue = event.target['search-offer'].value;
-                this.doSearchPartner(this.searchValue);
-            },
-
-            doSearchPartner(value) {
-                let scope = this;
-                this.offersArray.length = 0;
-
-                this.markers.forEach(function (marker) {
-                    let partnerName = marker.options.offer.partner.name;
-                    let offerName = marker.options.offer.name;
-                    let searchable = partnerName + ' ' + offerName;
-
-                    let regex = new RegExp(value, 'g');
-
-                    if (searchable.match(regex) &&
-                        (scope.hasThisFilter(marker.options.slug) || scope.filteredTypes.length === 0)) {
-                        scope.mapGroup.addLayer(marker);
-                        scope.offersArray.push(marker.options.offer);
-                    } else {
-                        scope.mapGroup.removeLayer(marker);
-                        scope.offersArray = scope.offersArray.filter(offer => offer.id !== marker.options.offer.id);
-                    }
-                });
-            },
-
-            filterPartner(partnerType) {
-                let scope = this;
-                this.offersArray.length = 0;
-
-                if (this.hasThisFilter(partnerType)) {
-                    this.filteredTypes = this.filteredTypes.filter(e => e !== partnerType);
-                } else {
-                    this.filteredTypes.push(partnerType);
+                offersArray: function () {
+                    this.computedObj = this.getComputedObj();
                 }
+            },
 
-                if (this.filteredTypes.length > 0) {
+            methods: {
+                getComputedObj() {
+                    return this.pageLimit ? this.offersArray.slice(0, this.pageLimit) : this.offersArray;
+                },
+
+                getOffer(offer) {
+                    return offer.name;
+                },
+
+                getPartnerName(offer) {
+                    return offer.partner.name;
+                },
+
+                getOfferDescription(offer) {
+                    return offer.description;
+                },
+
+                setOrderList(event) {
+                    let value = event.target.value;
+                    this.orderList(value);
+                },
+
+                orderList(value) {
+                    let scope = this;
+
+                    if (value === 'name') {
+                        this.offersArray = this.offersArray.sort(function (a, b) {
+                            return a.partner.name < b.partner.name ? -1 : 1;
+                        });
+                    } else if (value === 'distance' && this.gps.isActive) {
+                        this.offersArray = this.offersArray.sort(function (a, b) {
+                            return scope.getDistance(a) < scope.getDistance(b) ? -1 : 1;
+                        });
+                    }
+                },
+
+                getDistance(marker) {
+                    let from = L.latLng(marker.partner.latitude, marker.partner.longitude);
+
+                    if (this.gps.isActive) {
+                        from = this.gps.getLatLng();
+                    }
+                    let to = L.latLng(marker.partner.latitude, marker.partner.longitude);
+
+                    let distance = from.distanceTo(to).toFixed(0)/1000;
+
+                    return distance;
+                },
+
+                linkMap(offer) {
+                    let linkMarker =
+                        this.markers.filter(marker => marker.options.offer.id === offer.id);
+
+                    this.centerLeafletMapOnMarker(linkMarker[0]);
+                    linkMarker[0].openPopup();
+                },
+
+                centerLeafletMapOnMarker(marker) {
+                    let latLngs = [marker.getLatLng()];
+                    let markerBounds = L.latLngBounds(latLngs);
+                    this.map.fitBounds(markerBounds, 1, 1);
+                    this.map.setMaxZoom(14);
+                },
+
+                searchPartner(event) {
+                    this.searchValue = event.target['search-offer'].value;
+                    this.doSearchPartner(this.searchValue);
+                },
+
+                doSearchPartner(value) {
+                    let scope = this;
+                    this.offersArray.length = 0;
+
                     this.markers.forEach(function (marker) {
-                        if (scope.filteredTypes.includes(marker.options.slug)) {
+                        let partnerName = marker.options.offer.partner.name;
+                        let offerName = marker.options.offer.name;
+                        let searchable = partnerName + ' ' + offerName;
+
+                        let regex = new RegExp(value, 'g');
+
+                        if (searchable.match(regex) &&
+                            (scope.hasThisFilter(marker.options.slug) || scope.filteredTypes.length === 0)) {
                             scope.mapGroup.addLayer(marker);
                             scope.offersArray.push(marker.options.offer);
-
                         } else {
                             scope.mapGroup.removeLayer(marker);
                             scope.offersArray = scope.offersArray.filter(offer => offer.id !== marker.options.offer.id);
                         }
                     });
+                },
 
-                } else {
-                    this.markers.forEach(function (marker) {
-                        scope.mapGroup.addLayer(marker);
-                        scope.offersArray.push(marker.options.offer);
-                    });
-                }
+                filterPartner(partnerType) {
+                    let scope = this;
+                    this.offersArray.length = 0;
 
-                if (this.searchValue) {
-                    this.doSearchPartner(this.searchValue);
-                }
-            },
-
-            logoPartnerType(offer) {
-                let partnerType = this.partnerTypesArray
-                    .filter(partner => partner.id === offer.partner.partner_type.id);
-
-                return partnerType[0].logo.path;
-            },
-
-            hasThisFilter(partnerType) {
-                return this.filteredTypes.includes(partnerType);
-            },
-
-            updateListOnZoom(scope) {
-                scope.offersArray = [];
-
-                scope.mapGroup.eachLayer(function (layer) {
-                    if (layer instanceof L.Marker)
-                        if (scope.map.getBounds().contains(layer.getLatLng()))
-                            scope.offersArray.push(layer.options.offer);
-                });
-            }
-        },
-
-        mounted: function () {
-            this.offers = this.offers.replace(/\\n/g, "\\n")
-                .replace(/\\'/g, "\\'")
-                .replace(/\\"/g, '\\"')
-                .replace(/\\&/g, "\\&")
-                .replace(/\\r/g, "\\r")
-                .replace(/\\t/g, "\\t")
-                .replace(/\\b/g, "\\b")
-                .replace(/\\f/g, "\\f");
-            this.offers = this.offers.replace(/[\u0000-\u0019]+/g, "");
-
-            this.partnerTypes = this.partnerTypes.replace(/\\n/g, "\\n")
-                .replace(/\\'/g, "\\'")
-                .replace(/\\"/g, '\\"')
-                .replace(/\\&/g, "\\&")
-                .replace(/\\r/g, "\\r")
-                .replace(/\\t/g, "\\t")
-                .replace(/\\b/g, "\\b")
-                .replace(/\\f/g, "\\f");
-            this.partnerTypes = this.partnerTypes.replace(/[\u0000-\u0019]+/g, "");
-
-            this.offersArray = JSON.parse(this.offers);
-            this.computedObj = this.getComputedObj();
-            this.partnerTypesArray = JSON.parse(this.partnerTypes);
-
-            for (var i = 0; i < this.offersArray.length; i++) {
-                let content = '<img src="' + this.offersArray[i].partner.image + '">';
-
-                content += this.offersArray[i].partner.name + '<br/><br/>';
-                content += this.offersArray[i].name + '<br/>';
-                content += 'Ahorro de ' + this.offersArray[i].spar + '<br/>';
-                content += '<a href="/oferta/' + this.offersArray[i].id + '" target="_blank">Link a oferta</a>';
-
-                let popup = L.popup({
-                    closeButton: true,
-                    className: 'map-popup',
-                    offerName: this.offersArray[i].name,
-                    partnerName: this.offersArray[i].partner.name
-                }).setContent(content);
-
-                let logo = this.logoPartnerType(this.offersArray[i]);
-
-                let offerIcon = L.icon({
-                    className: this.offersArray[i].partner.partner_type.slug,
-                    iconUrl: logo,
-                    iconSize: [30, 38], // size of the icon
-                    shadowSize: [50, 64], // size of the shadow
-                });
-
-                let marker = null;
-
-                marker = L.marker(
-                    [
-                        this.offersArray[i].partner.latitude,
-                        this.offersArray[i].partner.longitude
-                    ], {
-                        icon: offerIcon,
-                        slug: this.offersArray[i].partner.partner_type.slug,
-                        offer: this.offersArray[i],
-                        partner: this.offersArray[i].partner.id
+                    if (this.hasThisFilter(partnerType)) {
+                        this.filteredTypes = this.filteredTypes.filter(e => e !== partnerType);
+                    } else {
+                        this.filteredTypes.push(partnerType);
                     }
-                ).bindPopup(popup).addTo(this.mapGroup);
 
+                    if (this.filteredTypes.length > 0) {
+                        this.markers.forEach(function (marker) {
+                            if (scope.filteredTypes.includes(marker.options.slug)) {
+                                scope.mapGroup.addLayer(marker);
+                                scope.offersArray.push(marker.options.offer);
 
-                this.markers.push(marker);
-                this.computedMarkers.push(marker);
-            }
+                            } else {
+                                scope.mapGroup.removeLayer(marker);
+                                scope.offersArray = scope.offersArray.filter(offer => offer.id !== marker.options.offer.id);
+                            }
+                        });
 
-            let mbAttr = '',
-                mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+                    } else {
+                        this.markers.forEach(function (marker) {
+                            scope.mapGroup.addLayer(marker);
+                            scope.offersArray.push(marker.options.offer);
+                        });
+                    }
 
-            let streets = L.tileLayer(mbUrl, {id: 'mapbox.streets', attribution: mbAttr});
+                    if (this.searchValue) {
+                        this.doSearchPartner(this.searchValue);
+                    }
+                },
 
-            this.map = L.map('mapid', {
-                attributionControl: false,
-                center: [39.5695, 2.9459],
-                zoom: 10,
-                layers: [streets, this.mapGroup]
-            });
+                logoPartnerType(offer) {
+                    let partnerType = this.partnerTypesArray
+                        .filter(partner => partner.id === offer.partner.partner_type.id);
 
-            var gps = new L.Control.Gps({
-                autoActive: true,
-                autoCenter: true
-            });
+                    return partnerType[0].logo.path;
+                },
 
+                hasThisFilter(partnerType) {
+                    return this.filteredTypes.includes(partnerType);
+                },
 
-            let scope = this;
+                updateListOnZoom(scope) {
+                    scope.offersArray = [];
 
-            this.map.on('moveend', function () {
-                scope.updateListOnZoom(scope);
-            });
+                    scope.mapGroup.eachLayer(function (layer) {
+                        if (layer instanceof L.Marker)
+                            if (scope.map.getBounds().contains(layer.getLatLng())) {
+                                scope.offersArray.push(layer.options.offer);
+                                scope.orderList('distance');
+                            }
 
-            this.map.on('zoomend', function () {
-                scope.updateListOnZoom(scope);
-
-                if (scope.map.getZoom() === 16) {
-                   /* scope.mapGroup.eachLayer(function (e) {
-                        if (scope.map.getBounds().contains(e.getLatLng())) {
-                            e.__parent.__parent.__parent.spiderfy();
-                            console.log(e.__parent.__parent.__parent);
-                            console.log(e);
-                            console.log(e.__parent);
-                            console.log(e.__parent.__parent);
-                            console.log(e.__parent.__parent.__parent.__parent);
-                            console.log(e.__parent.__parent.__parent.__parent.__parent);
-                        }
-                    });
-*/
-                    scope.mapGroup.on('clustermouseover', function (e) {
-                        e.layer.spiderfy();
                     });
                 }
-            });
+            },
 
-            gps.addTo(this.map);
-        }
-    });
+            mounted: function () {
+                this.offers = this.offers.replace(/\\n/g, "\\n")
+                    .replace(/\\'/g, "\\'")
+                    .replace(/\\"/g, '\\"')
+                    .replace(/\\&/g, "\\&")
+                    .replace(/\\r/g, "\\r")
+                    .replace(/\\t/g, "\\t")
+                    .replace(/\\b/g, "\\b")
+                    .replace(/\\f/g, "\\f");
+                this.offers = this.offers.replace(/[\u0000-\u0019]+/g, "");
+
+                this.partnerTypes = this.partnerTypes.replace(/\\n/g, "\\n")
+                    .replace(/\\'/g, "\\'")
+                    .replace(/\\"/g, '\\"')
+                    .replace(/\\&/g, "\\&")
+                    .replace(/\\r/g, "\\r")
+                    .replace(/\\t/g, "\\t")
+                    .replace(/\\b/g, "\\b")
+                    .replace(/\\f/g, "\\f");
+                this.partnerTypes = this.partnerTypes.replace(/[\u0000-\u0019]+/g, "");
+
+                this.offersArray = JSON.parse(this.offers);
+                this.computedObj = this.getComputedObj();
+                this.partnerTypesArray = JSON.parse(this.partnerTypes);
+
+                for (let i = 0; i < this.offersArray.length; i++) {
+                    let content = '<img src="' + this.offersArray[i].partner.image + '">';
+
+                    content += this.offersArray[i].partner.name + '<br/><br/>';
+                    content += this.offersArray[i].name + '<br/>';
+                    content += 'Ahorro de ' + this.offersArray[i].spar + '<br/>';
+                    content += '<a href="/oferta/' + this.offersArray[i].id + '" target="_blank">Link a oferta</a>';
+
+                    let popup = L.popup({
+                        closeButton: true,
+                        className: 'map-popup',
+                        offerName: this.offersArray[i].name,
+                        partnerName: this.offersArray[i].partner.name
+                    }).setContent(content);
+
+                    let logo = this.logoPartnerType(this.offersArray[i]);
+
+                    let offerIcon = L.icon({
+                        className: this.offersArray[i].partner.partner_type.slug,
+                        iconUrl: logo,
+                        iconSize: [30, 38], // size of the icon
+                        shadowSize: [50, 64], // size of the shadow
+                    });
+
+                    let marker = null;
+
+                    marker = L.marker(
+                        [
+                            this.offersArray[i].partner.latitude,
+                            this.offersArray[i].partner.longitude
+                        ], {
+                            icon: offerIcon,
+                            slug: this.offersArray[i].partner.partner_type.slug,
+                            offer: this.offersArray[i],
+                            partner: this.offersArray[i].partner.id
+                        }
+                    ).bindPopup(popup).addTo(this.mapGroup);
+
+
+                    this.markers.push(marker);
+                    this.orderList('distance');
+                    this.computedMarkers.push(marker);
+                }
+
+                let mbAttr = '',
+                    mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+                let streets = L.tileLayer(mbUrl, {id: 'mapbox.streets', attribution: mbAttr});
+
+                this.map = L.map('mapid', {
+                    attributionControl: false,
+                    center: [39.5695, 2.9459],
+                    zoom: 10,
+                    layers: [streets, this.mapGroup]
+                });
+
+                let scope = this;
+
+                this.map.on('moveend', function () {
+                    scope.updateListOnZoom(scope);
+                });
+
+                this.map.on('zoomend', function () {
+                    scope.updateListOnZoom(scope);
+
+                    if (scope.map.getZoom() === 17) {
+                        scope.mapGroup.eachLayer(function (e) {
+                            if (scope.map.getBounds().contains(e.getLatLng())) {
+                                let offerIcon = new L.DivIcon({
+                                    html: '<img class="my-div-image" src="' + e.options.offer.partner.image + '" style="width: 60px; height: 60px;"/>' +
+                                        '<span class="number-partner" style="background-color: #0d4b6c;\n' +
+                                        '    padding: 10px 5px;\n' +
+                                        '    text-align: center;\n' +
+                                        '    width: 100%;\n' +
+                                        '    display: block;\n' +
+                                        '    color: white;\n' +
+                                        '    font-size: 15px;">' + e.__parent.getChildCount() + '</span>',
+                                    iconSize: [60, 60]
+                                });
+
+
+                                console.log(e.__parent.setIcon(offerIcon));
+                            }
+                        });
+                    }
+
+                    /*if (scope.map.getZoom() === 17) {
+                        let content = '';
+                        let repeatedContent = [];
+
+                        scope.mapGroup.eachLayer(function (e) {
+                            if (scope.map.getBounds().contains(e.getLatLng())) {
+                                content += e.options.offer.partner.name + '<br/><br/>';
+                                content += e.options.offer.name + '<br/>';
+                                content += 'Ahorro de ' + e.options.offer.spar + '<br/>';
+                                content += '<a href="/oferta/' + e.options.offer.id + '" target="_blank">Link a oferta</a><br/>';
+
+                                repeatedContent.push(e);
+                            }
+                        });
+
+                        if (repeatedContent.length > 1) {
+                                let offerIcon = new L.DivIcon({
+                                    className: repeatedContent[0].options.offer.partner.partner_type.slug + ' icon-image-partner',
+                                    html: '<img class="my-div-image" src="' + repeatedContent[0].options.offer.partner.image + '" style="width: 60px; height: 60px;"/>' +
+                                        '<span class="number-partner" style="background-color: #0d4b6c;\n' +
+                                        '    padding: 10px 5px;\n' +
+                                        '    text-align: center;\n' +
+                                        '    width: 100%;\n' +
+                                        '    display: block;\n' +
+                                        '    color: white;\n' +
+                                        '    font-size: 15px;">' + repeatedContent.length + '</span>',
+                                    iconSize: [60, 60]
+                                });
+
+                                this.repeatedMarker = L.marker(
+                                    [
+                                        repeatedContent[0].options.offer.partner.latitude,
+                                        repeatedContent[0].options.offer.partner.longitude
+                                    ], {
+                                        classList: 'test',
+                                        icon: offerIcon,
+                                        slug: repeatedContent[0].options.offer.partner.partner_type.slug,
+                                        offer: repeatedContent[0].options.offer,
+                                        partner: repeatedContent[0].options.offer.partner.id
+                                    }
+                                ).addTo(scope.mapGroup);
+
+                            this.repeatedMarker.bindPopup(content);
+                        }
+                    } else {
+                        scope.mapGroup.removeLayer(this.repeatedMarker);
+                    }*/
+                });
+
+                this.gps.addTo(this.map);
+            }
+        });
 </script>
 {% endput %}

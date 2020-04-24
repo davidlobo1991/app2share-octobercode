@@ -25,7 +25,7 @@ class Map extends ComponentBase
     public function onRun()
     {
 
-        $offers = Offer::with('partner.partner_type')
+        $offers = Offer::with('partner.partner_type')->with('offerRating')
             ->where('active', 1)
             ->orderBy('name', 'asc')
             ->get();
@@ -38,6 +38,20 @@ class Map extends ComponentBase
                 $pathLogoPartner = $logoPartner->getPath();
             } else {
                 $pathLogoPartner = url('/') . '/themes/app2share/assets/image/imagenot.jpg';
+            }
+
+            $averageRating = 0;
+            $offerRating = $offer->offerRating;
+
+
+            if ($offerRating->count() > 0) {
+                foreach ($offerRating as $rating) {
+                    $averageRating += $rating->stars;
+                }
+
+                $offer['ratingAverage'] = $averageRating / $offerRating->count();
+            } else {
+                $offer['ratingAverage'] = 'none';
             }
 
             $offer->partner['image'] = $pathLogoPartner;
