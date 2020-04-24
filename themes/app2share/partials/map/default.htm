@@ -72,7 +72,6 @@
                 searchValue: null,
                 gps: new L.Control.Gps({
                     autoActive: true,
-                    autoCenter: true
                 }),
                 beforeLayer: null,
                 repeatedMarker: null
@@ -114,13 +113,13 @@
                     let scope = this;
 
                     console.log(value);
-                    console.log(this.gps.isActive);
+                    console.log(this.gps.isActived);
 
                     if (value === 'name') {
                         this.offersArray = this.offersArray.sort(function (a, b) {
                             return a.partner.name < b.partner.name ? -1 : 1;
                         });
-                    } else if (value === 'distance' && this.gps.isActive) {
+                    } else if (value === 'distance' && this.gps.isActived) {
                         this.offersArray = this.offersArray.sort(function (a, b) {
                             return scope.getDistance(a) < scope.getDistance(b) ? -1 : 1;
                         });
@@ -132,7 +131,7 @@
 
                     console.log(from);
 
-                    if (this.gps.isActive) {
+                    if (this.gps.isActived) {
                         from = this.gps.getLatLng();
                     }
 
