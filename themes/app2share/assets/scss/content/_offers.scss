@@ -19,7 +19,7 @@ iframe {
         height: 100%;
         padding: 30px;
         color: $main_color;
-        background: url(../image/fondo-derecha.svg);
+        background: url(../../image/fondo-derecha.svg);
         background-color: $c_white;
         background-size: 270%;
         background-position: -250px -100px;
@@ -29,7 +29,7 @@ iframe {
             top: 0;
             right: 0;
             padding: 20px;
-            background: url(../image/fondo-izquierda.svg) #1F4B7D;
+            background: url(../../image/fondo-izquierda.svg) #1F4B7D;
             background-position: 10px;
             color: white;
             text-align: center;
@@ -56,26 +56,50 @@ iframe {
     position: absolute;
     color: white;
     cursor: pointer;
-    background: url(../image/fondo-izquierda.svg) #1F4B7D;
+    background: url(../../image/fondo-izquierda.svg) #1F4B7D;
     bottom: 50px;
     font-size: 16px;
     text-transform: uppercase;
     font-weight: 600;
 
     &:hover {
-        background: url(../image/fondo-derecha.svg) #fff;
+        background: url(../../image/fondo-derecha.svg) #fff;
         border: 1px solid #1F4B7D;
     }
 }
 
-.rating {
-    .voted {
-        background-image: url(../image/icons/star-1.svg);
+.form-group {
+    .rating:not(:checked) > input {
+        width: 0;
+        height: 0;
     }
-    .empty {
-        background-image: url(../image/icons/star-2.svg);
+    .rating:not(:checked) > label {
+        float: right;
+        width: 1em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 30px;
+    }
+    .rating:not(:checked) > label:before {
+        content: '\f006';
     }
 
+    .rating > label:hover:before,
+    .rating > label:hover ~ label:before,
+    .rating > input:checked ~ label:before {
+        content: '\f005';
+    }
+
+    .rating > label:hover:before,
+    .rating > label:hover ~ label:before,
+    .rating > input:checked ~ label:before,
+    .rating > input:checked ~ label:before {
+        content: "\f005";
+    }
+}
+
+.rating {
     .star {
         display: inline-block;
         content: '';

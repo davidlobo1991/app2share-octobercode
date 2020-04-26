@@ -1,13 +1,16 @@
 {
   "name": "app2share",
   "version": "1.0.0",
-  "description": "<p align=\"center\">\r     <img src=\"https://github.com/octobercms/october/blob/master/themes/demo/assets/images/october.png?raw=true\" alt=\"October\" width=\"25%\" height=\"25%\" />\r </p>",
-  "main": "index.js",
+  "description": "App2Share",
+  "main": "webpack.mix.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node node_modules/cross-env/src/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "node node_modules/cross-env/src/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "hot": "node node_modules/cross-env/src/bin/cross-env.js NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "node node_modules/cross-env/src/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -19,8 +22,11 @@
     "url": "https://gitlab.com/app2share/app2share/issues"
   },
   "homepage": "https://gitlab.com/app2share/app2share#readme",
-  "dependencies": {
-    "jw-paginate": "^1.0.4",
-    "vue": "^2.6.11"
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "laravel-mix": "^5.0.4",
+    "node-sass": "^4.14.0",
+    "resolve-url-loader": "^3.1.0",
+    "sass-loader": "^8.0.2"
   }
 }

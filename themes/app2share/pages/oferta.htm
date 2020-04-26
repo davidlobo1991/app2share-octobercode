@@ -4,6 +4,7 @@ layout = "default"
 is_hidden = 0
 
 [OfferRating]
+[UserOffer]
 ==
 <?php
 use App2share\App\Models\Offer;
@@ -46,7 +47,7 @@ $this["partner"] = $partner;
                  <div class="col-sm-6">
                      <div class="rating">
                          {% for i in 1..5 %}
-                             {% set starClass = (ratingAverage >= i ? "star voted" : "star empty")  %}
+                             {% set starClass = (ratingAverage >= i ? "star fa fa-star" : "star fa fa-star-o")  %}
                              <i class="{{ starClass }}"></i>
                          {% endfor %}
                      </div>
@@ -78,7 +79,8 @@ $this["partner"] = $partner;
                         <h2>{{offer.name}}</h2>
                         {{offer.description|raw}}
                         <span class="content-page__info-spar">Ahorro <br/> {{ offer.spar }}€</span>
-                        <button class="btn btn-default use-offer">Usar oferta</button>
+
+                        {% component 'UserOffer' offer=offer.id %}
                     </div>
                 </div>
             </div>

@@ -139,7 +139,7 @@ img {
 
         &#background-right {
             color: $main_color;
-            background: url(../image/fondo-derecha.svg);
+            background: url(../../image/fondo-derecha.svg);
             background-color: $c_white;
             background-size: 270%;
             background-position: -250px -100px;
@@ -149,7 +149,7 @@ img {
 
                 &:hover {
                     color: white !important;
-                    background: url(../image/fondo-izquierda.svg);
+                    background: url(../../image/fondo-izquierda.svg);
                     background-color: $main_color;
                     border-color: $main_color;
                 }
@@ -158,7 +158,6 @@ img {
 
         &#background-left {
             color: $c_white;
-            background: url(../image/fondo-izquierda.svg);
             background-color: $main_color;
             background-size: 270%;
             background-position: -180px -100px;
@@ -185,7 +184,6 @@ img {
 
         &:hover {
             color: $main_color !important;
-            background: url(../image/fondo-derecha.svg);
             background-color: white;
             border-color: $main_color;
         }

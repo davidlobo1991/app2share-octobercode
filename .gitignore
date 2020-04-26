@@ -20,3 +20,4 @@ composer.lock
 /themes/app2share/assets/.sass-cache
 # for netbeans
 nbproject
+node_modules

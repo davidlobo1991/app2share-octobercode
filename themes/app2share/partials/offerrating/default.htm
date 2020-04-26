@@ -3,10 +3,18 @@
 {% if user %}
 <form data-request-flash data-request="{{ __SELF__ }}::onSaveValoration"
       data-request-data="[offer_id: {{offer.id}}, user_id: {{user.id}}]"
-      data-request-update="'offerrating/comments': '#comments-offer'" class="form-offer">
+      data-request-update="'offerrating/comments': '#comments-offer'"
+      data-request-success="this.reset()"
+      class="form-offer">
     <div class="form-group">
-        <label for="stars">Stars</label>
-        <input type="number" name="stars" id="stars" class="form-control" required>
+        <div class="rating">
+            {% for i in 5..1 %}
+             {% set starClass = (comment.stars >= i ? "star fa fa-star" : "star fa fa-star-o")  %}
+              <input type="radio" name="stars" id="star{{i}}" value="{{i}}" />
+                <label class="fa" for="star{{i}}"></label>
+
+            {% endfor %}
+        </div>
     </div>
 
     <div class="form-group">
@@ -18,7 +26,7 @@
     </div>
 </form>
 {% else %}
-    <p>Logueate para poder comentar</p>
+    <p><a href="/login">Logueate</a> para poder comentar</p>
 {% endif %}
 
 

@@ -11,3 +11,12 @@ $font_name: 'fontawesome';
 	font-style: normal;
 }
 
+.fa {
+    font-family: 'fontawesome';
+}
+
+.fa-star {
+    &:before {
+        content: '\f005';
+    }
+}

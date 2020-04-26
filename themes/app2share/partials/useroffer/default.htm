@@ -1,0 +1,41 @@
+<button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-default use-offer">Usar oferta</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{offer.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{offer.description|raw}}
+                <p>Podrás volver a usar la oferta en 24 horas</p>
+
+                <p style="color: deeppink">
+                    Y aquí la postal. Tradiciones son tradiciones. No me voy a extender mucho porque quiero acabar esta parte
+                    y me están requiriendo para que vaya a tirar la basura, pero escribiré buenamente lo que pueda.
+                    Este año la postal por aquí! App2Share! Porque vamos a triunfar, porque les vamos a meter los millones a los
+                    alemanes por el culo y porque somos los putos amos. Comenzamos nosotros dos, y vamos a salir y a triunfar nosotros
+                    dos.
+                    Ahora a lo ñoño, lo que ya sabes, que te quiero un montón y que es un orgullo tenerte en mi equipo y en mi vida.
+                    Lo dicho, A TRIUNFAR! Los 31, los celebramos en el barco!
+                    Molts d´anys!
+                    <br/>
+
+                    PD: Dale a usar oferta y BUUUM!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <form data-request-flash data-request="{{ __SELF__ }}::onUserOffer"
+                      data-request-data="[offer_id: {{offer.id}}, user_id: {{user.id}}]">
+                    <button type="submit" class="btn btn-primary">Usar oferta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

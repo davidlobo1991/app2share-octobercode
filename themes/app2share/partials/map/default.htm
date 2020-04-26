@@ -34,7 +34,7 @@
                     <p v-html="getPartnerName(offer)"></p>
 
                     <div class="rating">
-                     <i v-for="index in 5" :key="index" :class="offer.ratingAverage !== 'none' && offer.ratingAverage >= index ? 'star voted' : 'star empty'">
+                     <i v-for="index in 5" :key="index" :class="offer.ratingAverage !== 'none' && offer.ratingAverage >= index ? 'star fa fa-star' : 'star fa fa-star-o'">
                      </i>
                     </div>
 
@@ -134,8 +134,7 @@
                     }
 
                     let to = L.latLng(marker.partner.latitude, marker.partner.longitude);
-                    let distance = from.distanceTo(to).toFixed(0)/1000;
-                    return distance;
+                    return from.distanceTo(to).toFixed(0)/1000;
                 },
 
                 linkMap(offer) {
@@ -150,7 +149,6 @@
                     let latLngs = [marker.getLatLng()];
                     let markerBounds = L.latLngBounds(latLngs);
                     this.map.fitBounds(markerBounds, 1, 1);
-                    this.map.setMaxZoom(14);
                 },
 
                 searchPartner(event) {
@@ -328,8 +326,10 @@
 
                 this.map.on('zoomend', function () {
                     scope.updateListOnZoom(scope);
+                    console.log(scope.map.getZoom());
+                    if (scope.map.getZoom() === 18) {
+                        console.log('test1');
 
-                    if (scope.map.getZoom() === 15) {
                         scope.mapGroup.eachLayer(function (e) {
                             if (scope.map.getBounds().contains(e.getLatLng())) {
                                 let offerIcon = new L.DivIcon({
@@ -345,58 +345,13 @@
                                 });
 
 
-                                console.log(e.__parent.setIcon(offerIcon));
+                                e.__parent.setIcon(offerIcon);
                             }
                         });
-                    }
-
-                    /*if (scope.map.getZoom() === 17) {
-                        let content = '';
-                        let repeatedContent = [];
-
-                        scope.mapGroup.eachLayer(function (e) {
-                            if (scope.map.getBounds().contains(e.getLatLng())) {
-                                content += e.options.offer.partner.name + '<br/><br/>';
-                                content += e.options.offer.name + '<br/>';
-                                content += 'Ahorro de ' + e.options.offer.spar + '<br/>';
-                                content += '<a href="/oferta/' + e.options.offer.id + '" target="_blank">Link a oferta</a><br/>';
-
-                                repeatedContent.push(e);
-                            }
-                        });
-
-                        if (repeatedContent.length > 1) {
-                                let offerIcon = new L.DivIcon({
-                                    className: repeatedContent[0].options.offer.partner.partner_type.slug + ' icon-image-partner',
-                                    html: '<img class="my-div-image" src="' + repeatedContent[0].options.offer.partner.image + '" style="width: 60px; height: 60px;"/>' +
-                                        '<span class="number-partner" style="background-color: #0d4b6c;\n' +
-                                        '    padding: 10px 5px;\n' +
-                                        '    text-align: center;\n' +
-                                        '    width: 100%;\n' +
-                                        '    display: block;\n' +
-                                        '    color: white;\n' +
-                                        '    font-size: 15px;">' + repeatedContent.length + '</span>',
-                                    iconSize: [60, 60]
-                                });
-
-                                this.repeatedMarker = L.marker(
-                                    [
-                                        repeatedContent[0].options.offer.partner.latitude,
-                                        repeatedContent[0].options.offer.partner.longitude
-                                    ], {
-                                        classList: 'test',
-                                        icon: offerIcon,
-                                        slug: repeatedContent[0].options.offer.partner.partner_type.slug,
-                                        offer: repeatedContent[0].options.offer,
-                                        partner: repeatedContent[0].options.offer.partner.id
-                                    }
-                                ).addTo(scope.mapGroup);
-
-                            this.repeatedMarker.bindPopup(content);
-                        }
                     } else {
-                        scope.mapGroup.removeLayer(this.repeatedMarker);
-                    }*/
+                        console.log('test2');
+                        scope.mapGroup.refreshClusters();
+                    }
                 });
 
                 this.gps.addTo(this.map);

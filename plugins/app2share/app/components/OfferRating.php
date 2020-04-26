@@ -37,6 +37,11 @@ class OfferRating extends ComponentBase
         try {
             $contactPartner = new OfferRatingModel();
             $request = Input::all();
+
+            if (!isset($request->stars)) {
+                Flash::error('Selecciona la votación');
+            }
+
             $contactPartner->fill($request);
             $contactPartner->save();
 
