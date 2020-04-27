@@ -91,7 +91,7 @@ class Plugin extends PluginBase
             '' => [
                 'label'       => 'Usos App2Share',
                 'url'         => Backend::url('app2share/app/offeruser'),
-                'icon'        => 'icon-party',
+                'icon'        => 'icon-magic',
                 'permissions' => ['app2share.app.changes'],
                 'order'       => 500,
             ],
