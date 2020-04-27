@@ -16,17 +16,12 @@ use Illuminate\Support\Carbon;
 function onStart()
 {
     $user = Auth::getUser();
-    $userAllow = false;
     $offer = Offer::where('id', $this->param('slug'))->with('offerRating')->first();
     $offerUser = OfferUser::where('user_id', $user->id)
         ->where('offer_id', $offer->id)
         ->where('created_at', '<', Carbon::now())
         ->where('valid_to', '>', Carbon::now())
         ->first();
-
-    if (count($offerUser) === 0) {
-        $userAllow = true;
-    }
 
     $partner = $offer ? $offer->partner : null;
 
@@ -46,7 +41,6 @@ function onStart()
 
 $this["offer"] = $offer;
 $this["partner"] = $partner;
-$this["userAllow"] = $userAllow;
 $this["offerUser"] = $offerUser;
 
 }
