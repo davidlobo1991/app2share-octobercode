@@ -1,0 +1,16 @@
+columns:
+    id:
+        label: id
+        type: number
+    offer_id:
+        label: Oferta
+        type: number
+    user_id:
+        label: Usuario
+        type: number
+    created_at:
+        label: 'Fecha uso'
+        type: datetime
+    valid_to:
+        label: 'Valido hasta'
+        type: datetime

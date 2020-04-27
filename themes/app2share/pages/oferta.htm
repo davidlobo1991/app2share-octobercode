@@ -4,14 +4,30 @@ layout = "default"
 is_hidden = 0
 
 [OfferRating]
+
 [UserOffer]
 ==
 <?php
 use App2share\App\Models\Offer;
+use App2share\App\Models\OfferUser;
+use RainLab\User\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 function onStart()
 {
+    $user = Auth::getUser();
+    $userAllow = false;
     $offer = Offer::where('id', $this->param('slug'))->with('offerRating')->first();
+    $offerUser = OfferUser::where('user_id', $user->id)
+        ->where('offer_id', $offer->id)
+        ->where('created_at', '<', Carbon::now())
+        ->where('valid_to', '>', Carbon::now())
+        ->first();
+
+    if (count($offerUser) === 0) {
+        $userAllow = true;
+    }
+
     $partner = $offer ? $offer->partner : null;
 
     $averageRating = 0;
@@ -25,11 +41,13 @@ function onStart()
         $this["ratingAverage"] = $averageRating / $offerRating->count();
 
         } else {
-            $this['ratingAverage'] = 'none';
+            $this['ratingAverage'] = 0;
         }
 
 $this["offer"] = $offer;
 $this["partner"] = $partner;
+$this["userAllow"] = $userAllow;
+$this["offerUser"] = $offerUser;
 
 }
 ?>
@@ -81,6 +99,7 @@ $this["partner"] = $partner;
                         <span class="content-page__info-spar">Ahorro <br/> {{ offer.spar }}€</span>
 
                         {% component 'UserOffer' offer=offer.id %}
+                        {% component 'countdown' %}
                     </div>
                 </div>
             </div>

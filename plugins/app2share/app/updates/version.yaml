@@ -56,3 +56,15 @@
 1.0.20:
     - 'Updated table app2share_app_offer_valoration'
     - builder_table_update_app2share_app_offer_rating.php
+1.0.21:
+    - 'Created table app2share_app_offer_user'
+    - builder_table_create_app2share_app_offer_user.php
+1.0.22:
+    - 'Updated table app2share_app_offer_rating'
+    - builder_table_update_app2share_app_offer_rating_2.php
+1.0.23:
+    - 'Updated table app2share_app_offer_rating'
+    - builder_table_update_app2share_app_offer_rating_3.php
+1.0.24:
+    - 'Updated table app2share_app_offer_user'
+    - builder_table_update_app2share_app_offer_user.php

@@ -88,6 +88,13 @@ class Plugin extends PluginBase
     {
 
         return [
+            '' => [
+                'label'       => 'Usos App2Share',
+                'url'         => Backend::url('app2share/app/offeruser'),
+                'icon'        => 'icon-party',
+                'permissions' => ['app2share.app.changes'],
+                'order'       => 500,
+            ],
             'partner' => [
                 'label'       => 'Asociados',
                 'url'         => Backend::url('app2share/app/partner'),

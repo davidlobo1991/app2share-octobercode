@@ -51,7 +51,7 @@ class Map extends ComponentBase
 
                 $offer['ratingAverage'] = $averageRating / $offerRating->count();
             } else {
-                $offer['ratingAverage'] = 'none';
+                $offer['ratingAverage'] = 0;
             }
 
             $offer->partner['image'] = $pathLogoPartner;

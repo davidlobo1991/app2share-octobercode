@@ -1,0 +1,21 @@
+[countdown]
+countdown = 1
+init = 1
+css = 1
+==
+{% if user %}
+    <span id="btn-offer">
+        {% if offerUser is null %}
+            <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-default use-offer">Usar oferta</button>
+        {% else %}
+        <span style="color: red; font-size: 18px; font-weight: 600;">Oferta usada: {{offerUser.created_at}}</span>
+
+        <p style="color: red; font-size: 18px; font-weight: 600;">
+            Tiempo restante para volver a usarla: <span id="timer"></span>
+        </p>
+
+        {% endif %}
+    </span>
+{% else %}
+    <p><a href="/login">Logueate</a> para usar la oferta (por el momento, todos los usuarios pueden usar las ofertas, por el momento...)</p>
+{% endif %}

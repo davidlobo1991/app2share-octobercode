@@ -1,7 +1,8 @@
-<button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-default use-offer">Usar oferta</button>
+
+{% partial 'useroffer/button' %}
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="control-popup modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -14,28 +15,58 @@
                 {{offer.description|raw}}
                 <p>Podrás volver a usar la oferta en 24 horas</p>
 
-                <p style="color: deeppink">
-                    Y aquí la postal. Tradiciones son tradiciones. No me voy a extender mucho porque quiero acabar esta parte
-                    y me están requiriendo para que vaya a tirar la basura, pero escribiré buenamente lo que pueda.
-                    Este año la postal por aquí! App2Share! Porque vamos a triunfar, porque les vamos a meter los millones a los
-                    alemanes por el culo y porque somos los putos amos. Comenzamos nosotros dos, y vamos a salir y a triunfar nosotros
-                    dos.
-                    Ahora a lo ñoño, lo que ya sabes, que te quiero un montón y que es un orgullo tenerte en mi equipo y en mi vida.
-                    Lo dicho, A TRIUNFAR! Los 31, los celebramos en el barco!
-                    Molts d´anys!
-                    <br/>
-
-                    PD: Dale a usar oferta y BUUUM!
-                </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 <form data-request-flash data-request="{{ __SELF__ }}::onUserOffer"
-                      data-request-data="[offer_id: {{offer.id}}, user_id: {{user.id}}]">
+                      data-request-data="[offer_id: {{offer.id}}]"
+                      data-request-update="'useroffer/button': '#btn-offer'"
+                      data-request-success="closeModal(); countdownTimeStart(data.validTo.date);">
+
                     <button type="submit" class="btn btn-primary">Usar oferta</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+
+<script>
+    function closeModal() {
+        $('#exampleModal').modal('hide');
+    }
+
+    function countdownTimeStart(data) {
+        console.log(data);
+        let countDownDate = new Date(data).getTime();
+
+        let x = setInterval(function() {
+
+            // Get todays date and time
+            let now = new Date().getTime();
+
+            // Find the distance between now an the count down date
+            let distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("timer").innerHTML = hours + "h "
+                + minutes + "m " + seconds + "s ";
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    }
+</script>
+
+{% if offerUser %}
+<script>
+    countdownTimeStart("{{offerUser.valid_to}}");
+</script>
+{% endif %}
 
