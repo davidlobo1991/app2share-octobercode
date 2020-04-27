@@ -17,14 +17,18 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <form data-request-flash data-request="{{ __SELF__ }}::onUserOffer"
-                      data-request-data="[offer_id: {{offer.id}}]"
-                      data-request-update="'useroffer/button': '#btn-offer'"
-                      data-request-success="closeModal(); countdownTimeStart(data.validTo.date);">
+                {% if user %}
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <form data-request-flash data-request="{{ __SELF__ }}::onUserOffer"
+                          data-request-data="[offer_id: {{offer.id}}]"
+                          data-request-update="'useroffer/button': '#btn-offer'"
+                          data-request-success="closeModal(); countdownTimeStart(data.validTo.date);">
 
-                    <button type="submit" class="btn btn-primary">Usar oferta</button>
-                </form>
+                        <button type="submit" class="btn btn-primary">Usar oferta</button>
+                    </form>
+                {% else %}
+                    <p><a href="/login">Logueate</a> para poder usar la oferta (por ahora todos los usuarios)</p>
+                {% endif %}
             </div>
         </div>
     </div>
