@@ -17,14 +17,20 @@
 
             </div>
             <div class="modal-footer">
+
                 {% if user %}
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <form data-request-flash data-request="{{ __SELF__ }}::onUserOffer"
                           data-request-data="[offer_id: {{offer.id}}]"
                           data-request-update="'useroffer/button': '#btn-offer'"
-                          data-request-success="closeModal(); countdownTimeStart(data.validTo.date);">
+                          data-request-success="closeModal(); countdownTimeStart(data.validTo.date);"
+                          >
 
-                        <button type="submit" class="btn btn-primary">Usar oferta</button>
+                        <h2 id="main_captcha" ></h2>
+                        <input type="text" id="txt_input" name="ip_ct_number" maxlength="3" required />
+                        <span id="txt_input_error" style="display:none; color: red;">Los números introducidos no son corrrectos</span>
+
+                        <input type="hidden" id="ct_number" name="ct_number" />
+                        <button type="submit" data-attach-loading class="btn btn-primary" onclick="return validCaptcha()">Usar oferta</button>
                     </form>
                 {% else %}
                     <p><a href="/login">Logueate</a> para poder usar la oferta (por ahora todos los usuarios)</p>
@@ -41,13 +47,15 @@
     }
 
     function countdownTimeStart(data) {
-        console.log(data);
         let countDownDate = new Date(data).getTime();
 
         let x = setInterval(function() {
 
             // Get todays date and time
-            let now = new Date().getTime();
+            let now = new Date();
+
+         /*  let utc = nowUTC.getTime() + (nowUTC.getTimezoneOffset() * 60000);
+            let now = new Date(utc + (3600000 * '+2'));*/
 
             // Find the distance between now an the count down date
             let distance = countDownDate - now;
@@ -66,6 +74,39 @@
             }
         }, 1000);
     }
+
+    function captcha(){
+        let alpha = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        let i;
+        for (i = 0; i < 3 ; i++){
+            var a = alpha[Math.floor(Math.random() * alpha.length)];
+            var b = alpha[Math.floor(Math.random() * alpha.length)];
+            var c = alpha[Math.floor(Math.random() * alpha.length)];
+        }
+        let code = a + ' ' + b + ' ' + ' ' + c;
+
+
+        document.getElementById("main_captcha").innerHTML = code;
+        document.getElementById("main_captcha").value = code;
+        document.getElementById("ct_number").value = removeSpaces(code);
+    }
+
+    function validCaptcha(){
+        var string1 = removeSpaces(document.getElementById('main_captcha').value);
+        var string2 = removeSpaces(document.getElementById('txt_input').value);
+
+        if (string1 !== string2) {
+            document.getElementById("txt_input_error").style.display = "block";
+            return false;
+        }
+    }
+
+    function removeSpaces(string){
+        return string.split(' ').join('');
+    }
+
+    captcha();
+
 </script>
 
 {% if offerUser %}

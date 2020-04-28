@@ -8,15 +8,20 @@ use Hybridauth\Exception\Exception;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
+use October\Rain\Exception\AjaxException;
 use October\Rain\Support\Facades\Flash;
 use RainLab\User\Facades\Auth;
+use ValidationException;
+use SystemException;
+use Validator;
 
 class UserOffer extends ComponentBase
 {
     public function componentDetails()
     {
         return [
-            'name'        => 'OfferUser Component',
+            'name' => 'OfferUser Component',
             'description' => 'No description provided yet...'
         ];
     }
@@ -26,11 +31,26 @@ class UserOffer extends ComponentBase
         return [];
     }
 
-    public function onUserOffer() {
+    public function onUserOffer()
+    {
 
         try {
-            $user = Auth::getUser();
+
             $request = Input::all();
+
+            $rules = [
+                'ip_ct_number' => 'same:ct_number'
+            ];
+
+            $validation = Validator::make($request, $rules);
+
+            if ($validation->fails()) {
+                Flash::error('Los números introducidos no concuerdan. Vuelva a introducirlos.');
+                throw new ValidationException($validation);
+            }
+
+
+            $user = Auth::getUser();
 
             $offerUser = OfferUser::where('user_id', $user->id)
                 ->where('offer_id', $request['offer_id'])

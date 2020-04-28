@@ -333,8 +333,6 @@
                     scope.updateListOnZoom(scope);
                     console.log(scope.map.getZoom());
                     if (scope.map.getZoom() === 18) {
-                        console.log('test1');
-
                         scope.mapGroup.eachLayer(function (e) {
                             if (scope.map.getBounds().contains(e.getLatLng())) {
                                 let offerIcon = new L.DivIcon({
@@ -354,7 +352,6 @@
                             }
                         });
                     } else {
-                        console.log('test2');
                         scope.mapGroup.refreshClusters();
                     }
                 });

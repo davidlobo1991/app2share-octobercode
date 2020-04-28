@@ -10,11 +10,13 @@ $('.slider-nav').slick({
     slidesToShow: 3,
     slidesToScroll: 1,
     asNavFor: '.slider-for',
-    dots: true,
+    dots: false,
     centerMode: true,
-    focusOnSelect: true,
-    autoplay: true
+    focusOnSelect: true
+
 });
+
+
 
 $(".how-works a").on('click', function (e) {
     $(this).find('.modal-close').toggleClass('active');
