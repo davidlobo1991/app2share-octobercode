@@ -46,9 +46,6 @@ class UserOffer extends ComponentBase
 
             if ($validation->fails()) {
                 Flash::error('Los números introducidos no concuerdan. Vuelva a introducirlos.');
-
-                return $pepe;
-
                 throw new ValidationException($validation);
             }
 

@@ -22,8 +22,8 @@
                     <form data-request-flash data-request="{{ __SELF__ }}::onUserOffer"
                           data-request-data="[offer_id: {{offer.id}}]"
                           data-request-update="'useroffer/button': '#btn-offer'"
-                          data-request-success="console.log(jqXHR);"
-                          >
+                          data-request-success="closeModal(); countdownTimeStart(data.validTo.date);"
+                    >
 
                         <h2 id="main_captcha" ></h2>
                         <input type="text" id="txt_input" name="ip_ct_number" maxlength="3" required />
