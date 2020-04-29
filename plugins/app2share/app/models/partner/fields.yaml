@@ -40,6 +40,11 @@ fields:
         label: Email
         span: auto
         type: text
+    slug:
+        label: Slug
+        span: auto
+        required: 1
+        type: text
 tabs:
     fields:
         description:

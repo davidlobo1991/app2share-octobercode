@@ -22,7 +22,7 @@
                     <form data-request-flash data-request="{{ __SELF__ }}::onUserOffer"
                           data-request-data="[offer_id: {{offer.id}}]"
                           data-request-update="'useroffer/button': '#btn-offer'"
-                          data-request-success="closeModal(); countdownTimeStart(data.validTo.date);"
+                          data-request-success="console.log(jqXHR);"
                           >
 
                         <h2 id="main_captcha" ></h2>
@@ -30,7 +30,7 @@
                         <span id="txt_input_error" style="display:none; color: red;">Los números introducidos no son corrrectos</span>
 
                         <input type="hidden" id="ct_number" name="ct_number" />
-                        <button type="submit" data-attach-loading class="btn btn-primary" onclick="return validCaptcha()">Usar oferta</button>
+                        <button type="submit" data-attach-loading class="btn btn-primary">Usar oferta</button>
                     </form>
                 {% else %}
                     <p><a href="/login">Logueate</a> para poder usar la oferta (por ahora todos los usuarios)</p>
@@ -70,7 +70,7 @@
 
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("timer").innerHTML = "EXPIRED";
+                document.getElementById("timer").innerHTML = "ERROR";
             }
         }, 1000);
     }
@@ -111,7 +111,7 @@
 
 {% if offerUser %}
 <script>
-    countdownTimeStart("{{offerUser.valid_to}}");
+    countdownTimeStart("{{offerUser.valid_to|date('m/d/Y H:i:s', 'Europe/Paris')}}");
 </script>
 {% endif %}
 

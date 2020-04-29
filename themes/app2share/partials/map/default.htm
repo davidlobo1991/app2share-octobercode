@@ -41,6 +41,8 @@
 
                     <span :id="offer.id" v-html="getOffer(offer)"></span>
                     <p v-html="getOfferDescription(offer)"></p>
+                    <a v-bind:href="'/oferta/' + offer.partner.slug + '/' + offer.slug" target="_blank">Link a oferta</a>
+
                     <button v-on:click="linkMap(offer)">Mapa</button>
                 </li>
             </ul>
@@ -273,7 +275,9 @@
                     content += this.offersArray[i].partner.name + '<br/><br/>';
                     content += this.offersArray[i].name + '<br/>';
                     content += 'Ahorro de ' + this.offersArray[i].spar + '<br/>';
-                    content += '<a href="/oferta/' + this.offersArray[i].id + '" target="_blank">Link a oferta</a>';
+                    content += '<a href="/oferta/' + this.offersArray[i].partner.slug + '/' + this.offersArray[i].slug + '" target="_blank">' +
+                        'Link a oferta' +
+                        '</a>';
 
                     let popup = L.popup({
                         closeButton: true,

@@ -1,5 +1,5 @@
 title = "Oferta"
-url = "/oferta/:slug"
+url = "/oferta/:slugPartner/:slugOffer"
 layout = "default"
 is_hidden = 0
 
@@ -16,32 +16,39 @@ use Illuminate\Support\Carbon;
 function onStart()
 {
     $user = Auth::getUser();
-    $offer = Offer::where('id', $this->param('slug'))->with('offerRating')->first();
-$offerUser = OfferUser::where('user_id', $user->id)
-->where('offer_id', $offer->id)
-->where('created_at', '<', Carbon::now())
-->where('valid_to', '>', Carbon::now())
-->first();
+    $offer = Offer::where('slug', $this->param('slugOffer'))->whereHas('partner', function($query) {
+        $query->where('slug', $this->param('slugPartner'));
+    })->with('offerRating')->first();
 
-$partner = $offer ? $offer->partner : null;
+    if (!$offer) {
+        return Redirect::to('404');
+    }
 
-$averageRating = 0;
-$offerRating = $offer->offerRating;
+    $offerUser = OfferUser::where('user_id', $user->id)
+    ->where('offer_id', $offer->id)
+    ->where('created_at', '<', Carbon::now())
+    ->where('valid_to', '>', Carbon::now())
+    ->first();
 
-if ($offerRating->count() > 0) {
-foreach ($offerRating as $rating) {
-$averageRating += $rating->stars;
-}
+    $partner = $offer ? $offer->partner : null;
 
-$this["ratingAverage"] = $averageRating / $offerRating->count();
+    $averageRating = 0;
+    $offerRating = $offer->offerRating;
 
-} else {
-$this['ratingAverage'] = 0;
-}
+    if ($offerRating->count() > 0) {
+        foreach ($offerRating as $rating) {
+            $averageRating += $rating->stars;
+        }
 
-$this["offer"] = $offer;
-$this["partner"] = $partner;
-$this["offerUser"] = $offerUser;
+        $this["ratingAverage"] = $averageRating / $offerRating->count();
+
+    } else {
+        $this['ratingAverage'] = 0;
+    }
+
+        $this["offer"] = $offer;
+        $this["partner"] = $partner;
+        $this["offerUser"] = $offerUser;
 
 }
 ?>

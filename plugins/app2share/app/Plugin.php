@@ -30,6 +30,10 @@ class Plugin extends PluginBase
      */
     public function register()
     {
+        \Event::listen('backend.form.extendBeforeCreate', function($query) {
+            $test = $query;
+        });
+
 
     }
 
@@ -47,6 +51,8 @@ class Plugin extends PluginBase
             }
         });
     }
+
+
 
     /**
      * Registers any front-end components implemented in this plugin.
