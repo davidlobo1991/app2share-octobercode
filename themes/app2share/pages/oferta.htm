@@ -16,6 +16,8 @@ use Illuminate\Support\Carbon;
 function onStart()
 {
     $user = Auth::getUser();
+    $offerUser = null;
+
     $offer = Offer::where('slug', $this->param('slugOffer'))->whereHas('partner', function($query) {
         $query->where('slug', $this->param('slugPartner'));
     })->with('offerRating')->first();
@@ -24,11 +26,13 @@ function onStart()
         return Redirect::to('404');
     }
 
-    $offerUser = OfferUser::where('user_id', $user->id)
-    ->where('offer_id', $offer->id)
-    ->where('created_at', '<', Carbon::now())
-    ->where('valid_to', '>', Carbon::now())
-    ->first();
+    if ($user) {
+        $offerUser = OfferUser::where('user_id', $user->id)
+        ->where('offer_id', $offer->id)
+        ->where('created_at', '<', Carbon::now())
+        ->where('valid_to', '>', Carbon::now())
+        ->first();
+    }
 
     $partner = $offer ? $offer->partner : null;
 
@@ -46,9 +50,9 @@ function onStart()
         $this['ratingAverage'] = 0;
     }
 
-        $this["offer"] = $offer;
-        $this["partner"] = $partner;
-        $this["offerUser"] = $offerUser;
+    $this["offer"] = $offer;
+    $this["partner"] = $partner;
+    $this["offerUser"] = $offerUser;
 
 }
 ?>
