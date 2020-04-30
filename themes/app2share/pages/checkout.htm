@@ -1,0 +1,223 @@
+title = "Checkout"
+url = "/checkout"
+layout = "default"
+is_hidden = 0
+is_header_fixed = 1
+
+[cartList]
+
+[checkoutList]
+
+==
+<section class="c-checkout">
+    <div class="o-wrapper o-wrapper--xl ">
+        <div class="c-checkout__container">
+            <form
+                data-request='checkoutList::onGeneratOrder'
+                data-request-success="redirectToCheckout(data.sessionId)"
+            >
+                <div class="o-layout o-layout--gutter-bottom-l">
+                    <div class="o-layout__item u-1/2@m">
+                        <div class="c-checkout__box u-pdr-xxxl@m">
+                            <h2 class="c-checkout__title">{{'Detalles de envío'|_}}</h2>
+                            <div class="u-mrt-xs">
+                                <div class="c-input">
+                                    <label>{{'Nombre'|_}} <span class="required">*</span></label>
+                                    <input type="text" name="name" required
+                                           value="{% if user %}{{user.name}}{% endif %}"/>
+                                </div>
+                                <div class="c-input">
+                                    <label>{{'Apellidos'|_}} <span class="required">*</span></label>
+                                    <input type="text" name="surname" required
+                                           value="{% if user %}{{user.surname}}{% endif %}"/>
+                                </div>
+                                <div class="c-input">
+                                    <label>{{'Email'|_}} <span class="required">*</span></label>
+                                    <input type="email" name="email" required
+                                           value="{% if user %}{{user.email}}{% endif %}"/>
+                                </div>
+                                <div class="c-input">
+                                    <label>{{'Empresa'|_}} </label>
+                                    <input type="text" name="enterprise"/>
+                                </div>
+                                <div class="c-input">
+                                    <label>{{'CIF'|_}} </label>
+                                    <input type="text" name="cif"/>
+                                </div>
+                                <div class="c-input">
+                                    <label>{{'País'|_}} <span class="required">*</span></label>
+                                    <select name="country"
+                                            data-request="checkoutList::onCalculateShipping"
+                                            data-request-data="'cart_id': {{session('web_cart_id')}}"
+                                            data-request-update="'shippingType':'#shippingType', 'totalPrice':'#totalPrice', 'states': '#states'"
+                                            required>
+                                        <option value="">{{'Seleccione un pais'|_}}</option>
+                                        {% for country in countries %}
+                                        <option id="{{country.id}}" value="{{country.id}}">{{country.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="c-input">
+                                    <label>{{'Dirección de envío'|_}} <span class="required">*</span></label>
+                                    <input type="text" name="address" required/>
+                                </div>
+                                <div class="c-input">
+                                    <label>{{'Código Postal'|_}} <span class="required">*</span></label>
+                                    <input type="text" name="postalCode" required/>
+                                </div>
+                                <div class="c-input">
+                                    <label>{{'Ciudad'|_}} <span class="required">*</span></label>
+                                    <input type="text" name="city" required/>
+                                </div>
+                                {% partial 'states' %}
+                                <div class="c-input">
+                                    <label>{{'Teléfono'|_}} <span class="required">*</span></label>
+                                    <input type="text" name="phone" required/>
+                                </div>
+                                <div class="c-input--check">
+                                    <label class="c-input__checkbox">
+                                        <input id="checkinvoice" name="checkinvoice" type="checkbox" value="1">
+                                        <label class="c-input__check" for="checkinvoice"></label>
+                                        <span>{{'Por favor, enviadme factura oficial'|_}}</span>
+                                    </label>
+                                </div>
+                                <div class="c-input">
+                                    <label>{{'Comentarios'|_}}</label>
+                                    <textarea name="comment"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="o-layout__item u-1/2@m">
+                        <div class="c-checkout__box c-checkout__form u-pdl-xxxl@m">
+                            <h2 class="c-checkout__title">{{'Cesta de compra'|_}}</h2>
+                            {% if cart is not empty and cart.position is not empty %}
+                            {% set cartEmpty = 0 %}
+                            {% for item in cart.position if not item.is_digital %}
+                            <div class="c-cart-resume__item c-cart-resume__item--product o-layout u-pdv-s">
+                                <div class="o-layout__item u-5/7">
+                                    <div class="u-flex">
+                                        <img style="width: 90px; height: 60px;"
+                                             src="{{item.product.preview_image.getThumb(auto,auto,'crop')}}"
+                                             alt="{{item.product.preview_image.disk_name}}"/>
+                                        <h3 class="c-cart-resume__product-title u-mrl-s">
+                                            <a href="{{'product-info'|page ({ slug: item.product.slug })}}">{{
+                                                item.product.name}}</a>
+                                            <span class="c-cart-resume__qty">x {{ item.quantity }}</span>
+                                        </h3>
+                                        {% if item.product.is_digital %}
+                                        <div class="c-product__digital u-flex u-flex-wrap u-mrb-m">
+                                            <ul>
+                                                {% for itemDig in cart.position if itemDig.is_digital %}
+                                                    {% if itemDig.digital_parent_id == item.product.id %}
+                                                    <li class="u-mrb-xs">
+                                                        {{itemDig.product.name}} DIGITAL
+                                                    </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+
+                                <div class="o-layout__item u-2/7">
+                                    <div class="u-flex u-flex-right u-flex-middle">
+                                            <span class="c-cart-resume__price u-align-center">
+                                                {% if item.product.is_digital %}
+                                                {% set sumDigitalProducts = 0  %}
+                                                {% for itemDig in cart.position if itemDig.is_digital %}
+                                                    {% if itemDig.digital_parent_id == item.product.id %}
+                                                        {% set sumDigitalProducts = sumDigitalProducts + itemDig.product.offer.first.price  %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {{ item.product.offer.first.price|number_format(2) + sumDigitalProducts  }}€
+                                            {% else %}
+                                                        {{ item.product.offer.first.price|number_format(2) }}€
+                                            {% endif %}
+
+
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            {% set cartEmpty = 1 %}
+                            <div>{{'La cesta esta vacia'|_}}</div>
+                            {% endif %}
+                            <div class="c-cart-resume__item c-cart-resume__item--product o-layout u-pdv-xs">
+                                <div class="o-layout__item u-5/7">
+                                    <span class="c-cart-resume__product-title">{{'Gastos de envío'|_}}</span>
+                                </div>
+                                <div class="o-layout__item u-2/7 u-align-right">
+                                    <div id="shippingType">
+                                        {% partial 'shippingType' %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="c-cart-resume__item o-layout u-pdv-xs">
+                                <div class="o-layout__item u-5/7">
+                                    <span class="c-cart-resume__product-title">{{'Total'|_}}</span>
+                                </div>
+                                <div class="o-layout__item u-2/7 u-align-right">
+                                    <div id="totalPrice">
+                                        {% partial 'totalPrice' %}
+                                    </div>
+
+                                    <input type="hidden" name="totalPrice" value="{{totalPrice|number_format(2)}}">
+                                </div>
+                            </div>
+                            <div class="u-mrt-xxxl">
+                                <h2 class="c-checkout__title">Detalles de pago</h2>
+                                <div class="u-mrt-xs">
+                                    <div class="c-input">
+                                        <label>{{'Forma de pago'|_}}<span class="required">*</span></label>
+                                        <select name="payment_method" required>
+                                            <!--
+                                                                                            <option>{{'Seleccione un metodo de pago'|_}}</option>
+                                            -->
+                                            {% for payment in paymentMethods%}
+                                            <option value="{{payment.id}}">{{payment.name}}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="c-input--check">
+                                    <!--                                    <span>{{'Tus datos personales se utilizarán para administrar tu pedido y para otros fines descritos en nuestra política de privacidad.'|_}}</span>-->
+                                    <label class="c-input__checkbox"><input id="checkaccept" type="checkbox"
+                                                                            required><label class="c-input__check"
+                                                                                            for="checkaccept"></label>
+                                        <span>{{'Aceptas que al compra'|_}} <a href="{{'terms-and-conditions'|page}}">{{'Politica de Privacidad'|_}}</a>.</span><span
+                                            class="required"></span></label>
+                                </div>
+                                <div class="u-mrt-xs">
+                                    <div class="c-input u-mrt-s">
+                                        <input type="submit" value="{{'COMPRAR'|_}}" {% if cartEmpty== 1 %}disabled{%
+                                               endif %}>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% put scripts %}
+<script type="text/javascript">
+    var stripe = Stripe('pk_live_6P5fFmXT3lB6XH5TX4I0ToBr00wpTkeOip');
+
+    function redirectToCheckout(sessionId) {
+        stripe.redirectToCheckout({
+            sessionId: sessionId
+        })
+            .then(function (result) {
+            });
+    }
+</script>
+{% endput %}

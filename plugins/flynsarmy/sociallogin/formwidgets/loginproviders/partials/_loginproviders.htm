@@ -1,3 +1,4 @@
+
 <?php if ( !$this->model->flynsarmy_sociallogin_providers->count() ): ?>
 	<p>This user hasn't logged in with any social providers yet.</p>
 <?php else: ?>
@@ -6,4 +7,4 @@
 			<i class="fa icon-<?= strtolower($provider->provider_id) ?>"></i> <?= $provider->provider_id ?><br/>
 		<?php endforeach; ?>
 	</p>
-<?php endif;
+<?php endif; ?>

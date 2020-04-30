@@ -67,6 +67,7 @@ class Plugin extends PluginBase
             'App2share\App\Components\ContactPartner' => 'ContactPartner',
             'App2share\App\Components\OfferRating' => 'OfferRating',
             'App2share\App\Components\UserOffer' => 'UserOffer',
+            'App2Share\App\Components\ProductList' => 'ProductList'
         ];
     }
 

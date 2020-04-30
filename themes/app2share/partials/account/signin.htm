@@ -1,5 +1,4 @@
 {{ form_ajax('onSignin') }}
-
     <div class="form-group">
         <label for="userSigninLogin">{{ loginAttributeLabel }}</label>
         <input
@@ -20,18 +19,11 @@
             placeholder="Enter your password" />
     </div>
 
-    {% if rememberLoginMode == 'ask' %}
-    <div class="form-group">
-        <div class="checkbox">
-        <label><input name="remember" type="checkbox" value="1">Stay logged in</label>
-        </div>
-    </div>
-    {% endif %}
-
-    {% for name, link in social_login_links %}
-        <a href="{{ link }}">{{ name }}</a>
-    {% endfor %}
-
-    <button type="submit" class="btn btn-default">Sign in</button>
+    <button type="submit" class="">Sign in</button>
 
 {{ form_close() }}
+
+{% component 'sociallogin' %}
+
+
+

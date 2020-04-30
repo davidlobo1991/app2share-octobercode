@@ -783,8 +783,7 @@ input[type='submit'] {
 }
 
 .main-nav ul li a:hover {
-  color: #fff;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .header {

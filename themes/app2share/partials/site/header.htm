@@ -1,44 +1,42 @@
-        <div class="header clearfix">
-            <div class="header-top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <a href="" title="Zur Startseite" id="main-logo" class="logo-site"><img src="{{ 'assets/image/logo.svg'|theme }}" alt="Logo" title="Logo"></a>
-                        </div>
-                        <div class="col-sm-4">
-                            <a href="" title="Zur Startseite" id="second-logo" class="logo-site" style="display: none;"><img src="{{ 'assets/image/sharing.png'|theme }}" alt="Logo" title="Sharing"></a>
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="text" placeholder="Buscar ofertas por tu zona" class="form-control" id="form-search" />
-                        </div>
+<div class="header clearfix">
+    <div class="header-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <a href="" title="Zur Startseite" id="main-logo" class="logo-site"><img
+                        src="{{ 'assets/image/logo.svg'|theme }}" alt="Logo" title="Logo"></a>
+                </div>
+                <div class="col-sm-4">
+                    <a href="" title="Zur Startseite" id="second-logo" class="logo-site" style="display: none;"><img
+                        src="{{ 'assets/image/sharing.png'|theme }}" alt="Logo" title="Sharing"></a>
+                </div>
+                <div class="col-sm-4">
+                    <div class="nav-user" style="display: inline;">
+                        <a href="" data-toggle="modal" data-target="#loginModal" class="btn btn-default">
+                            <i class="fa fa-user"></i>
+                        </a>
                     </div>
+                    <input type="text" placeholder="Buscar" class="" id="form-search"/>
+                </div>
             </div>
+        </div>
 
-                <div class="header-bottom">
-                    <div class="container">
+        <div class="header-bottom">
+            <div class="container">
                 <nav class="main-nav">
                     <ul class="container">
-                        <li><a href="">Inicio</a></li>
-                        <li><a href="">Ofertas</a></li>
-                        <li><a href="">Eventos</a></li>
-                        <li><a href="">Así funciona</a></li>
-                        <li><a href="">Comprar</a></li>
+                        <li><a href="/">Inicio</a></li>
+                        <li><a href="/ofertas">Ofertas</a></li>
+                        <li><a href="/asi-funciona">Así funciona</a></li>
+                        <li><a href="/tienda">Comprar</a></li>
                     </ul>
                     <ul class="nav-lang">
-                        <li><img src="{{ 'assets/image/icons/lang/es.png'|theme }}" alt="es" /></li>
-                        <li><img src="{{ 'assets/image/icons/lang/de.png'|theme }}" alt="de" /></li>
-                        <li><img src="{{ 'assets/image/icons/lang/en.png'|theme }}" alt="en" /></li>
+                        <li><img src="{{ 'assets/image/icons/lang/es.png'|theme }}" alt="es"/></li>
+                        <li><img src="{{ 'assets/image/icons/lang/de.png'|theme }}" alt="de"/></li>
+                        <li><img src="{{ 'assets/image/icons/lang/en.png'|theme }}" alt="en"/></li>
                     </ul>
                 </nav>
-                    </div>
-
-                <div class="nav-user" style="display: none;">
-                    <ul>
-                        <li><a href="">Registrar</a></li>
-                        <li><a href="">Login</a></li>
-                    </ul>
-                </div>
-                </div>
+            </div>
         </div>
- </div>
- </div>
+    </div>
+</div>

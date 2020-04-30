@@ -1,0 +1,13 @@
+[sociallogin]
+==
+
+{% if not user %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Sign in</h3>
+            {% partial __SELF__ ~ '::signin' %}
+        </div>
+    </div>
+
+{% endif %}

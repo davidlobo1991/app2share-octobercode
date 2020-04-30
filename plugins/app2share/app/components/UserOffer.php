@@ -34,24 +34,27 @@ class UserOffer extends ComponentBase
     public function onUserOffer()
     {
 
+
+        $request = Input::all();
+
+        $message = [
+            'same' => 'Los números tienen que coindicir'
+        ];
+
+        $rules = [
+            'ip_ct_number' => 'same:ct_number'
+        ];
+
+        $validation = Validator::make($request, $rules, $message);
+
+        if ($validation->fails()) {
+            throw new ValidationException($validation);
+        }
+
+
+        $user = Auth::getUser();
+
         try {
-
-            $request = Input::all();
-
-            $rules = [
-                'ip_ct_number' => 'same:ct_number'
-            ];
-
-            $validation = Validator::make($request, $rules);
-
-            if ($validation->fails()) {
-                Flash::error('Los números introducidos no concuerdan. Vuelva a introducirlos.');
-                throw new ValidationException($validation);
-            }
-
-
-            $user = Auth::getUser();
-
             $offerUser = OfferUser::where('user_id', $user->id)
                 ->where('offer_id', $request['offer_id'])
                 ->where('created_at', '<', Carbon::now())

@@ -30,7 +30,7 @@
                         <span id="txt_input_error" style="display:none; color: red;">Los números introducidos no son corrrectos</span>
 
                         <input type="hidden" id="ct_number" name="ct_number" />
-                        <button type="submit" data-attach-loading class="btn btn-primary">Usar oferta</button>
+                        <button type="submit" data-attach-loading class="btn btn-primary" onclick="return validCaptcha()">Usar oferta</button>
                     </form>
                 {% else %}
                     <p><a href="/login">Logueate</a> para poder usar la oferta (por ahora todos los usuarios)</p>

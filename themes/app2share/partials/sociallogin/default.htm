@@ -1,0 +1,6 @@
+{% for item, link in social_login_links %}
+    <a href="{{link}}" class="text-muted">
+        <i style="font-size: 30px; margin-right: 10px;" class="fa fa-{{item|lower}}" aria-hidden="true" title="{{item}}"></i>
+    </a>
+{% endfor %}
+

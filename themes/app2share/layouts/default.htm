@@ -2,6 +2,13 @@ description = "Default layout"
 
 [session]
 security = "all"
+
+[sociallogin]
+
+[account]
+redirect = "home"
+paramCode = "code"
+forceSecure = 0
 ==
 <!DOCTYPE html>
 <html>
@@ -128,6 +135,7 @@ security = "all"
 </style>-->
 </head>
 <body>
+{% partial "site/header" %}
 
 <section id="layout-content">
     {% page %}
@@ -135,8 +143,17 @@ security = "all"
     <div class="logo">
         <a href="/"><img src="{{'assets/image/logo.png'|theme}}"></a>
     </div>
+
 </section>
 
+<div class="control-popup modal fade" style="text-align: center;" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding: 20px 60px 100px;">
+            {% component 'account' %}
+        </div>
+    </div>
+</div>
+{% partial "site/footer" %}
 
 
 <!-- Scripts -->
