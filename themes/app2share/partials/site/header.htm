@@ -25,16 +25,13 @@
             <div class="container">
                 <nav class="main-nav">
                     <ul class="container">
-                        <li><a href="/">Inicio</a></li>
-                        <li><a href="/ofertas">Ofertas</a></li>
-                        <li><a href="/asi-funciona">Así funciona</a></li>
-                        <li><a href="/tienda">Comprar</a></li>
+                        <li><a href="/">{{ 'Inicio'|_ }}</a></li>
+                        <li><a href="/ofertas">{{ 'Ofertas'|_ }}</a></li>
+                        <li><a href="/asi-funciona">{{ 'Así funciona'|_ }}</a></li>
+                        <li><a href="/tienda">{{ 'Comprar'|_ }}</a></li>
                     </ul>
-                    <ul class="nav-lang">
-                        <li><img src="{{ 'assets/image/icons/lang/es.png'|theme }}" alt="es"/></li>
-                        <li><img src="{{ 'assets/image/icons/lang/de.png'|theme }}" alt="de"/></li>
-                        <li><img src="{{ 'assets/image/icons/lang/en.png'|theme }}" alt="en"/></li>
-                    </ul>
+
+                    {% component 'localePicker' %}
                 </nav>
             </div>
         </div>

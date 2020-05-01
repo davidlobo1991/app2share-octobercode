@@ -8,6 +8,8 @@ use System\Classes\PluginBase;
  */
 class Plugin extends PluginBase
 {
+    public $require = ['Flynsarmy.SocialLogin'];
+
     /**
      * Returns information about this plugin.
      *
@@ -147,6 +149,17 @@ class Plugin extends PluginBase
                         'order'       => 500,
                     ],
                 ],
+            ],
+        ];
+    }
+
+    function register_flynsarmy_sociallogin_providers()
+    {
+        return [
+            'App2Share\\App\\SocialLoginProviders\\Instagram' => [
+                'label' => 'Instagram',
+                'alias' => 'Instagram',
+                'description' => 'Log in with Instagram'
             ],
         ];
     }

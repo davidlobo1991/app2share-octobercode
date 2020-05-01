@@ -2,17 +2,28 @@
 ==
 
 {% if not user %}
+<ul class="nav nav-pills nav-fill">
+    <li class="nav-item">
+        <a class="nav-link active" id="but-tab-login" href="#tab-login" data-toggle="pill" role="tab" aria-controls="tab-login" aria-selected="true">Log in</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="but-tab-register" href="#tab-register" data-toggle="pill" role="tab" aria-controls="tab-register" aria-selected="true">Registro</a>
+    </li>
+</ul>
 
-    <div class="row">
-        <div class="col-md-12">
-            <h3>Sign in</h3>
+    <div class="row tab-content">
+        <div class="col-md-12 tab-pane fade show active" id="tab-login" role="tabpanel" aria-labelledby="but-tab-login">
             {% partial __SELF__ ~ '::signin' %}
+        </div>
+
+        <div class="col-md-12 tab-pane fade" id="tab-register" role="tabpanel" aria-labelledby="but-tab-register">
+            {% partial __SELF__ ~ '::register' %}
         </div>
     </div>
 
 {% else %}
 
-Ya estás logueado, mierdaseca. <a data-request="onLogout" data-request-data="redirect: '/good-bye'">Clicka aquí </a>
+Ya estás logueado, señor con email {{ user.email }}. <a data-request="onLogout" data-request-data="redirect: '/good-bye'">Clicka aquí </a>
 para desloguearte.
 
 {% endif %}
