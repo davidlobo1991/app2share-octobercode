@@ -13,9 +13,14 @@ $('.slider-nav').slick({
     dots: false,
     centerMode: true,
     focusOnSelect: true
-
 });
 
+$('.slick-home').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+});
 
 
 $(".how-works a").on('click', function (e) {
