@@ -1,0 +1,10 @@
+name: SeoPages
+form: $/rw/utils/models/seo/fields.yaml
+modelClass: RW\Utils\Models\Seo
+defaultRedirect: rw/utils/seopages
+create:
+    redirect: 'rw/utils/seopages/update/:id'
+    redirectClose: rw/utils/seopages
+update:
+    redirect: rw/utils/seopages
+    redirectClose: rw/utils/seopages

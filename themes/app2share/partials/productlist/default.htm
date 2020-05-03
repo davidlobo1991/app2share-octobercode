@@ -1,22 +1,24 @@
 <section class="c-items-grid c-items-grid--shop">
     <div class="o-wrapper o-wrapper--xl">
-        <div  class="c-items-grid__row u-mrb-xl ">
+        <div class="c-items-grid__row u-mrb-xl ">
             <div class="o-layout o-layout--gutter-left-l  o-layout--gutter-bottom-xl">
                 <div class="o-layout__item u-2/4@m">
-                    {% if subscription %}
+                    {% for subs in subscription %}
                     <div class="c-items-grid__item">
-                            <div class="c-items-grid__media">
-                                <picture class="c-images c-images--58">
-                                    <source media="(max-width: 900px)" srcset="{{ subscription.preview_image.path }}">
-                                    <img data-src="{{ subscription.preview_image.getThumb(672,390,'crop') }}" alt="{{currentMagazine.preview_image.title}}" />
-                                </picture>
-                            </div>
-                            <div class="u-align-center u-mrt-s">
-                                <h2 class="c-items-grid__title">{{ subscription.name }}</h2>
-                                <span class="c-items-grid__subtitle">{{ subscription.offer.first.price|number_format(2) }}€</span>
-                            </div>
+                        <div class="c-items-grid__media">
+                            <picture class="c-images c-images--58">
+                                <source media="(max-width: 900px)" srcset="{{ subs.preview_image.path }}">
+                                <img data-src="{{ subs.preview_image.getThumb(672,390,'crop') }}"/>
+                            </picture>
+                        </div>
+                        <div class="u-align-center u-mrt-s">
+                            <a href="{{ 'product-info'|page ({ slug: product.slug }) }}">
+                                <h2 class="c-items-grid__title">{{ subs.name }}</h2>
+                            </a>
+                            <span class="c-items-grid__subtitle">{{ subs.offer.first.price|number_format(2) }}€</span>
+                        </div>
                     </div>
-                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>

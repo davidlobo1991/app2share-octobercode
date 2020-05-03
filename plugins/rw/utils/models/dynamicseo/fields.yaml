@@ -1,0 +1,58 @@
+tabs:
+    fields:
+        title:
+            label: 'rw.utils::lang.fields.title'
+            span: full
+            type: text
+            tab: Seo
+        keywords:
+            label: 'rw.utils::lang.fields.keywords'
+            span: full
+            type: text
+            tab: Seo
+        description:
+            label: 'rw.utils::lang.fields.description'
+            size: small
+            span: full
+            type: textarea
+            tab: Seo
+        og_title:
+            label: 'rw.utils::lang.fields.og_title'
+            span: full
+            type: text
+            tab: Seo
+        seoImage:
+            label: 'rw.utils::lang.fields.seoImage'
+            mode: image
+            imageWidth: '600'
+            imageHeight: '400'
+            useCaption: 0
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: full
+            type: fileupload
+            tab: Seo
+        og_description:
+            label: 'rw.utils::lang.fields.og_description'
+            size: small
+            span: full
+            type: textarea
+            tab: Seo
+        structured_data:
+            label: 'rw.utils::lang.fields.structured_data'
+            size: large
+            span: full
+            type: textarea
+            tab: Seo
+        robots:
+            label: 'rw.utils::lang.fields.robots'
+            options:
+                '': 'Sin Seleccionar'
+                'index, follow': 'Index, follow'
+                'index, nofollow': 'Index, Nofollow'
+                'noindex, follow': 'NoIndex,follow'
+                'noindex, nofollow': 'NoIndex, NoFollow'
+            span: full
+            type: radio
+            tab: 'rw.utils::lang.tabs.robots'

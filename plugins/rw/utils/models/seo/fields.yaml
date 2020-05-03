@@ -1,0 +1,62 @@
+fields:
+    page:
+        label: 'rw.utils::lang.fields.page'
+        span: auto
+        placeholder: 'rw.utils::lang.fields.select_page'
+        required: 1
+        type: dropdown
+    title:
+        label: 'rw.utils::lang.fields.title'
+        span: left
+        required: 1
+        type: text
+    keywords:
+        label: 'rw.utils::lang.fields.keywords'
+        span: left
+        type: text
+    description:
+        label: 'rw.utils::lang.fields.description'
+        size: small
+        span: left
+        type: textarea
+    structured_data:
+        label: 'rw.utils::lang.fields.structured_data'
+        size: large
+        span: full
+        type: textarea
+tabs:
+    fields:
+        og_title:
+            label: 'rw.utils::lang.fields.og_title'
+            span: auto
+            type: text
+            tab: Og
+        seoImage:
+            label: 'rw.utils::lang.fields.seoImage'
+            mode: image
+            imageWidth: '600'
+            imageHeight: '400'
+            useCaption: 0
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: auto
+            type: fileupload
+            tab: Og
+        og_description:
+            label: 'rw.utils::lang.fields.og_description'
+            size: small
+            span: left
+            type: textarea
+            tab: Og
+        robots:
+            label: 'rw.utils::lang.fields.robots'
+            options:
+                '': 'Sin Seleccionar'
+                'index, follow': 'Index, follow'
+                'index, nofollow': 'Index, Nofollow'
+                'noindex, follow': 'NoIndex,follow'
+                'noindex, nofollow': 'NoIndex, NoFollow'
+            span: full
+            type: radio
+            tab: 'rw.utils::lang.tabs.robots'

@@ -1,0 +1,93 @@
+title = "product-info"
+url = "/tienda/:slug"
+layout = "default"
+is_hidden = 0
+is_header_fixed = 1
+
+[viewBag]
+localeTitle[en] = "Shop"
+localeTitle[de] = "Shop"
+localeUrl[en] = "/shop/:slug"
+localeUrl[de] = "/shop/:slug"
+
+[ProductPage]
+slug = "{{ :slug }}"
+slug_required = 1
+smart_url_check = 0
+
+[ProductInfo]
+
+[CartList]
+==
+{% set obProduct = ProductPage.get() %}
+
+<section class="c-product">
+    <div class="o-wrapper o-wrapper--xl ">
+        <div class="c-product__container  js-product-container">
+            <div class="o-layout__item u-pdr-m@m  c-product__image js-column-image">
+                <div class="o-layout o-layout--gutter-l">
+                    {% for gallery in obProduct.images%}
+                    <div class="o-layout__item">
+                        <div class="c-product__picture">
+                            <picture>
+                                <img data-src="{{gallery.getThumb(auto, auto, 'crop')}}" alt="{{gallery.title}}"/>
+                            </picture>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="o-layout__item  u-pdl-l@m u-pdt-xl c-product__text js-column-text">
+                <h1 class="c-product__title">{{obProduct.name}}</h1>
+
+                <p class="c-product__price u-mrt-xs">
+                    <span id="c-product__price-product" data-price="{{obProduct.offer.first.price|number_format(2)}}">{{obProduct.offer.first.price|number_format(2)}} </span>€
+                </p>
+                <div class="c-product__info u-mrt-m">
+                    <!-- <div class="c-product__subtitle">{{'CONTENIDOS'|_}}</div> -->
+                    <div class="c-product__description u-mrt-xs">
+                        {{obProduct.description|raw}}
+                    </div>
+                </div>
+
+                <div class="u-flex u-flex-between u-mrv-s">
+                    <form action="">
+                        <div class="u-flex">
+                            <a href="javascript:;"
+                               class="c-product__add"
+                               data-request="ProductInfo::onCreateCart"
+                               data-request-data="'offer_id': '{{obProduct.offer.first.id}}','product_id': '{{obProduct.id}}', 'quantity' = 1,"
+                               data-request-update="'cart': '#cartList'"
+                               data-request-success="more();addToCart();"
+                               data-request-flash
+                            >{{'COMPRAR'|_}}</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% put scripts %}
+<script type="text/javascript" >
+
+    $(document).ready(function() {
+        $('.c-input__checkbox input[type="checkbox"]').on('change', function () {
+            let infoPrice = $('#c-product__price-product');
+            let price = parseFloat(infoPrice.attr('data-price'));
+            let inputPrice = $(this).data('price');
+
+
+            if ($(this).is(':checked')) {
+                infoPrice.attr('data-price',  price + inputPrice);
+                infoPrice.html(parseFloat(price + inputPrice).toFixed(2));
+            } else {
+                infoPrice.attr('data-price', price - inputPrice);
+                infoPrice.html(parseFloat(price - inputPrice).toFixed(2));
+            }
+        });
+    });
+
+</script>
+{% endput %}

@@ -1,0 +1,4 @@
+title: Scripts
+modelClass: RW\Utils\Models\Script
+toolbar:
+    buttons: reorder_toolbar

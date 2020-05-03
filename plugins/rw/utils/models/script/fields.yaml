@@ -1,0 +1,21 @@
+fields:
+    name:
+        label: 'rw.utils::lang.fields.name'
+        span: full
+        type: text
+    script:
+        label: 'rw.utils::lang.fields.script'
+        size: large
+        span: full
+        required: 1
+        type: textarea
+    noscript:
+        label: 'rw.utils::lang.fields.noscript'
+        size: large
+        span: full
+        type: textarea
+    is_active:
+        label: 'rw.utils::lang.fields.is_active'
+        span: auto
+        default: 1
+        type: switch

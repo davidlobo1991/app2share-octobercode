@@ -1,0 +1,10 @@
+rwSeo:
+    label: 'Seo'
+    deferredBinding: false
+    manage:
+        form: $/rw/utils/models/dynamicseo/fields.yaml
+    view:
+        list: $/rw/utils/models/dynamicseo/columns.yaml
+        form: $/rw/utils/models/dynamicseo/fields.yaml
+        toolbarButtons: update|delete
+        showCheckboxes: true

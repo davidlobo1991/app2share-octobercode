@@ -3,6 +3,12 @@ url = "/oferta/:slugPartner/:slugOffer"
 layout = "default"
 is_hidden = 0
 
+[viewBag]
+localeTitle[en] = "Offer"
+localeTitle[de] = "Angebot"
+localeUrl[en] = "/offer/:slugPartner/:slugOffer"
+localeUrl[de] = "/angebot/:slugPartner/:slugOffer"
+
 [OfferRating]
 
 [UserOffer]
@@ -109,6 +115,13 @@ function onStart()
                         {% component 'UserOffer' offer=offer.id %}
                     </div>
                 </div>
+            </div>
+
+            <div class="c-product__social">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{''|page}}&t={{offer.name}}" target="_blank" class="c-product__social-item"><img width="23" src="{{'assets/images/fb.png'|theme}}" alt="facebook" /></a>
+                <a href="https://twitter.com/intent/tweet/?url=http://inpalma.rwdesarrollos.es/product/{{offer.slug}}" target="_blank" class="c-product__social-item"><img width="23" src="{{'assets/images/twitter.png'|theme}}" alt="twitter"/></a>
+                <a href="https://api.whatsapp.com/send?text={{offer.name}}%0A{{''|page}}" data-action="share/whatsapp/share" target="_blank" class="c-product__social-item"><img width="22" src="{{'assets/images/icons/whatsapp-negro.png'|theme}}" alt="whatsapp"/></a>
+                <a href="mailto:?subject={{offer.name}}&body={{offer.description|striptags}}<br>{{''|page}}"  target="_blank"  class="c-product__social-item"><img width="23" src="{{'assets/images/mail.png'|theme}}" alt="mail"/></a>
             </div>
 
             {% component 'OfferRating' offer=offer.id %}

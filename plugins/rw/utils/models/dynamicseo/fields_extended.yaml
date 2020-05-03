@@ -1,0 +1,6 @@
+rwSeo:
+    label: Seo
+    span: full
+    type: partial
+    path: $/rw/utils/partials/_rwSeo.htm
+    tab: Seo

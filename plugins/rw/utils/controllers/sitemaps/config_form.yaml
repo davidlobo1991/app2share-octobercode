@@ -1,0 +1,10 @@
+name: Sitemaps
+form: $/rw/utils/models/sitemap/fields.yaml
+modelClass: RW\Utils\Models\Sitemap
+defaultRedirect: rw/utils/sitemaps
+create:
+    redirect: 'rw/utils/sitemaps/update/:id'
+    redirectClose: rw/utils/sitemaps
+update:
+    redirect: rw/utils/sitemaps
+    redirectClose: rw/utils/sitemaps

@@ -1,0 +1,52 @@
+plugin:
+    name: 'rw.utils::lang.plugin.name'
+    description: 'rw.utils::lang.plugin.description'
+    author: 'Refineria Web'
+    icon: oc-icon-cloud
+    homepage: 'https://www.refineriaweb.com'
+permissions:
+    manage_seo:
+        tab: 'rw.utils::lang.permissions.utils'
+        label: 'rw.utils::lang.permissions.seo'
+    manage_config:
+        tab: 'rw.utils::lang.permissions.utils'
+        label: 'rw.utils::lang.permissions.config'
+    manage_scripts:
+        tab: 'rw.utils::lang.permissions.utils'
+        label: 'rw.utils::lang.permissions.scripts'
+    manage_page_content:
+        tab: 'rw.utils::lang.permissions.utils'
+        label: 'rw.utils::lang.permissions.page'
+navigation:
+    main-seo:
+        label: 'rw.utils::lang.menu.seo'
+        url: rw/utils/seopages
+        icon: icon-line-chart
+        permissions:
+            - manage_seo
+        order: '300'
+        sideMenu:
+            inner-seo:
+                label: 'rw.utils::lang.menu.seo'
+                url: rw/utils/seopages
+                icon: icon-line-chart
+                permissions:
+                    - manage_seo
+            inner-sitemap:
+                label: 'rw.utils::lang.menu.sitemap'
+                url: rw/utils/sitemaps
+                icon: icon-sitemap
+                permissions:
+                    - manage_seo
+            inner-scripts:
+                label: 'rw.utils::lang.menu.scripts'
+                url: rw/utils/scripts
+                icon: icon-google
+                permissions:
+                    - manage_scripts
+            inner-settings:
+                label: 'rw.utils::lang.menu.settings'
+                url: rw/utils/settings/update
+                icon: icon-sliders
+                permissions:
+                    - manage_config

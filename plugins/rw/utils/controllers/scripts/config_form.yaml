@@ -1,0 +1,10 @@
+name: Scripts
+form: $/rw/utils/models/script/fields.yaml
+modelClass: RW\Utils\Models\Script
+defaultRedirect: rw/utils/scripts
+create:
+    redirect: 'rw/utils/scripts/update/:id'
+    redirectClose: rw/utils/scripts
+update:
+    redirect: rw/utils/scripts
+    redirectClose: rw/utils/scripts

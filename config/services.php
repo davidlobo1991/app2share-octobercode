@@ -30,8 +30,13 @@ return [
     ],
 
     'stripe' => [
-        'model'  => 'User',
-        'secret' => '',
+        'model'  => \OFFLINE\Cashier\Models\User::class,
+        'key'     => env('STRIPE_KEY'),
+        'secret'  => env('STRIPE_SECRET'),
+        'webhook' => [
+            'url'     => '/stripe/webhook',
+            'handler' => '\OFFLINE\Cashier\Classes\WebhookController@handleWebhook'
+        ]
     ],
 
 ];

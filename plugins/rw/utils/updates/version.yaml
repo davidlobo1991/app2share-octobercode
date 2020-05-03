@@ -1,0 +1,28 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Generate seo friendly thumbs'
+1.0.3:
+    - 'Created table rw_utils_seo'
+    - builder_table_create_rw_utils_seo.php
+1.0.4:
+    - 'Created table rw_utils_scripts'
+    - builder_table_create_rw_utils_scripts.php
+1.0.5:
+    - 'Updated table rw_utils_seo'
+    - builder_table_update_rw_utils_seo.php
+1.0.6:
+    - 'Created table rw_utils_dynamic_seo'
+    - builder_table_create_rw_utils_dynamic_seo.php
+1.0.7:
+    - 'Created table rw_utils_sitemap'
+    - builder_table_create_rw_utils_sitemap.php
+1.0.8:
+    - 'Create rainlab translate config file'
+    - publish_rainlab_translate_config.php
+1.0.9:
+    - 'Updated table rw_utils_seo'
+    - builder_table_update_rw_utils_seo_2.php
+1.0.10:
+    - 'Updated table rw_utils_dynamic_seo'
+    - migration1010.php

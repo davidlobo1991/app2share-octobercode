@@ -1,0 +1,12 @@
+list: $/rw/utils/models/seo/columns.yaml
+modelClass: RW\Utils\Models\Seo
+title: SeoPages
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'rw/utils/seopages/update/:id'

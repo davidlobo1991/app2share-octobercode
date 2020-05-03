@@ -1,0 +1,6 @@
+<div class="sortable-drag-handler"
+    data-sortable-id="<?= $record->getKey() ?>"
+    data-sortable-order="<?= $record->pivot->{$formModel->pivotSortableRelations[$relationField]} ?>"
+    data-sortable-relation="<?= $relationField ?>">
+    ☰
+</div>

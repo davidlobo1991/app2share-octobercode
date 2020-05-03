@@ -1,0 +1,44 @@
+fields:
+    theme:
+        label: 'rw.utils::lang.fields.theme'
+        span: auto
+        type: dropdown
+    page:
+        label: 'rw.utils::lang.fields.page'
+        emptyOption: 'rw.utils::lang.options.select_page'
+        span: auto
+        type: dropdown
+    type:
+        label: 'rw.utils::lang.fields.type'
+        emptyOption: 'rw.utils::lang.options.select_type'
+        span: auto
+        type: dropdown
+    changefreq:
+        label: 'rw.utils::lang.fields.changeFreq'
+        options:
+            always: always
+            hourly: hourly
+            daily: daily
+            weekly: weekly
+            monthly: monthly
+            yearly: yearly
+            never: never
+        span: auto
+        type: dropdown
+    priority:
+        label: 'rw.utils::lang.fields.priority'
+        options:
+            '0.0': '0.0'
+            '0.1': '0.1'
+            '0.2': '0.2'
+            '0.3': '0.3'
+            '0.4': '0.4'
+            '0.5': '0.5'
+            '0.6': '0.6'
+            '0.7': '0.7'
+            '0.8': '0.8'
+            '0.9': '0.9'
+            '1.0': '1.0'
+        span: auto
+        default: '0.5'
+        type: dropdown

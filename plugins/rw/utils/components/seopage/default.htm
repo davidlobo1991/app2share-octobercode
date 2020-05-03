@@ -1,0 +1,57 @@
+{% set seoContent = __SELF__.seoContent %}
+{% set canonicalUrl = __SELF__.canonicalUrl %}
+
+{% placeholder rwSeo default %}
+    <link rel="canonical" href="{{ canonicalUrl }}" />
+    {% if seoContent %}
+        <title>{{seoContent.title}}</title>
+        <meta name="description" content="{{ seoContent.description }}" />
+        <meta name="title" content="{{ seoContent.title }}" />
+        <meta name="autor" content="Refineria Web">
+
+        {% if seoContent.keywords %}
+            <meta name="keywords" content="{{ seoContent.keywords }}" />
+        {% endif %}
+
+        {% if seoContent.og_title %}
+            <meta property="og:title" content="{{ seoContent.og_title }}" />
+        {% endif %}
+
+        {% if seoContent.og_description %}
+            <meta property="og:description" content="{{ seoContent.og_description }}" />
+        {% endif %}
+
+        {% if seoContent.seoImage %}
+            <meta property="og:image" content="{{ seoContent.seoImage.getThumb('1100', '800', 'crop') }}" />
+        {% endif %}
+
+        {% if seoContent.robots %}
+            <meta name="robots" content="{{seoContent.robots}}">
+        {% endif %}
+
+        {% if seoContent.structured_data %}
+            {{seoContent.structured_data|raw}}
+        {% endif %}
+    {% endif %}
+{% endplaceholder %}
+
+{% put scripts %}
+    <script async defer>
+        if (document.readyState!='loading') {
+            rwRemoveAutor();
+        }
+        document.addEventListener('DOMContentLoaded', rwRemoveAutor);
+
+        function rwRemoveAutor()
+        {
+            const metaAutor = document.querySelector('meta[name="autor"][content="OctoberCMS"]');
+            if (metaAutor) {
+                try {
+                    metaAutor.parentNode.removeChild(metaAutor);
+                } catch(error) {
+                    console.error(error);
+                }
+            }
+        }
+    </script>
+{% endput %}

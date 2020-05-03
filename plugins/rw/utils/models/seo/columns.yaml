@@ -1,0 +1,9 @@
+columns:
+    page:
+        label: page
+        type: text
+        searchable: true
+    title:
+        label: title
+        type: text
+        searchable: true

@@ -1,0 +1,26 @@
+columns:
+    page:
+        label: page
+        type: text
+        searchable: true
+        sortable: true
+    changefreq:
+        label: changefreq
+        type: text
+        searchable: true
+        sortable: true
+    priority:
+        label: priority
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: created_at
+        type: datetime
+        searchable: true
+        sortable: true
+    updated_at:
+        label: updated_at
+        type: datetime
+        searchable: true
+        sortable: true

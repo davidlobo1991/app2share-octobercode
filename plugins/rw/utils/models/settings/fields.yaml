@@ -1,0 +1,120 @@
+tabs:
+    fields:
+        company_name:
+            label: 'Company Name'
+            type: text
+            span: auto
+            tab: Web
+        company_description:
+            label: 'Company Description'
+            type: text
+            span: auto
+            tab: Web
+        cif:
+            label: CIF
+            type: text
+            span: auto
+            tab: Web
+        phone:
+            label: Phone
+            type: text
+            span: auto
+            tab: Web
+        email:
+            label: Email
+            type: text
+            span: auto
+            tab: Web
+        broken_image:
+            label: 'Broken Image'
+            type: fileupload
+            span: auto
+            tab: Web
+        facebook:
+            label: Facebook
+            type: text
+            span: auto
+            tab: Social
+        linkedin:
+            label: Linkedin
+            type: text
+            span: auto
+            tab: Social
+        twitter:
+            label: Twitter
+            type: text
+            span: auto
+            tab: Social
+        gplus:
+            label: 'Google Plus'
+            type: text
+            span: auto
+            tab: Social
+        pinterest:
+            label: Pinterest
+            type: text
+            span: auto
+            tab: Social
+        instagram:
+            label: Instagram
+            type: text
+            span: auto
+            tab: Social
+        youtube:
+            label: Youtube
+            type: text
+            span: auto
+            tab: Social
+        apikey:
+            label: 'Api key'
+            type: text
+            tab: Maps
+            span: full
+        latitude:
+            label: Latitude
+            type: text
+            tab: Maps
+            span: auto
+        longitude:
+            label: Longitude
+            type: text
+            tab: Maps
+            span: auto
+        robots@update:
+            label: 'rw.utils::lang.fields.robots'
+            mode: file
+            useCaption: 0
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: auto
+            type: fileupload
+            tab: 'rw.utils::lang.tabs.seo'
+            attachOnUpload: true
+        # sitemap@update:
+        #     label: 'rw.utils::lang.fields.sitemap'
+        #     mode: file
+        #     useCaption: 0
+        #     thumbOptions:
+        #         mode: crop
+        #         extension: auto
+        #     span: auto
+        #     type: fileupload
+        #     tab: 'rw.utils::lang.tabs.seo'
+        #     attachOnUpload: true
+        structuredData:
+            label: "Structred Data"
+            type: textarea
+            size: huge
+            tab: 'rw.utils::lang.tabs.seo'
+            span: full
+        detect_browser_language:
+            label: "rw.utils::lang.fields.detect_browser_language"
+            type: switch
+            tab: 'rw.utils::lang.tabs.multilanguage'
+            span: auto
+        prefer_user_session:
+            label: "rw.utils::lang.fields.prefer_user_session"
+            type: switch
+            tab: 'rw.utils::lang.tabs.multilanguage'
+            span: auto

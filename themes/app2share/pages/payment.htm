@@ -7,7 +7,6 @@ is_hidden = 0
 orderAmount = 49
 orderDescription = "Prueba de pago"
 
-[stripe]
 isTestMode = true
 locale = "auto"
 ==
@@ -27,6 +26,6 @@ function onInit()
 <form>
     <label>Item: {{viewBag.orderDescription}}</label>
     <label>Price: {{viewBag.orderAmount}}</label>
-    <button id="stripeCheckout">Checkout</button>
+    <button id="stripeCheckout">Tarjeta de crédito</button>
 </form>
 {% component 'stripe' %}

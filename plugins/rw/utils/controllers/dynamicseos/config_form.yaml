@@ -1,0 +1,10 @@
+name: DynamicSeos
+form: $/rw/utils/models/dynamicseo/fields.yaml
+modelClass: RW\Utils\Models\DynamicSeo
+defaultRedirect: rw/utils/dynamicseos
+create:
+    redirect: 'rw/utils/dynamicseos/update/:id'
+    redirectClose: rw/utils/dynamicseos
+update:
+    redirect: rw/utils/dynamicseos
+    redirectClose: rw/utils/dynamicseos

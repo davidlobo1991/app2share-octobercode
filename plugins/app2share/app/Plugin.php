@@ -1,6 +1,7 @@
 <?php namespace App2share\App;
 
 use Backend;
+use Auth;
 use System\Classes\PluginBase;
 
 /**
@@ -18,10 +19,10 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name'        => 'App2Share',
+            'name' => 'App2Share',
             'description' => 'Plugin app2share',
-            'author'      => 'app2share',
-            'icon'        => 'icon-sun'
+            'author' => 'app2share',
+            'icon' => 'icon-sun'
         ];
     }
 
@@ -32,7 +33,7 @@ class Plugin extends PluginBase
      */
     public function register()
     {
-        \Event::listen('backend.form.extendBeforeCreate', function($query) {
+        \Event::listen('backend.form.extendBeforeCreate', function ($query) {
             $test = $query;
         });
 
@@ -46,14 +47,27 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        \Event::listen('backend.menu.extendItems', function($manager) {
+        \Event::listen('backend.menu.extendItems', function ($manager) {
             if (Backend\Facades\BackendAuth::getFacadeRoot()->getUser()->login === "app2share") {
                 $manager->removeMainMenuItem('October.Cms', 'cms');
                 $manager->removeMainMenuItem('October.Backend', 'media');
             }
         });
-    }
 
+        \Event::listen('offline.cashier::stripeElementForm.submit', function ($post) {
+           $token = $post['token']['id'] ?? null;
+            if (!$token) {
+                throw new \RuntimeException('Stripe token is missing!');
+            }
+
+            $user = Auth::getUser();
+            $user->newSubscription('main', 'plan_HDC77o9kOuQpXo')->create($token);
+
+            return [
+                'redirect' => \Url::to('thank-you')
+            ];
+        });
+    }
 
 
     /**
@@ -69,7 +83,11 @@ class Plugin extends PluginBase
             'App2share\App\Components\ContactPartner' => 'ContactPartner',
             'App2share\App\Components\OfferRating' => 'OfferRating',
             'App2share\App\Components\UserOffer' => 'UserOffer',
-            'App2Share\App\Components\ProductList' => 'ProductList'
+            'App2Share\App\Components\ProductList' => 'ProductList',
+            'App2Share\App\Components\CheckoutList' => 'CheckoutList',
+            'App2Share\App\Components\CartList' => 'CartList',
+            'App2Share\App\Components\ProductInfo' => 'ProductInfo'
+
         ];
     }
 
@@ -98,55 +116,55 @@ class Plugin extends PluginBase
 
         return [
             '' => [
-                'label'       => 'Usos App2Share',
-                'url'         => Backend::url('app2share/app/offeruser'),
-                'icon'        => 'icon-magic',
+                'label' => 'Usos App2Share',
+                'url' => Backend::url('app2share/app/offeruser'),
+                'icon' => 'icon-magic',
                 'permissions' => ['app2share.app.changes'],
-                'order'       => 500,
+                'order' => 500,
             ],
             'partner' => [
-                'label'       => 'Asociados',
-                'url'         => Backend::url('app2share/app/partner'),
-                'icon'        => 'icon-building',
+                'label' => 'Asociados',
+                'url' => Backend::url('app2share/app/partner'),
+                'icon' => 'icon-building',
                 'permissions' => ['app2share.app.changes'],
-                'order'       => 500,
-                'sideMenu'    => [
+                'order' => 500,
+                'sideMenu' => [
                     'partnerSide' => [
-                        'label'       => 'Asociados',
-                        'url'         => Backend::url('app2share/app/partner'),
-                        'icon'        => 'icon-building',
+                        'label' => 'Asociados',
+                        'url' => Backend::url('app2share/app/partner'),
+                        'icon' => 'icon-building',
                         'permissions' => ['app2share.app.changes'],
                     ],
 
                     'partnerType' => [
-                        'label'       => 'Tipos de asociados',
-                        'url'         => Backend::url('app2share/app/partnertype'),
-                        'icon'        => 'icon-briefcase',
+                        'label' => 'Tipos de asociados',
+                        'url' => Backend::url('app2share/app/partnertype'),
+                        'icon' => 'icon-briefcase',
                         'permissions' => ['app2share.app.changes'],
-                        'order'       => 500,
+                        'order' => 500,
                     ],
                 ],
             ],
             'contact' => [
-                'label'       => 'Contacto',
-                'url'         => Backend::url('app2share/app/contactpartner'),
-                'icon'        => 'icon-envelope',
+                'label' => 'Contacto',
+                'url' => Backend::url('app2share/app/contactpartner'),
+                'icon' => 'icon-envelope',
                 'permissions' => ['app2share.app.changes'],
-                'order'       => 500,
-                'sideMenu'    => [
+                'order' => 500,
+                'sideMenu' => [
                     'contactPartner' => [
-                        'label'       => 'Contacto Partner',
-                        'url'         => Backend::url('app2share/app/contactpartner'),
-                        'icon'        => 'icon-envelope',
+                        'label' => 'Contacto Partner',
+                        'url' => Backend::url('app2share/app/contactpartner'),
+                        'icon' => 'icon-envelope',
                         'permissions' => ['app2share.app.changes'],
                     ],
 
                     'contactFinal' => [
-                        'label'       => 'Contacto cliente final',
-                        'url'         => Backend::url('app2share/app/contactfinal'),
-                        'icon'        => 'icon-envelope',
+                        'label' => 'Contacto cliente final',
+                        'url' => Backend::url('app2share/app/contactfinal'),
+                        'icon' => 'icon-envelope',
                         'permissions' => ['app2share.app.changes'],
-                        'order'       => 500,
+                        'order' => 500,
                     ],
                 ],
             ],

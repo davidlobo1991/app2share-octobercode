@@ -1,0 +1,30 @@
+{
+    "name": "rw/utils",
+    "type": "october-plugin",
+    "extra": {
+        "installer-name": "utils"
+    },
+    "description": "RefineriaWeb utils plugin for October CMS",
+    "homepage": "https://gitlab.com/refineriaweb/october-utils.git",
+    "keywords": ["october", "octobercms", "refineriaweb", "utils"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adrian Rodriguez",
+            "email": "arodriguez@refineriaweb.com",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Xavier Seguí",
+            "email": "xsegui@refineriaweb.com",
+            "role": "Maintainer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.0",
+        "composer/installers": "~1.0",
+        "rainlab/translate-plugin": "dev-master"
+    }
+}

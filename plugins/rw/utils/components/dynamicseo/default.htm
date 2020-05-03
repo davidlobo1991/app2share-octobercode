@@ -1,0 +1,29 @@
+{#{% set dynamicSeo = __SELF__.dynamicSeo %}
+{% set canonicalUrl = __SELF__.canonicalUrl %}
+
+
+{% if dynamicSeo %}
+    <link rel="canonical" href="{{ canonicalUrl }}" />
+    {% put rwSeo %}
+        <title>{{dynamicSeo.title}}</title>
+        <meta name="description" content="{{ dynamicSeo.description }}" />
+        <meta name="title" content="{{ dynamicSeo.title }}" />
+
+        {% if dynamicSeo.keywords %}
+            <meta name="keywords" content="{{ dynamicSeo.keywords }}" />
+        {% endif %}
+
+        {% if dynamicSeo.og_title %}
+            <meta property="og:title" content="{{ dynamicSeo.og_title }}" />
+        {% endif %}
+
+        {% if dynamicSeo.og_description %}
+            <meta property="og:description" content="{{ dynamicSeo.og_description }}" />
+        {% endif %}
+
+        {% if dynamicSeo.seoImage %}
+            <meta property="og:image" content="{{ dynamicSeo.seoImage.getThumb('1100', '800', 'crop') }}" />
+        {% endif %}
+    {% endput %}
+{% endif %}
+#}
