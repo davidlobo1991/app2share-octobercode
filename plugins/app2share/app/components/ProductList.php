@@ -21,12 +21,7 @@ class ProductList extends ComponentBase
     public function onRun()
     {
         $products = Product::all();
-        $subscription = Product::all();
 
-        if ($subscription) {
-            $this->page['subscription'] = $subscription;
-        };
-
-        $this->page['products'] = $products;
+       $this->page['products'] = $products;
     }
 }

@@ -6,7 +6,7 @@
  * @author Andrey Kharanenka, kharanenka@gmail.com
  *
  * @property string $slug
- * 
+ *
  * @method static $this getBySlug(string $sData)
  * @method static $this nullSlug()
  * @method static $this notNullSlug()
@@ -26,6 +26,7 @@ trait SlugField {
             $obQuery->where('slug', $sData);
         }
 
+        $test = $obQuery->toSql();
         return $obQuery;
     }
 

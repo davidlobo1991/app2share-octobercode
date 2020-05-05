@@ -61,11 +61,16 @@ class Plugin extends PluginBase
             }
 
             $user = Auth::getUser();
-            $user->newSubscription('main', 'plan_HDC77o9kOuQpXo')->create($token);
+            $user->newSubscription('main', $post['code'])->create($token);
 
             return [
                 'redirect' => \Url::to('thank-you')
             ];
+        });
+
+
+        \Event::listen('offline.cashier::subscription.check', function ($user, $component) {
+
         });
     }
 
@@ -86,7 +91,9 @@ class Plugin extends PluginBase
             'App2Share\App\Components\ProductList' => 'ProductList',
             'App2Share\App\Components\CheckoutList' => 'CheckoutList',
             'App2Share\App\Components\CartList' => 'CartList',
-            'App2Share\App\Components\ProductInfo' => 'ProductInfo'
+            'App2Share\App\Components\ProductInfo' => 'ProductInfo',
+            'App2Share\App\Components\StripeElementsForm' => 'stripeElementsForm',
+            'App2Share\App\Components\NeedsSubscription' => 'needsSubscription',
 
         ];
     }
@@ -115,7 +122,7 @@ class Plugin extends PluginBase
     {
 
         return [
-            '' => [
+            'offeruser' => [
                 'label' => 'Usos App2Share',
                 'url' => Backend::url('app2share/app/offeruser'),
                 'icon' => 'icon-magic',
@@ -142,6 +149,21 @@ class Plugin extends PluginBase
                         'icon' => 'icon-briefcase',
                         'permissions' => ['app2share.app.changes'],
                         'order' => 500,
+                    ],
+
+                    'city' => [
+                        'label' => 'Ciudades',
+                        'url' => Backend::url('app2share/location/city'),
+                        'icon' => 'icon-home',
+                        'permissions' => ['app2share.location.changes'],
+                        'order' => 501,
+                     ],
+                    'province' => [
+                        'label' => 'Provincias',
+                        'icon' => 'icon-road',
+                        'url' => Backend::url('app2share/location/province'),
+                        'permissions' => ['app2share.location.changes'],
+                        'order' => 502,
                     ],
                 ],
             ],

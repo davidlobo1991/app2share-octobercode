@@ -81,29 +81,6 @@ class Plugin extends PluginBase
     public function registerNavigation()
     {
         return [
-
-            'city' => [
-                'label' => 'Ciudades',
-                'url' => Backend::url('app2share/location/city'),
-                'icon' => 'icon-home',
-                'permissions' => ['app2share.location.changes'],
-                'order' => 500,
-                'sideMenu' => [
-                    'citySide' => [
-                        'label' => 'Ciudades',
-                        'url' => Backend::url('app2share/location/city'),
-                        'icon' => 'icon-home',
-                        'permissions' => ['app2share.location.changes'],
-                        'permissions' => ['cptmeatball.pricetables.access_prices']
-                    ],
-                    'province' => [
-                        'label' => 'Provincias',
-                        'icon' => 'icon-road',
-                        'url' => Backend::url('app2share/location/province'),
-                        'permissions' => ['app2share.location.changes'],
-                    ],
-                ]
-            ]
         ];
     }
 }

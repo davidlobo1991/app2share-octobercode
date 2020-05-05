@@ -1,6 +1,28 @@
 [needsSubscription]
 
 ==
+<?php
+use App2share\App\Models\Offer;
+use App2share\App\Models\OfferUser;
+use RainLab\User\Facades\Auth;
+use Illuminate\Support\Carbon;
+
+public function onStart()
+{
+      $user   = Auth::getUser();
+
+    $caca = $user->subscription('main');
+
+if ($caca) {
+$test = true;
+} else {
+$test = false;
+}
+
+$this["test"] = $test;
+}
+?>
+==
 
 <span id="btn-offer">
         {% if offerUser is null %}
@@ -15,4 +37,4 @@
         {% endif %}
     </span>
 
-{% component 'needsSubscription' %}
+{{test}}

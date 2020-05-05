@@ -4,17 +4,3 @@ plugin:
     author: App2Share
     icon: icon
     homepage: ''
-navigation:
-    partner:
-        label: Empresas
-        url: app2share/app/partner
-        icon: icon-building
-        order: '1'
-    partner_type:
-        label: 'Tipos de negocio'
-        url: app2share/app/partnertype
-        icon: icon-briefcase
-    offer:
-        label: Ofertas
-        url: /
-        icon: icon-coffee

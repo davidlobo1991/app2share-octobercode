@@ -3,7 +3,7 @@
         <div class="c-items-grid__row u-mrb-xl ">
             <div class="o-layout o-layout--gutter-left-l  o-layout--gutter-bottom-xl">
                 <div class="o-layout__item u-2/4@m">
-                    {% for subs in subscription %}
+                    {% for product in products %}
                     <div class="c-items-grid__item">
                         <div class="c-items-grid__media">
                             <picture class="c-images c-images--58">
@@ -13,9 +13,10 @@
                         </div>
                         <div class="u-align-center u-mrt-s">
                             <a href="{{ 'product-info'|page ({ slug: product.slug }) }}">
-                                <h2 class="c-items-grid__title">{{ subs.name }}</h2>
+                                <h2 class="c-items-grid__title">{{ product.name }}</h2>
                             </a>
-                            <span class="c-items-grid__subtitle">{{ subs.offer.first.price|number_format(2) }}€</span>
+                            <span class="c-items-grid__subtitle">Desde {{ product.offer.first.price|number_format(2, '.', ',') }}</span>
+
                         </div>
                     </div>
                     {% endfor %}

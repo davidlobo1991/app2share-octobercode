@@ -74,3 +74,9 @@
 1.0.26:
     - 'Provider token social network text'
     - migration1026.php
+1.0.27:
+    - 'Updated table app2share_app_partner'
+    - builder_table_update_app2share_app_partner_3.php
+1.0.28:
+    - 'Updated table app2share_app_partner'
+    - builder_table_update_app2share_app_partner_4.php

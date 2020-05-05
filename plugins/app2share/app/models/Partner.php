@@ -36,6 +36,7 @@ class Partner extends Model
 
     public $belongsTo = [
         'partner_type' => 'App2share\App\Models\PartnerType',
+        'city' => 'App2share\Location\Models\City'
     ];
 
 

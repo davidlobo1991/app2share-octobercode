@@ -28,6 +28,12 @@ fields:
         label: 'Código postal'
         span: auto
         type: text
+    city:
+        label: Ciudad
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
     phone:
         label: Teléfono
         span: auto
