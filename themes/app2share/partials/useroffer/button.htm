@@ -3,7 +3,6 @@
             <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-default use-offer">Usar oferta</button>
         {% else %}
         <span style="color: red; font-size: 18px; font-weight: 600;">Oferta usada: {{offerUser.created_at|date("m/d/Y H:i:s", "Europe/Paris")}}</span>
-
         <p style="color: red; font-size: 18px; font-weight: 600;">
             Tiempo restante para volver a usarla: <span id="timer"></span>
         </p>
