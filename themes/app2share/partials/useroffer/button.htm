@@ -1,29 +1,3 @@
-[needsSubscription]
-
-==
-<?php
-use App2share\App\Models\Offer;
-use App2share\App\Models\OfferUser;
-use RainLab\User\Facades\Auth;
-use Illuminate\Support\Carbon;
-
-public function onStart()
-{
-      $user   = Auth::getUser();
-
-    $caca = $user->subscription('main');
-
-if ($caca) {
-$test = true;
-} else {
-$test = false;
-}
-
-$this["test"] = $test;
-}
-?>
-==
-
 <span id="btn-offer">
         {% if offerUser is null %}
             <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-default use-offer">Usar oferta</button>
@@ -37,4 +11,3 @@ $this["test"] = $test;
         {% endif %}
     </span>
 
-{{test}}

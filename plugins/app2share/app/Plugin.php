@@ -69,9 +69,20 @@ class Plugin extends PluginBase
         });
 
 
-        \Event::listen('offline.cashier::subscription.check', function ($user, $component) {
+        /*\Event::listen('offline.cashier::stripe.webhook.received', function ($payload, $request) {
+            $subscription = $payload['data']['object']['id'];
 
-        });
+            if ($subscription) {
+                try {
+                    $user = \OFFLINE\Cashier\Models\User::fromSubscriptionId($subscription);
+                    $user->name = 'cacosa';
+                    $user->save();
+
+                } catch (\Exception $e) {
+                    logger()->error($e->getMessage());
+                }
+            }
+        });*/
     }
 
 

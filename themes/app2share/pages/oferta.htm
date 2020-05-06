@@ -39,7 +39,6 @@ function onStart()
         ->where('valid_to', '>', Carbon::now())
         ->first();
     }
-
     $partner = $offer ? $offer->partner : null;
 
     $averageRating = 0;

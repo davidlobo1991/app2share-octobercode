@@ -1,4 +1,9 @@
+[needsSubscription]
+
+==
+
 {% partial 'useroffer/button' %}
+
 
 <!-- Modal -->
 <div class="control-popup modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -18,20 +23,24 @@
             <div class="modal-footer">
 
                 {% if user %}
-                    <form data-request-flash data-request="{{ __SELF__ }}::onUserOffer"
-                          data-request-data="[offer_id: {{offer.id}}]"
-                          data-request-update="'useroffer/button': '#btn-offer'"
-                          data-request-success="closeModal();
-                          countdownTimeStart(new Date(data.validTo.date).toLocaleString('es-ES', {timeZone: 'Europe/Madrid'}));"
-                    >
+                    {% if subscribed %}
+                        <form data-request-flash data-request="{{ __SELF__ }}::onUserOffer"
+                              data-request-data="[offer_id: {{offer.id}}]"
+                              data-request-update="'useroffer/button': '#btn-offer'"
+                              data-request-success="closeModal();
+                              countdownTimeStart(new Date(data.validTo.date).toLocaleString('es-ES', {timeZone: 'Europe/Madrid'}));"
+                        >
 
-                        <h2 id="main_captcha" ></h2>
-                        <input type="text" id="txt_input" name="ip_ct_number" maxlength="3" required />
-                        <span id="txt_input_error" style="display:none; color: red;">Los números introducidos no son corrrectos</span>
+                            <h2 id="main_captcha" ></h2>
+                            <input type="text" id="txt_input" name="ip_ct_number" maxlength="3" required />
+                            <span id="txt_input_error" style="display:none; color: red;">Los números introducidos no son correctos</span>
 
-                        <input type="hidden" id="ct_number" name="ct_number" />
-                        <button type="submit" data-attach-loading class="btn btn-primary" onclick="return validCaptcha()">Usar oferta</button>
-                    </form>
+                            <input type="hidden" id="ct_number" name="ct_number" />
+                            <button type="submit" data-attach-loading class="btn btn-primary" onclick="return validCaptcha()">Usar oferta</button>
+                        </form>
+                    {% else %}
+                        <p><a href="/tienda">Compra</a> una suscripción o un pack de días para poder usar la oferta</p>
+                    {% endif %}
                 {% else %}
                     <p><a href="/login">Logueate</a> para poder usar la oferta (por ahora todos los usuarios)</p>
                 {% endif %}

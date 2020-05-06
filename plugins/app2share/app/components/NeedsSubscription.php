@@ -37,17 +37,20 @@ class NeedsSubscription extends ComponentBase
         $user   = Auth::getUser();
         $checks = collect(Event::fire('offline.cashier::subscription.check', [$user, $this]));
 
-        if ($checks->contains(true)) {
-            return null;
+        if ($user && $user->subscribed('main')) {
+            $this->page['subscribed'] = true;
+        } else {
+            $this->page['subscribed'] = false;
+        }
+
+      /*  if ($checks->contains(true)) {
+            $this->page['subscribed'] = true;
         }
 
         if ($checks->contains(false)) {
-            return $this->redirect();
-        }
+            $this->page['subscribed'] = false;
+        }*/
 
-        if ( ! $user || ! $user->subscribed($this->property('subscription'))) {
-            return $this->redirect();
-        }
     }
 
     protected function redirect()
