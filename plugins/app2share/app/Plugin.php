@@ -2,6 +2,7 @@
 
 use Backend;
 use Auth;
+use Stripe\Order;
 use System\Classes\PluginBase;
 
 /**
@@ -60,8 +61,38 @@ class Plugin extends PluginBase
                 throw new \RuntimeException('Stripe token is missing!');
             }
 
-            $user = Auth::getUser();
-            $user->newSubscription('main', $post['code'])->create($token);
+            if (strpos($post['code'], 'plan') === 0) {
+                $user = Auth::getUser();
+                $user->newSubscription('main', $post['code'])->create($token);
+            } else {
+                $user = Auth::getUser();
+                \Stripe\Stripe::setApiKey('sk_test_rcRHedkKfgooEhWenJDcuzIB00IU1TfR80');
+
+                try {
+                    \Stripe\Order::create([
+                        'currency' => 'eur',
+                        'email' => 'jenny.rosen@example.com',
+                        'items' => [
+                            [
+                                'type' => 'sku',
+                                'parent' => 'sku_HEfOvt7IBSKvi6',
+                            ],
+                        ],
+                        'shipping' => [
+                            'name' => 'Jenny Rosen',
+                            'address' => [
+                                'line1' => '1234 Main Street',
+                                'city' => 'San Francisco',
+                                'state' => 'CA',
+                                'country' => 'US',
+                                'postal_code' => '94111',
+                            ],
+                        ],
+                    ]);
+                } catch (\Exception $e) {
+                    $test = $e;
+                }
+            }
 
             return [
                 'redirect' => \Url::to('thank-you')

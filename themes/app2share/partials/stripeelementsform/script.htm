@@ -1,4 +1,8 @@
 {% put scripts %}
+<script src="{{'assets/js/fullcalendar.js'|theme}}"></script>
+<script src="{{'assets/js/daygrid.js'|theme}}"></script>
+<script src="{{'assets/js/interaction.js'|theme}}"></script>
+
 {% if includeStripeJs %}
     <script src="https://js.stripe.com/v3/"></script>
 {% endif %}
@@ -63,6 +67,58 @@
                 stripeTokenHandler(result.token, code);
             }
         });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: [ 'dayGrid', 'interaction' ],
+            selectable: true,
+            height: 400,
+            selectMirror: true,
+            selectMinDistance: 3,
+            select: function(info) {
+                console.log(info);
+
+                const diffTime = Math.abs(info.end - info.start);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                let totalPrice = 0;
+
+               if (diffDays < 3) {
+                   alert('Elige tres o más dias');
+               } else if (diffDays >= 3 && diffDays <= 7) {
+                   document.getElementById('days-3').checked = true;
+                   totalPrice = diffDays * 3;
+               } else if (diffDays > 7 && diffDays <= 14) {
+                   document.getElementById('days-7').checked = true;
+                   totalPrice = diffDays * 2.5;
+
+               } else if (diffDays > 14 && diffDays <= 21) {
+                   document.getElementById('days-14').checked = true;
+                   totalPrice = diffDays * 2;
+               } else {
+                   document.getElementById('days-21').checked = true;
+                   totalPrice = diffDays * 1.5;
+               }
+
+               document.getElementById('days-price').innerHTML  =
+                   'Fecha desde: ' + info.startStr + ' <br/> ' +
+                   'Fecha hasta: ' + info.endStr + ' <br/>' +
+                   'Total dias: ' + diffDays + ' <br/>' +
+                   'Precio: ' + totalPrice + '€ - ' + totalPrice / diffDays + '€/día';
+
+
+                console.log(diffDays);
+
+
+                /*
+                                alert('selected ' + info.startStr + ' to ' + info.endStr);
+                */
+            }
+        });
+
+        calendar.render();
     });
 </script>
 {% endput %}
