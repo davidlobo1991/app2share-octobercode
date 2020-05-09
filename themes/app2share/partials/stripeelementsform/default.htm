@@ -1,7 +1,13 @@
+{{test}}
+
 {% if includeCss %}
     {% partial __SELF__ ~ '::styles' %}
 {% endif %}
 
-{% partial __SELF__ ~ '::formPack' %}
+{% if form == 'pack' %}
+    {% partial __SELF__ ~ '::formPack' %}
+{%else %}
+    {% partial __SELF__ ~ '::form' %}
+{% endif %}
 
 {% partial __SELF__ ~ '::script' %}

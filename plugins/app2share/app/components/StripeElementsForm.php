@@ -64,8 +64,8 @@ class StripeElementsForm extends ComponentBase
 
     public function onRender()
     {
-        $test =  $this->property('obProduct');
         $this->page['obProduct'] = $this->property('obProduct');
+        $this->page['form'] = $this->property('form');
         $this->includeStripeJs   = $this->page['includeStripeJs'] = $this->property('includeStripeJs');
         $this->includeCss        = $this->page['includeCss'] = $this->property('includeCss');
         $this->submitButtonLabel = $this->page['submitButtonLabel'] = $this->property('submitButtonLabel');
