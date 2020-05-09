@@ -6,7 +6,10 @@
 
             <div id='calendar' style="width: 330px; padding: 30px;"></div>
 
-            <ul >
+            <input type="hidden" name="start_date" id="form_start_date" />
+            <input type="hidden" name="start_end" id="form_end_date" />
+
+            <ul style="display: none;">
                 {% for offer in obOffer %}
                     <li>
                         <input type="radio" id="days-{{ offer.name }}" class="pack-products" name="code" value="{{ offer.code }}">
@@ -16,7 +19,6 @@
             </ul>
 
             <span id="days-price"></span>
-
 
             <div id="card-element" style="width: 100%;">
                 <!-- a Stripe Element will be inserted here. -->

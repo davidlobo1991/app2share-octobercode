@@ -52,6 +52,10 @@
     var form = document.getElementById('payment-form');
     form.addEventListener('submit', function (event) {
         let code = document.querySelector('input[name="code"]:checked').value;
+        let start_date = document.getElementById('form_start_date').value;
+        let end_date = document.getElementById('form_end_date').value;
+
+
         event.preventDefault();
 
         $submit.prop('disabled', true).text('{{ submitButtonLabel }}');
@@ -64,7 +68,7 @@
                 $submit.prop('disabled', false).text(oldSubmitText);
             } else {
                 // Send the token to your server
-                stripeTokenHandler(result.token, code);
+                stripeTokenHandler(result.token, code, start_date, end_date);
             }
         });
     });
@@ -76,11 +80,7 @@
             plugins: [ 'dayGrid', 'interaction' ],
             selectable: true,
             height: 400,
-            selectMirror: true,
-            selectMinDistance: 3,
             select: function(info) {
-                console.log(info);
-
                 const diffTime = Math.abs(info.end - info.start);
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                 let totalPrice = 0;
@@ -102,7 +102,10 @@
                    totalPrice = diffDays * 1.5;
                }
 
-               document.getElementById('days-price').innerHTML  =
+               document.getElementById('form_start_date').value = info.startStr;
+               document.getElementById('form_end_date').value = info.endStr;
+
+                document.getElementById('days-price').innerHTML  =
                    'Fecha desde: ' + info.startStr + ' <br/> ' +
                    'Fecha hasta: ' + info.endStr + ' <br/>' +
                    'Total dias: ' + diffDays + ' <br/>' +

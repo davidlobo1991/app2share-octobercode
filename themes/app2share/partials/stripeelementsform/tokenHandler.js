@@ -4,9 +4,9 @@ var oldSubmitText = $submit.text();
 
 // This is the handler function that is called
 // when the Stripe token has ben successfully generated.
-function stripeTokenHandler (token, code) {
+function stripeTokenHandler (token, code, start_date = null, end_date = null) {
     $.request('{{ __SELF__ }}::onSubmit', {
-        data: {token, 'code': code},
+        data: {token, 'code': code, 'start_date': start_date, 'end_date': end_date},
         loading: $.oc.stripeLoadIndicator,
         complete: function () {
             $.oc.stripeLoadIndicator.hide();

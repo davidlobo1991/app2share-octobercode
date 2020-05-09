@@ -1,6 +1,8 @@
 <?php namespace App2share\App\Components;
 
+use App2share\App\Models\SubscriptionsFreePack;
 use Auth;
+use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
 use Event;
 use Redirect;
@@ -35,22 +37,19 @@ class NeedsSubscription extends ComponentBase
     public function onRun()
     {
         $user   = Auth::getUser();
-        $checks = collect(Event::fire('offline.cashier::subscription.check', [$user, $this]));
+        $now = Carbon::now();
 
-        if ($user && $user->subscribed('main')) {
+        $freeSubscription = SubscriptionsFreePack::where('user_id', $user->id)
+            ->where('date_start', '<=', $now)
+            ->where('date_end', '>=', $now)
+            ->where('is_paid', true)
+            ->first();
+
+        if ($user && ($user->subscribed('main') || $freeSubscription) ) {
             $this->page['subscribed'] = true;
         } else {
             $this->page['subscribed'] = false;
         }
-
-      /*  if ($checks->contains(true)) {
-            $this->page['subscribed'] = true;
-        }
-
-        if ($checks->contains(false)) {
-            $this->page['subscribed'] = false;
-        }*/
-
     }
 
     protected function redirect()

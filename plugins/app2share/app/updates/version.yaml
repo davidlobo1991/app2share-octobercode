@@ -80,3 +80,15 @@
 1.0.28:
     - 'Updated table app2share_app_partner'
     - builder_table_update_app2share_app_partner_4.php
+1.0.29:
+    - 'Created table app2share_app_suscriptions_free_packs'
+    - builder_table_create_app2share_app_suscriptions_free_packs.php
+1.0.30:
+    - 'Updated table app2share_app_suscriptions_free_packs'
+    - builder_table_update_app2share_app_subscriptions_free_packs.php
+1.0.31:
+    - 'Updated table app2share_app_subscriptions_free_packs'
+    - builder_table_update_app2share_app_subscriptions_free_packs_2.php
+1.0.32:
+    - 'Updated table app2share_app_subscriptions_free_packs'
+    - builder_table_update_app2share_app_subscriptions_free_packs_3.php

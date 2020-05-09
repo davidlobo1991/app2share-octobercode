@@ -1,7 +1,9 @@
 <?php namespace App2share\App;
 
+use App2share\App\Models\SubscriptionsFreePack;
 use Backend;
 use Auth;
+use Carbon\Carbon;
 use Stripe\Order;
 use System\Classes\PluginBase;
 
@@ -65,21 +67,26 @@ class Plugin extends PluginBase
                 $user = Auth::getUser();
                 $user->newSubscription('main', $post['code'])->create($token);
             } else {
+                $startDate = Carbon::parse($post['start_date']);
+                $endDate = Carbon::parse($post['end_date']);
+                $diffInDays = $startDate->diffInDays($endDate);
+
                 $user = Auth::getUser();
                 \Stripe\Stripe::setApiKey('sk_test_rcRHedkKfgooEhWenJDcuzIB00IU1TfR80');
 
                 try {
-                    \Stripe\Order::create([
+                    $order = Order::create([
                         'currency' => 'eur',
-                        'email' => 'jenny.rosen@example.com',
+                        'email' => $user->email,
                         'items' => [
                             [
                                 'type' => 'sku',
-                                'parent' => 'sku_HEfOvt7IBSKvi6',
+                                'parent' => $post['code'],
+                                'quantity' => $diffInDays
                             ],
                         ],
                         'shipping' => [
-                            'name' => 'Jenny Rosen',
+                            'name' => $user->name,
                             'address' => [
                                 'line1' => '1234 Main Street',
                                 'city' => 'San Francisco',
@@ -89,8 +96,23 @@ class Plugin extends PluginBase
                             ],
                         ],
                     ]);
+
+                    $order->pay(['source' => $token]);
+
+                    $subscription = new SubscriptionsFreePack();
+                    $subscription->date_start = $startDate;
+                    $subscription->date_end = $endDate;
+                    $subscription->user_id = $user->id;
+                    $subscription->price = $order->amount / 100;
+
+                    if ($order->status === 'paid') {
+                        $subscription->is_paid = true;
+                    }
+
+                    $subscription->save();
+
                 } catch (\Exception $e) {
-                    $test = $e;
+                    logger()->error($e->getMessage());
                 }
             }
 
@@ -98,22 +120,6 @@ class Plugin extends PluginBase
                 'redirect' => \Url::to('thank-you')
             ];
         });
-
-
-        /*\Event::listen('offline.cashier::stripe.webhook.received', function ($payload, $request) {
-            $subscription = $payload['data']['object']['id'];
-
-            if ($subscription) {
-                try {
-                    $user = \OFFLINE\Cashier\Models\User::fromSubscriptionId($subscription);
-                    $user->name = 'cacosa';
-                    $user->save();
-
-                } catch (\Exception $e) {
-                    logger()->error($e->getMessage());
-                }
-            }
-        });*/
     }
 
 
@@ -230,6 +236,22 @@ class Plugin extends PluginBase
                         'permissions' => ['app2share.app.changes'],
                         'order' => 500,
                     ],
+                ],
+            ],
+            'subscriptions' => [
+                'label' => 'Suscripciones',
+                'url' => Backend::url('app2share/app/subscriptionsFreePack'),
+                'icon' => 'icon-euro',
+                'permissions' => ['app2share.app.changes'],
+                'order' => 500,
+                'sideMenu' => [
+                    'contactPartner' => [
+                        'label' => 'Suscripciones',
+                        'url' => Backend::url('app2share/app/subscriptionsFreePack'),
+                        'icon' => 'icon-euro',
+                        'permissions' => ['app2share.app.changes'],
+                    ],
+
                 ],
             ],
         ];
