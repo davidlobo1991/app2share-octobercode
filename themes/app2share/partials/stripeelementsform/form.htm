@@ -1,12 +1,10 @@
 <form action="" method="post" id="payment-form">
     <div class="form-group">
         <div class="form-row">
-            {% set obOffer = obProduct.offer %}
-
             <ul>
                 {% for offer in obOffer %}
                     <li>
-                        <input type="radio" id="{{ offer.id }}" name="code" value="{{ offer.code }}">
+                        <input type="radio" id="{{ offer.id }}" name="code" value="{{ offer.code }}" data-paypal="{{offer.paypal_code}}">
                         <label for="{{ offer.id }}">{{offer.name}}: Price: {{ offer.price }} {{ offer.currency }}</label><br>
                     </li>
                 {% endfor %}
@@ -21,4 +19,34 @@
         </div>
     </div>
     <button class="btn btn-primary" type="submit" data-attach-loading>Pay with card</button>
+
+    <div id="paypal-subscription-container">
+    </div>
 </form>
+
+<script src="https://www.paypal.com/sdk/js?client-id=AT5EO5yK3BtqI7G8QcjFZ-yiPc04Osy7aw8iT4uEQLdDClj9X9IVfAnYY-YbM6Ynkn0fE9DfGtAsDKgm&vault=true"
+        data-sdk-integration-source="button-factory"></script>
+
+<script>
+    // PAYPAL BUTTON SUSCRIPTIONS
+    paypal.Buttons({
+        style: {
+            shape: 'rect',
+            color: 'blue',
+            layout: 'vertical',
+            label: 'subscribe',
+
+        },
+        createSubscription: function(data, actions) {
+            var planChecked = document.querySelector('input[name="code"]:checked');
+            var codePaypal = planChecked.dataset.paypal;
+
+            return actions.subscription.create({
+                'plan_id': codePaypal
+            });
+        },
+        onApprove: function(data, actions) {
+            alert(data.subscriptionID);
+        }
+    }).render('#paypal-subscription-container');
+</script>

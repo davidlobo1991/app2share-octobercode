@@ -1,5 +1,6 @@
 <?php namespace App2share\App\Components;
 
+use App2share\App\Models\Offer;
 use Cms\Classes\ComponentBase;
 use Event;
 
@@ -64,7 +65,15 @@ class StripeElementsForm extends ComponentBase
 
     public function onRender()
     {
-        $this->page['obProduct'] = $this->property('obProduct');
+        $offers = $this->property('obProduct')->offer->all();
+
+        foreach($offers as $key => $offer) {
+            $offerModel = \Lovata\Shopaholic\Models\Offer::find($offer->id);
+            $paypalCode = $offerModel->external_id;
+            $offers[$key]->paypal_code = $paypalCode;
+        }
+
+        $this->page['obOffer'] = $offers;
         $this->page['form'] = $this->property('form');
         $this->includeStripeJs   = $this->page['includeStripeJs'] = $this->property('includeStripeJs');
         $this->includeCss        = $this->page['includeCss'] = $this->property('includeCss');

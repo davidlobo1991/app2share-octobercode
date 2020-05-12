@@ -1,0 +1,20 @@
+fields:
+    date_start:
+        label: 'Fecha inicio'
+        mode: datetime
+        span: auto
+        hidden: 0
+        required: 0
+        type: datepicker
+    date_end:
+        label: 'Fecha final'
+        mode: datetime
+        span: auto
+        required: 0
+        type: datepicker
+    user_id:
+        label: Usuario
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation

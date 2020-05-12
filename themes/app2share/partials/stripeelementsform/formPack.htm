@@ -1,18 +1,17 @@
 <form action="" method="post" id="payment-form">
     <div class="form-group">
         <div class="form-row">
-            {% set obOffer = obProduct.offer %}
-
-
             <div id='calendar' style="width: 330px; padding: 30px;"></div>
 
+            <input type="hidden" name="amount" id="form_amount" />
             <input type="hidden" name="start_date" id="form_start_date" />
             <input type="hidden" name="start_end" id="form_end_date" />
 
             <ul style="display: none;">
                 {% for offer in obOffer %}
                     <li>
-                        <input type="radio" id="days-{{ offer.name }}" class="pack-products" name="code" value="{{ offer.code }}">
+                        <input type="radio" id="days-{{ offer.name }}" class="pack-products" name="code"
+                               value="{{ offer.code }}">
                         <label for="days-{{ offer.name }}"></label><br>
                     </li>
                 {% endfor %}
@@ -28,4 +27,35 @@
         </div>
     </div>
     <button class="btn btn-primary" type="submit" data-attach-loading>Pay with card</button>
+
+    <div id="paypal-pack-container"></div>
+
 </form>
+
+<script src="https://www.paypal.com/sdk/js?client-id=AT5EO5yK3BtqI7G8QcjFZ-yiPc04Osy7aw8iT4uEQLdDClj9X9IVfAnYY-YbM6Ynkn0fE9DfGtAsDKgm"
+        data-sdk-integration-source="button-factory"></script>
+
+<script>
+    // PAYPAL BUTTON PACK
+    paypal.Buttons({
+        style: {
+            shape: 'rect',
+            color: 'blue',
+            layout: 'vertical',
+            label: 'checkout',
+
+        },
+        createOrder: function(data, actions) {
+            let amount = document.getElementById('form_amount').value;
+
+            return actions.order.create({
+                amount: {
+                    value: amount
+                }
+            });
+        },
+        onApprove: function(data, actions) {
+            alert(data);
+        }
+    }).render('#paypal-pack-container');
+</script>

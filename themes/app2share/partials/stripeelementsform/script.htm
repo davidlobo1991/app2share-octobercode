@@ -6,6 +6,7 @@
 {% if includeStripeJs %}
     <script src="https://js.stripe.com/v3/"></script>
 {% endif %}
+
 <script>
     // Create a Stripe client
     var stripe = Stripe('{{ stripeKey }}');
@@ -73,6 +74,7 @@
         });
     });
 
+
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
 
@@ -80,6 +82,7 @@
             plugins: [ 'dayGrid', 'interaction' ],
             selectable: true,
             height: 400,
+            locale: 'es',
             select: function(info) {
                 const diffTime = Math.abs(info.end - info.start);
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -104,20 +107,13 @@
 
                document.getElementById('form_start_date').value = info.startStr;
                document.getElementById('form_end_date').value = info.endStr;
+               document.getElementById('form_amount').value = totalPrice;
 
                 document.getElementById('days-price').innerHTML  =
                    'Fecha desde: ' + info.startStr + ' <br/> ' +
                    'Fecha hasta: ' + info.endStr + ' <br/>' +
                    'Total dias: ' + diffDays + ' <br/>' +
                    'Precio: ' + totalPrice + '€ - ' + totalPrice / diffDays + '€/día';
-
-
-                console.log(diffDays);
-
-
-                /*
-                                alert('selected ' + info.startStr + ' to ' + info.endStr);
-                */
             }
         });
 
