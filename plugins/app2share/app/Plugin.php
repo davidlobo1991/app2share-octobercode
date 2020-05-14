@@ -250,6 +250,7 @@ class Plugin extends PluginBase
                         'url' => Backend::url('app2share/app/subscriptionsFreePack'),
                         'icon' => 'icon-euro',
                         'permissions' => ['app2share.app.changes'],
+                        'permissions' => ['app2share.app.changes'],
                     ],
 
                 ],

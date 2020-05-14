@@ -32,7 +32,7 @@
 
 </form>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AT5EO5yK3BtqI7G8QcjFZ-yiPc04Osy7aw8iT4uEQLdDClj9X9IVfAnYY-YbM6Ynkn0fE9DfGtAsDKgm"
+<script src="https://www.paypal.com/sdk/js?client-id=AWQ8g3KD0UCOYmnAIKmCbyywIvxBayYy_2C7qgxKrdR1tHZIeBJ_jv8mn_t_dKxKMyyqaVErKPPvNT62"
         data-sdk-integration-source="button-factory"></script>
 
 <script>
@@ -47,15 +47,42 @@
         },
         createOrder: function(data, actions) {
             let amount = document.getElementById('form_amount').value;
+            let formStartDate = document.getElementById('form_start_date').value;
+            let formEndDate = document.getElementById('form_end_date').value;
+
+            let floatAmount = parseFloat(amount);
+
+            $.ajax({
+                url: "payment/paypal",
+                data: {'actions': actions, 'amount': amount, 'formStartDate': formStartDate, 'formEndDate': formEndDate},
+                method: 'post',
+                success: function(data){
+                    alert(data);
+                }
+            });
 
             return actions.order.create({
-                amount: {
-                    value: amount
-                }
+                purchase_units: [{
+                    amount: {
+                        value: floatAmount
+                    },
+                    no_shipping: 1
+                }]
             });
         },
         onApprove: function(data, actions) {
-            alert(data);
+            console.log(data);
+            console.log(actions);
+
+            $.ajax({
+                url: "payment/approve",
+                method: 'post',
+                data: {'actions': actions, 'data': data},
+                success: function(){
+                    alert('vamos');
+                }
+            });
+
         }
     }).render('#paypal-pack-container');
 </script>
