@@ -32,7 +32,7 @@
 
 </form>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AWQ8g3KD0UCOYmnAIKmCbyywIvxBayYy_2C7qgxKrdR1tHZIeBJ_jv8mn_t_dKxKMyyqaVErKPPvNT62"
+<script src="https://www.paypal.com/sdk/js?client-id=AWQ8g3KD0UCOYmnAIKmCbyywIvxBayYy_2C7qgxKrdR1tHZIeBJ_jv8mn_t_dKxKMyyqaVErKPPvNT62&currency=EUR&disable-funding=card"
         data-sdk-integration-source="button-factory"></script>
 
 <script>
@@ -49,40 +49,45 @@
             let amount = document.getElementById('form_amount').value;
             let formStartDate = document.getElementById('form_start_date').value;
             let formEndDate = document.getElementById('form_end_date').value;
-
-            let floatAmount = parseFloat(amount);
+            var generateAmount = null;
+            var idOrder = null;
 
             $.ajax({
-                url: "payment/paypal",
-                data: {'actions': actions, 'amount': amount, 'formStartDate': formStartDate, 'formEndDate': formEndDate},
+                url: "/payment/paypal",
+                async: false,
+                data: {'amount': amount, 'formStartDate': formStartDate, 'formEndDate': formEndDate},
                 method: 'post',
-                success: function(data){
-                    alert(data);
+                success: function(data) {
+                    idOrder = data.idOrder;
+                    generateAmount = data.amount;
                 }
             });
 
-            return actions.order.create({
+
+           return actions.order.create({
                 purchase_units: [{
+                    custom_id: idOrder,
                     amount: {
-                        value: floatAmount
+                        value: generateAmount
                     },
-                    no_shipping: 1
-                }]
+                }],
+               application_context: {
+                   shipping_preference: 'NO_SHIPPING'
+               }
             });
         },
+
         onApprove: function(data, actions) {
-            console.log(data);
-            console.log(actions);
-
-            $.ajax({
-                url: "payment/approve",
-                method: 'post',
-                data: {'actions': actions, 'data': data},
-                success: function(){
-                    alert('vamos');
-                }
+            return actions.order.get().then(function (orderDetails) {
+                $.ajax({
+                    url: "/payment/approve",
+                    method: 'post',
+                    data: {'data': orderDetails.purchase_units},
+                    success: function(data){
+                        window.location='/thank-you';
+                    }
+                });
             });
-
         }
     }).render('#paypal-pack-container');
 </script>

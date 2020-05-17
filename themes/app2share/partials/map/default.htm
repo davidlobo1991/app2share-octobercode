@@ -245,6 +245,13 @@
             },
 
             mounted: function () {
+                this.filteredTypes.push('ocio-nocturno');
+
+/*
+                this.filterPartner('ocio-nocturno');
+*/
+
+
                 this.offers = this.offers.replace(/\\n/g, "\\n")
                     .replace(/\\'/g, "\\'")
                     .replace(/\\"/g, '\\"')
