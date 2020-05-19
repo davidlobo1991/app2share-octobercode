@@ -28,7 +28,7 @@
                               data-request-data="[offer_id: {{offer.id}}]"
                               data-request-update="'useroffer/button': '#btn-offer'"
                               data-request-success="closeModal();
-                              countdownTimeStart(new Date(data.validTo.date).toLocaleString('es-ES', {timeZone: 'Europe/Madrid'}));"
+                              countdownTimeStart(data.validTo.date);"
                         >
 
                             <h2 id="main_captcha" ></h2>
@@ -56,6 +56,10 @@
     }
 
     function countdownTimeStart(data) {
+        let test = new Date(data).toLocaleString("en-US", {timeZone: "Europe/Paris"});
+        let offset = 2;
+        let test2 = new Date(test);
+
         let countDownDate = new Date(data).getTime();
 
         let x = setInterval(function() {

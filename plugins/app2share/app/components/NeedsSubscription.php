@@ -12,7 +12,7 @@ class NeedsSubscription extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name'        => 'offline.cashier::lang.components.needsSubscription.name',
+            'name' => 'offline.cashier::lang.components.needsSubscription.name',
             'description' => 'offline.cashier::lang.components.needsSubscription.description',
         ];
     }
@@ -20,33 +20,37 @@ class NeedsSubscription extends ComponentBase
     public function defineProperties()
     {
         return [
-            'redirect'     => [
-                'type'        => 'string',
-                'title'       => 'offline.cashier::lang.components.needsSubscription.properties.redirect.title',
+            'redirect' => [
+                'type' => 'string',
+                'title' => 'offline.cashier::lang.components.needsSubscription.properties.redirect.title',
                 'description' => 'offline.cashier::lang.components.needsSubscription.properties.redirect.description',
             ],
             'subscription' => [
-                'type'        => 'text',
-                'title'       => 'offline.cashier::lang.components.needsSubscription.properties.subscription.title',
+                'type' => 'text',
+                'title' => 'offline.cashier::lang.components.needsSubscription.properties.subscription.title',
                 'description' => 'offline.cashier::lang.components.needsSubscription.properties.subscription.description',
-                'default'     => 'main',
+                'default' => 'main',
             ],
         ];
     }
 
     public function onRun()
     {
-        $user   = Auth::getUser();
+        $user = Auth::getUser();
         $now = Carbon::now();
 
-        $freeSubscription = SubscriptionsFreePack::where('user_id', $user->id)
-            ->where('date_start', '<=', $now)
-            ->where('date_end', '>=', $now)
-            ->where('is_paid', true)
-            ->first();
+        if ($user) {
+            $freeSubscription = SubscriptionsFreePack::where('user_id', $user->id)
+                ->where('date_start', '<=', $now)
+                ->where('date_end', '>=', $now)
+                ->where('is_paid', true)
+                ->first();
 
-        if ($user && ($user->subscribed('main') || $freeSubscription) ) {
-            $this->page['subscribed'] = true;
+            if ($user->subscribed('main') || $freeSubscription) {
+                $this->page['subscribed'] = true;
+            } else {
+                $this->page['subscribed'] = false;
+            }
         } else {
             $this->page['subscribed'] = false;
         }
