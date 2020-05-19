@@ -24,7 +24,7 @@
     </div>
 </form>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AWQ8g3KD0UCOYmnAIKmCbyywIvxBayYy_2C7qgxKrdR1tHZIeBJ_jv8mn_t_dKxKMyyqaVErKPPvNT62&vault=true&disable-funding=credit"
+<script src="https://www.paypal.com/sdk/js?client-id=AWQ8g3KD0UCOYmnAIKmCbyywIvxBayYy_2C7qgxKrdR1tHZIeBJ_jv8mn_t_dKxKMyyqaVErKPPvNT62&vault=true&currency=EUR&disable-funding=card"
         data-sdk-integration-source="button-factory"></script>
 
 <script>
@@ -39,14 +39,14 @@
         },
         createSubscription: function(data, actions) {
             var planChecked = document.querySelector('input[name="code"]:checked');
+            var planCheckedValue = planChecked.value;
 
             if (planChecked) {
                 $.ajax({
                     url: "/payment/paypal",
-                    async: false,
-                    data: {'planChecked': planChecked},
+                    data: {'planChecked': planCheckedValue},
                     method: 'post',
-                    success: function(data) {}
+                    success: function(data) {console.log(data)}
                 });
 
                 var codePaypal = planChecked.dataset.paypal;
