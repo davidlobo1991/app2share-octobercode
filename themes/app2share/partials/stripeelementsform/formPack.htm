@@ -90,4 +90,51 @@
             });
         }
     }).render('#paypal-pack-container');
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: ['dayGrid', 'interaction'],
+            selectable: true,
+            height: 400,
+            locale: 'es',
+            select: function (info) {
+                const diffTime = Math.abs(info.end - info.start);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                let totalPrice = 0;
+
+                if (diffDays < 3) {
+                    alert('Elige tres o más dias');
+                } else if (diffDays >= 3 && diffDays <= 7) {
+                    document.getElementById('days-3').checked = true;
+                    totalPrice = diffDays * 3;
+                } else if (diffDays > 7 && diffDays <= 14) {
+                    document.getElementById('days-7').checked = true;
+                    totalPrice = diffDays * 2.5;
+
+                } else if (diffDays > 14 && diffDays <= 21) {
+                    document.getElementById('days-14').checked = true;
+                    totalPrice = diffDays * 2;
+                } else {
+                    document.getElementById('days-21').checked = true;
+                    totalPrice = diffDays * 1.5;
+                }
+
+                document.getElementById('form_start_date').value = info.startStr;
+                document.getElementById('form_end_dat' +
+                    'e').value = info.endStr;
+                document.getElementById('form_amount').value = totalPrice;
+
+                document.getElementById('days-price').innerHTML =
+                    'Fecha desde: ' + info.startStr + ' <br/> ' +
+                    'Fecha hasta: ' + info.endStr + ' <br/>' +
+                    'Total dias: ' + diffDays + ' <br/>' +
+                    'Precio: ' + totalPrice + '€ - ' + totalPrice / diffDays + '€/día';
+            }
+        });
+
+        calendar.render();
+    });
 </script>
