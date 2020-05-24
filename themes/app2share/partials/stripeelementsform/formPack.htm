@@ -1,11 +1,16 @@
 <form action="" method="post" id="payment-form">
     <div class="form-group">
         <div class="form-row">
+<!--
             <div id='calendar' style="width: 330px; padding: 30px;"></div>
+-->
+
+
+
 
             <input type="hidden" name="amount" id="form_amount" />
-            <input type="hidden" name="start_date" id="form_start_date" />
-            <input type="hidden" name="start_end" id="form_end_date" />
+            <input type="text" name="start_date" id="form_start_date" />
+            <input type="text" name="start_end" id="form_end_date" disabled />
 
             <ul style="display: none;">
                 {% for offer in obOffer %}
@@ -16,21 +21,27 @@
                     </li>
                 {% endfor %}
             </ul>
-
-            <span id="days-price"></span>
-
-            <div id="card-element" style="width: 100%;">
-                <!-- a Stripe Element will be inserted here. -->
-            </div>
-
-            <div id="card-errors" role="alert"></div>
         </div>
+
+        <span id="days-price"></span>
+
+        <div id="card-element" style="width: 100%;">
+            <!-- a Stripe Element will be inserted here. -->
+        </div>
+
+        <div id="card-errors" role="alert"></div>
     </div>
     <button class="btn btn-primary" type="submit" data-attach-loading>Pay with card</button>
 
     <div id="paypal-pack-container"></div>
 
 </form>
+
+{% put scripts %}
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
 
 <script src="https://www.paypal.com/sdk/js?client-id=AWQ8g3KD0UCOYmnAIKmCbyywIvxBayYy_2C7qgxKrdR1tHZIeBJ_jv8mn_t_dKxKMyyqaVErKPPvNT62&currency=EUR&disable-funding=card"
         data-sdk-integration-source="button-factory"></script>
@@ -91,50 +102,117 @@
         }
     }).render('#paypal-pack-container');
 
+    $(document).ready(function() {
+        $("#form_start_date").datepicker(
+            {
+                dateFormat: 'yy/mm/dd',
+                onSelect: function(date) {
+                    var selectedDate = new Date(date);
+                    var msecsInADay = 86400000;
+                    var endDate = new Date(selectedDate.getTime() + msecsInADay);
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: ['dayGrid', 'interaction'],
-            selectable: true,
-            height: 400,
-            locale: 'es',
-            select: function (info) {
-                const diffTime = Math.abs(info.end - info.start);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                let totalPrice = 0;
-
-                if (diffDays < 3) {
-                    alert('Elige tres o más dias');
-                } else if (diffDays >= 3 && diffDays <= 7) {
-                    document.getElementById('days-3').checked = true;
-                    totalPrice = diffDays * 3;
-                } else if (diffDays > 7 && diffDays <= 14) {
-                    document.getElementById('days-7').checked = true;
-                    totalPrice = diffDays * 2.5;
-
-                } else if (diffDays > 14 && diffDays <= 21) {
-                    document.getElementById('days-14').checked = true;
-                    totalPrice = diffDays * 2;
-                } else {
-                    document.getElementById('days-21').checked = true;
-                    totalPrice = diffDays * 1.5;
-                }
-
-                document.getElementById('form_start_date').value = info.startStr;
-                document.getElementById('form_end_dat' +
-                    'e').value = info.endStr;
-                document.getElementById('form_amount').value = totalPrice;
-
-                document.getElementById('days-price').innerHTML =
-                    'Fecha desde: ' + info.startStr + ' <br/> ' +
-                    'Fecha hasta: ' + info.endStr + ' <br/>' +
-                    'Total dias: ' + diffDays + ' <br/>' +
-                    'Precio: ' + totalPrice + '€ - ' + totalPrice / diffDays + '€/día';
+                    $("#form_end_date").datepicker( "option", "minDate", endDate);
+                    $("#form_end_date").removeAttr("disabled");
+                },
+                selectWeek: true,
+                inline: true,
+                minDate: 0,
+                firstDay: 1
             }
-        });
+        );
+        $("#form_end_date").datepicker(
+            {
+                dateFormat: 'yy/mm/dd',
+                changeMonth: true,
 
-        calendar.render();
+                onSelect: function(date) {
+                    var selectedDate = new Date(date);
+                    var startDate = new Date($("#form_start_date").val());
+                    const diffTime = Math.abs(selectedDate - startDate);
+
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    let totalPrice = 0;
+
+                    if (diffDays < 3) {
+                        alert('Elige tres o más dias');
+                    } else if (diffDays >= 3 && diffDays <= 7) {
+                        document.getElementById('days-3').checked = true;
+                        totalPrice = diffDays * 3;
+                    } else if (diffDays > 7 && diffDays <= 14) {
+                        document.getElementById('days-7').checked = true;
+                        totalPrice = diffDays * 2.5;
+
+                    } else if (diffDays > 14 && diffDays <= 21) {
+                        document.getElementById('days-14').checked = true;
+                        totalPrice = diffDays * 2;
+                    } else {
+                        document.getElementById('days-21').checked = true;
+                        totalPrice = diffDays * 1.5;
+                    }
+                    document.getElementById('form_amount').value = totalPrice;
+
+                    document.getElementById('days-price').innerHTML =
+                        'Total dias: ' + diffDays + ' <br/>' +
+                        'Precio: ' + totalPrice + '€' + ' <br/>' +
+                        totalPrice / diffDays + '€/día';
+                }
+            }
+        );
     });
+
+    /* document.addEventListener('DOMContentLoaded', function() {
+
+         var calendarEl = document.getElementById('calendar');
+
+         var calendar = new FullCalendar.Calendar(calendarEl, {
+             plugins: ['dayGrid', 'interaction', 'touchSupport'],
+             selectable: true,
+             height: 400,
+             locale: 'es',
+             select: function (info) {
+                 const diffTime = Math.abs(info.end - info.start);
+                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                 let totalPrice = 0;
+
+                 var newEvent = new Object();
+                 newEvent.title = 'test';
+                 newEvent.start = info.start;
+                 newEvent.allDay = false;
+                 calendar.render(newEvent);
+
+
+
+                 if (diffDays < 3) {
+                     alert('Elige tres o más dias');
+                 } else if (diffDays >= 3 && diffDays <= 7) {
+                     document.getElementById('days-3').checked = true;
+                     totalPrice = diffDays * 3;
+                 } else if (diffDays > 7 && diffDays <= 14) {
+                     document.getElementById('days-7').checked = true;
+                     totalPrice = diffDays * 2.5;
+
+                 } else if (diffDays > 14 && diffDays <= 21) {
+                     document.getElementById('days-14').checked = true;
+                     totalPrice = diffDays * 2;
+                 } else {
+                     document.getElementById('days-21').checked = true;
+                     totalPrice = diffDays * 1.5;
+                 }
+
+                 document.getElementById('form_start_date').value = info.startStr;
+                 document.getElementById('form_end_dat' +
+                     'e').value = info.endStr;
+                 document.getElementById('form_amount').value = totalPrice;
+
+                 document.getElementById('days-price').innerHTML =
+                     'Fecha desde: ' + info.startStr + ' <br/> ' +
+                     'Fecha hasta: ' + info.endStr + ' <br/>' +
+                     'Total dias: ' + diffDays + ' <br/>' +
+                     'Precio: ' + totalPrice + '€ - ' + totalPrice / diffDays + '€/día';
+             }
+         });
+
+         calendar.render();
+     });*/
 </script>
+{% endput %}

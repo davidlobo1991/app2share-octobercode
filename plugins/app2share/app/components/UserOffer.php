@@ -72,6 +72,7 @@ class UserOffer extends ComponentBase
             }
 
             $now = new \DateTime();
+            $now->setTimezone(new \DateTimeZone('Europe/Paris'));
             $validTo = $now->modify('+1 day');
 
             $offerUser = new OfferUser();

@@ -14,6 +14,11 @@ class PaypalPaymentController extends Controller
     {
         $post = post();
         $user = Auth::getUser();
+
+        if (!$user) {
+            return null;
+        }
+
         $dateStart = \Illuminate\Support\Carbon::parse($post['formStartDate']);
         $dateEnd = \Illuminate\Support\Carbon::parse($post['formEndDate']);
         $diffInDays = $dateStart->diffInDays($dateEnd);

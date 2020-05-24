@@ -124,7 +124,7 @@
 
 {% if offerUser %}
 <script>
-    countdownTimeStart("{{offerUser.valid_to|date('m/d/Y H:i:s', 'Europe/Paris')}}");
+    countdownTimeStart("{{offerUser.valid_to|date('m/d/Y H:i:s')}}");
 </script>
 {% endif %}
 

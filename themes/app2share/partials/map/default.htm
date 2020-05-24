@@ -245,13 +245,6 @@
             },
 
             mounted: function () {
-                this.filteredTypes.push('ocio-nocturno');
-
-/*
-                this.filterPartner('ocio-nocturno');
-*/
-
-
                 this.offers = this.offers.replace(/\\n/g, "\\n")
                     .replace(/\\'/g, "\\'")
                     .replace(/\\"/g, '\\"')
@@ -368,6 +361,32 @@
                 });
 
                 this.gps.addTo(this.map);
+
+
+                var qs = (function(a) {
+                    if (a == "") return {};
+                    var b = {};
+                    for (var i = 0; i < a.length; ++i)
+                    {
+                        var p=a[i].split('=', 2);
+                        if (p.length == 1)
+                            b[p[0]] = "";
+                        else
+                            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+                    }
+                    return b;
+                })(window.location.search.substr(1).split('&'));
+
+                let filter = qs['filter'];
+                let search = qs['search'];
+
+                if (filter) {
+                    this.filterPartner(filter);
+                }
+
+                if (search) {
+                    this.doSearchPartner(search);
+                }
             }
         });
 </script>
